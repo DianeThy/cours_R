@@ -1,0 +1,85 @@
+---
+title: "Introduction au langage de programmation R"
+output: 
+    html_document:
+        toc: yes
+        toc_float: yes
+---
+
+<style>
+body {
+text-align: justify}
+</style>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval = TRUE, message = FALSE, warning = FALSE, collapse = TRUE,  fig.show = "hold", out.width = "100%", fig.align='center')
+```
+
+<br> 
+
+Cette formation a pour but de rendre **accessible à tous** la programmation en R. Pour cela, nous introduirons la notion de programmation dans un contexte général, puis nous nous pencherons sur le langage R en partant d'une vue globale pour entrer petit à petit dans les manipulations techniques. 
+
+
+<br>
+
+# La programmation
+
+<br>
+
+* **Qu'est-ce que la programmation ?**
+
+Comme nous l'informe *Wikipédia*, la programmation - aussi appelée **codage** ou **développement**, désigne l'ensemble des activités qui permettent l'écriture de programmes informatiques. Cette écriture de programmes se fait dans un **langage de programmation**, les 10 principaux langages sont les suivants : HTML/CSS, JavaScript, PHP, Ruby, Java, Swift, C#, C ou C++, Python, Julia et Scala. **R** est aussi un langage de programmation qui est, lui, davantage axé sur l'**analyse statistique**.
+
+<br>
+
+* **Pourquoi la programmation ?**
+
+La troisième révolution industrielle, connue sous le nom de "révolution informatique" s'accompagne d'une création de 2.5 trillions d'octets de données chaque jour. C'est dans ce contexte d'**abondance des données** qu'est née la science des données, visant à obtenir des informations et des connaissances à partir des données qui génèrent de la valeur. Le schéma ci-dessous peut aider à comprendre **comment** exploiter la valeur des données :
+
+```{r echo=FALSE, out.width='52%', fig.align='center'}
+knitr::include_graphics(here::here("images/cycle_data.png"))
+```
+
+<br>
+
+# Vue globale du langage R
+
+<br>
+
+* **Qu'est-ce que R ?**
+
+Comme dit précédemment R est un **langage de programmation** en libre accès créé en 1993, destiné aux statistiques et à la science des données.
+
+<br>
+
+* **Pourquoi R ?**
+
+```{r echo=FALSE, out.width='52%', fig.align='center'}
+knitr::include_graphics(here::here("images/r_cars.jfif"))
+```
+
+Gratuit, facile d'accès, puissant, reproductible, design, le langage R est à la fois pertinent pour analyser les données, les visualiser et générer des rapports qui permettent - comme celui-ci, de mélanger du code, du texte et des graphiques. 
+
+<br>
+
+* **Comment coder en R ?**
+
+Pour coder en R on utilise généralement l'interface **R studio** qui permet d'interagir avec le langage R de manière aisée. Quoi qu'il en soit, l'image partagée par Sylvain montre que la programmation est un apprentissage infini :
+
+```{r echo=FALSE, out.width='30%', fig.align='center'}
+knitr::include_graphics(here::here("images/using_r.jpeg"))
+```
+
+<br>
+
+* **Installer R sur sa machine**
+
+Pour installer l'interface RStudio il faut dans un premier temps **installer R** et dans un second temps **télécharger l'application RStudio**. Les liens sont visibles sur le site [rstudio.com](https://www.rstudio.com/products/rstudio/download/#download). 
+
+* L'environnement R
+
+- stack overflow
+- tidyverse
+
+
+
