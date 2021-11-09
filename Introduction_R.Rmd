@@ -64,7 +64,7 @@ Gratuit, facile d'accès, puissant, reproductible, design, le langage R est à l
 
 * **Comment coder en R ?**
 
-Pour coder en R on utilise généralement l'interface **R studio** qui permet d'interagir avec le langage R de manière aisée. Quoi qu'il en soit, l'image partagée par Sylvain montre que la programmation est un apprentissage infini :
+Pour coder en R on utilise généralement l'interface **R studio** qui permet d'interagir avec le langage R de manière *aisée.* Quoi qu'il en soit, l'image partagée par Sylvain montre que la programmation est un apprentissage infini :
 
 ```{r echo=FALSE, out.width='30%', fig.align='center'}
 knitr::include_graphics(here::here("images/using_r.jpeg"))
@@ -74,12 +74,59 @@ knitr::include_graphics(here::here("images/using_r.jpeg"))
 
 * **Installer R sur sa machine**
 
-Pour installer l'interface RStudio il faut dans un premier temps **installer R** et dans un second temps **télécharger l'application RStudio**. Les liens sont visibles sur le site [rstudio.com](https://www.rstudio.com/products/rstudio/download/#download). 
+Pour installer l'interface RStudio il faut dans un premier temps **installer R** et dans un second temps **télécharger l'application RStudio**. Les liens de téléchargements sont disponibles sur le site [rstudio.com](https://www.rstudio.com/products/rstudio/download/#download). 
+
+<br>
+
+* **Configurer R**
+
+Une fois l'installation terminée, il est important de configurer RStudio pour faciliter le travail sur l'interface et les partages de documents. Les paramètres généraux se trouvent dans le menu : *Tools > Global Options*
+
+Vous pouvez configurer le '*General*' et le '*Code*' de la manière suivante :
+
+
+```{r echo=FALSE, out.width='90%', fig.align='center', fig.asp=0.55}
+library(cowplot)
+library(ggplot2)
+
+p1 <- ggdraw() + draw_image("images/options_R.png", scale = 0.9)
+p2 <- ggdraw() + draw_image("images/options2_R.png", scale = 0.9)
+
+plot_grid(p1, p2)
+```
+
+
+Il est aussi important de configurer la **sauvegarde** des scripts ; il faut spécifier un codage "UTF-8" pour que les caractères spéciaux de chaque script enregistré soient traités correctement, et ainsi faciliter le partage de codes. Cette option est disponible dans la fenêtre des *Global Options > Code > Saving > Default text encoding > Change... > UTF-8*. Enfin, dans cette même fenêtre des options générales de RStudio - dans l'option "***Appearance***", vous pouvez personnaliser l'apparence de votre interface en modifiant la police, la taille du texte, le thème etc.
+
+```{r echo=FALSE, out.width='90%', fig.align='center', fig.asp=0.55}
+p1 <- ggdraw() + draw_image("images/options3_R.png", scale = 0.9)
+p2 <- ggdraw() + draw_image("images/options4_R.png", scale = 0.9)
+plot_grid(p1, p2)
+```
+
+Ne pas oublier d'appliquer ces changements ('*Apply*') avant de fermer la fenêtre des options (*'Ok*').
+
+<br>
+
+* **Décomposition d'une fenêtre R**
+
+Une fenêtre R à son ouverture est décomposée en 3 parties, 4 en diminuant la taille de la partie inférieure (ou via le menu : *View > Panes > Show all panes*). La programmation à proprement parler se fait dans la partie supérieure gauche, c'est là où on écrit les scripts que l'on pourra ensuite sauvegarder. 
+
+NB : il est aussi possible d'écrire une ligne de code directement dans la console (partie inférieure gauche), elle ne sera pas sauvegardée ; ça peut donc être intéressant pour exécuter une commande de manière instantanée (un calcul par exemple).
+
+```{r echo=FALSE, out.width='80%', fig.align='center'}
+knitr::include_graphics(here::here("images/demarrage_R.png"))
+```
+
+<br>
 
 * L'environnement R
-
 - stack overflow
 - tidyverse
 
-
+* Lexique R
+- code=programmer
+- ligne de commande
+- run=exécuter une commande
+- fonctions < libraries / packages
 
