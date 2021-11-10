@@ -19,10 +19,15 @@ knitr::opts_chunk$set(echo = TRUE, eval = TRUE, message = FALSE, warning = FALSE
 
 Cette formation a pour but de rendre **accessible à tous** la programmation en R. Pour cela, nous introduirons la notion de programmation dans un contexte général, puis nous nous pencherons sur le langage R en partant d'une vue globale pour entrer petit à petit dans les manipulations techniques. 
 
+```{r icon-style, include=FALSE}
+#remotes::install_github("mitchelloharawild/icons")
+library(icons)
+download_fontawesome()
+```
 
 <br>
 
-# La programmation
+# `r icon_style(fontawesome("code", style = NULL), fill = "#333333")` La programmation
 
 <br>
 
@@ -42,7 +47,7 @@ knitr::include_graphics(here::here("images/cycle_data.png"))
 
 <br>
 
-# Vue globale du langage R
+# `r icon_style(fontawesome("eye", style = NULL), fill = "#333333")` Vue globale du langage R
 
 <br>
 
@@ -104,25 +109,36 @@ p2 <- ggdraw() + draw_image("images/options4_R.png", scale = 0.9)
 plot_grid(p1, p2)
 ```
 
-Ne pas oublier d'appliquer ces changements ('*Apply*') avant de fermer la fenêtre des options (*'Ok*').
+Ne pas oublier d'appliquer ces changements ('*Apply*') avant de fermer la fenêtre des options ('*Ok*').
 
 <br>
 
 * **Décomposition d'une fenêtre R**
 
-Une fenêtre R à son ouverture est décomposée en 3 parties, 4 en diminuant la taille de la partie inférieure (ou via le menu : *View > Panes > Show all panes*). La programmation à proprement parler se fait dans la partie supérieure gauche, c'est là où on écrit les scripts que l'on pourra ensuite sauvegarder. 
+Une fenêtre R à son ouverture est décomposée en 3 parties, 4 en diminuant la taille de la partie inférieure en cliquant sur le bouton `r icon_style(fontawesome("window-restore", style = NULL), fill = "#666666")` (ou via le menu : *View > Panes > Show all panes*). La programmation à proprement parler se fait dans la partie supérieure gauche, c'est là où on écrit les scripts que l'on pourra ensuite sauvegarder. 
 
-NB : il est aussi possible d'écrire une ligne de code directement dans la console (partie inférieure gauche), elle ne sera pas sauvegardée ; ça peut donc être intéressant pour exécuter une commande de manière instantanée (un calcul par exemple).
+NB : il est aussi possible de coder directement dans la console (partie inférieure gauche), la commande sera exécutée mais ne sera pas sauvegardée ; ça peut donc être intéressant pour exécuter une commande de manière instantanée (un calcul par exemple).
 
 ```{r echo=FALSE, out.width='80%', fig.align='center'}
 knitr::include_graphics(here::here("images/demarrage_R.png"))
 ```
 
+La partie inférieure droite est décomposée en 5 onglets :
+
+* **Files** : les fichiers de l'ordinateur
+* **Plots** : les graphiques créés apparaîtront ici
+* **Packages** : liste de tous les *packages* installés sur la machine (nous reviendrons sur la notion plus tard)
+* **Help** : onglet où l'on trouve toute l'aide nécessaire sur l'utilisation des fonctions
+* **Viewer** : les objets interactifs créés (graphiques, cartes, tableaux) apparaîtront ici
+
 <br>
 
-* L'environnement R
+* **L'environnement R**
+
+Un avantage de R
+
 - stack overflow
-- tidyverse
+- github relier
 
 * Lexique R
 - code=programmer
