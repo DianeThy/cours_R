@@ -27,7 +27,7 @@ download_fontawesome()
 
 <br>
 
-# `r icon_style(fontawesome("code", style = NULL), fill = "#333333")` La programmation
+# `r icon_style(fontawesome("code", style = NULL), fill = "#0000CC")` <FONT COLOR="#0000CC">La programmation</FONT>
 
 <br>
 
@@ -47,7 +47,7 @@ knitr::include_graphics(here::here("images/cycle_data.png"))
 
 <br>
 
-# `r icon_style(fontawesome("eye", style = NULL), fill = "#333333")` Vue globale du langage R
+# `r icon_style(fontawesome("eye", style = NULL), fill = "#0000CC")` <FONT COLOR="#0000CC">Vue globale du langage R</FONT>
 
 <br>
 
@@ -119,9 +119,11 @@ Une fenêtre R à son ouverture est décomposée en 3 parties, 4 en diminuant la
 
 NB : il est aussi possible de coder directement dans la console (partie inférieure gauche), la commande sera exécutée mais ne sera pas sauvegardée ; ça peut donc être intéressant pour exécuter une commande de manière instantanée (un calcul par exemple).
 
-```{r echo=FALSE, out.width='80%', fig.align='center'}
+```{r echo=FALSE, out.width='80%', fig.align='center', strip.white=TRUE}
 knitr::include_graphics(here::here("images/demarrage_R.png"))
 ```
+
+\vspace{-3cm}
 
 La partie inférieure droite est décomposée en 5 onglets :
 
@@ -135,7 +137,9 @@ La partie inférieure droite est décomposée en 5 onglets :
 
 * **L'environnement R**
 
-Un avantage de R
+Un avantage incontournable de R est la **communauté** qui existe autour pour trouver des ressources, de l'aide, de l'inspiration etc. On trouve notamment [R-bloggers](https://www.r-bloggers.com/) avec des nouveautés et des tutoriels écrits par des utilisateurs du langage, [RStudio Community](https://community.rstudio.com/) pour trouver/donner de l'aide (comme un *#TeamOpenData* de RStudio), [Stack Overflow](https://stackoverflow.com/) où l'on trouve la majorité des réponses aux questions de programmation - la plateforme n'est cependant pas propre à R. 
+
+<br>
 
 - stack overflow
 - github relier
