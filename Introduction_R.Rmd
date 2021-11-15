@@ -22,7 +22,6 @@ Cette formation a pour but de rendre **accessible à tous** la programmation en 
 ```{r icon-style, include=FALSE}
 #remotes::install_github("mitchelloharawild/icons")
 library(icons)
-download_fontawesome()
 ```
 
 <br>
@@ -139,14 +138,94 @@ La partie inférieure droite est décomposée en 5 onglets :
 
 Un avantage incontournable de R est la **communauté** qui existe autour pour trouver des ressources, de l'aide, de l'inspiration etc. On trouve notamment [R-bloggers](https://www.r-bloggers.com/) avec des nouveautés et des tutoriels écrits par des utilisateurs du langage, [RStudio Community](https://community.rstudio.com/) pour trouver/donner de l'aide (comme un *#TeamOpenData* de RStudio), [Stack Overflow](https://stackoverflow.com/) où l'on trouve la majorité des réponses aux questions de programmation - la plateforme n'est cependant pas propre à R. 
 
+Il est aussi possible de relier RStudio à **Git**, ce qui permet de déposer du code, des bases de données et des objets créés (graphiques, cartes, documents html..) sur [github](https://github.com/). Les fichiers sont ainsi centralisés et sauvegardés sur un *repository* qui permet de collaborer facilement sur un projet. 
+
 <br>
 
-- stack overflow
-- github relier
 
-* Lexique R
-- code=programmer
-- ligne de commande
-- run=exécuter une commande
-- fonctions < libraries / packages
+* **Le lexique de R**
+
+<FONT COLOR="#CC0000">coder</FONT> = programmer
+
+<FONT COLOR="#CC0000">ligne de commande</FONT> = ligne de code
+
+<FONT COLOR="#CC0000">runer</FONT> = exécuter une commande (bouton '*Run*')
+
+<FONT COLOR="#CC0000">package</FONT> = ensemble de fonctions
+
+<FONT COLOR="#CC0000">library</FONT> = endroit où sont gardés les packages
+
+
+<br>
+
+* **Les types de documents pour travailler avec R**
+
+Les principaux documents que l'on peut créer à partir de l'interface RStudio sont les suivants :
+
+* **R Script** : document le plus basique où l'on peut (seulement) écrire du code et l'exécuter - très fonctionnel
+* **R Markdown** : document où l'on peut combiner du texte, du code, des graphiques et des tableaux de manière esthétique, comme celui-ci
+* **Shiny web app** : application interactive où l'on peut assembler des visualisations et des tableaux
+
+Pour créer un nouveau document il faut aller dans le menu : *File > New File > choisir celui que vous voulez créer* ou sur le "**+**" juste en dessous de la barre du menu.
+
+
+
+<br>
+
+
+# `r icon_style(fontawesome("search", style = NULL), fill = "#0000CC")` <FONT COLOR="#0000CC">Science et analyse des données avec R</FONT>
+
+<br>
+
+
+Maintenant que la notion de programmation est plus claire et que vous connaissez le langage R, nous allons entrer dans le vif du sujet en apprenant à manier les données ; que ce soit de la mise en forme, de l'analyse ou de la visualisation. Cette partie reprendra étape par étape le schéma d'exploitation des données que nous avons vu en première partie :
+
+```{r echo=FALSE, out.width='52%', fig.align='center'}
+knitr::include_graphics(here::here("images/cycle_data.png"))
+```
+
+
+
+### Importer les données
+
+### Nettoyer les données
+
+### Transformer les données
+
+### Visualiser les données
+
+### Communiquer
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
