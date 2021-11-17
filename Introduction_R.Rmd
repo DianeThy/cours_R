@@ -155,6 +155,7 @@ Il est aussi possible de relier RStudio à **Git**, ce qui permet de déposer du
 
 <FONT COLOR="#CC0000">library</FONT> = endroit où sont gardés les packages
 
+<FONT COLOR="#CC0000">working directory</FONT> = répertoire de travail
 
 <br>
 
@@ -166,9 +167,68 @@ Les principaux documents que l'on peut créer à partir de l'interface RStudio s
 * **R Markdown** : document où l'on peut combiner du texte, du code, des graphiques et des tableaux de manière esthétique, comme celui-ci
 * **Shiny web app** : application interactive où l'on peut assembler des visualisations et des tableaux
 
-Pour créer un nouveau document il faut aller dans le menu : *File > New File > choisir celui que vous voulez créer* ou sur le "**+**" juste en dessous de la barre du menu.
+Pour créer un nouveau document il faut aller dans le menu : *File > New File > choisir celui que vous voulez créer*, ou sur le `r icon_style(fontawesome("plus-circle", style = NULL), fill = "#009900")` juste en dessous du '*File*' dans la barre de menu.
 
+<br>
 
+* **Travailler avec des projets R**
+
+Ces documents peuvent être créés/ouverts **seuls** ou dans un **projet** : ![](images/r_project.png){width=3%}. Un *Rproject* est utile dès lors que l'on travaille sur une analyse avec de nombreux fichiers (données, scripts, images...) et en collaboration avec d'autres personnes. Il est effectivement possible d'organiser son espace de travail à partir de l'objet '***.Rproj***' :
+
+* celui-ci se trouve dans un dossier où l'on **centralise tous les fichiers** nécessaires à l'analyse 
+* depuis l'emplacement où se trouve le projet on peut créer des **sous-dossiers** pour organiser le travail
+* en ouvrant dans RStudio le projet, les fichiers créés autour de celui-ci apparaissent dans la **partie inférieure droite de la fenêtre de RStudio**, ils sont donc accessibles facilement comme nous le voyons ici
+
+<center>
+
+![*Organisation du travail dans le dossier de la machine*](images/orga_travail_r_proj.png){width=60%}
+
+</center>
+
+<center>
+
+![*Ouverture du projet sous RStudio, accès facilité aux fichiers*](images/rproj_RStudio.png){width=60%}
+
+</center>
+
+<br>
+
+* il est alors possible d'appeler toute sorte d'objets (images, bases de données) en utilisant un **chemin relatif** et non un chemin global. Pour importer des données par exemple, le chemin global serait le suivant :
+
+<center>
+
+`data <- read_csv("C:/Users/name/desktop/mon_projet/data/base.csv")`
+
+</center>
+
+La limite de cette méthode apparaît quand on veut **partager** le code à quelqu'un d'autre qui n'aura pas le même chemin d'accès (ne serait-ce que pour le *nom d'utilisateur*). En travaillant dans un projet R, les chemins d'accès aux documents seront **relatifs** puisqu'ils débutent à l'endroit où l'on travaille (working directory), c'est-à-dire à l'emplacement du *.Rproj*. La commande pour importer les données avec le **chemin relatif** serait la suivante :
+
+<center>
+
+`data <- read_csv("./data/base.csv")`
+
+</center>
+
+Le point "**.**" correspond au répertoire de travail c'est-à-dire à l'emplacement du *RProject* ici. Le dossier avec le projet R peut être déplacé et partagé, l'import continuera de fonctionner grâce au chemin relatif. 
+
+Pour créer un nouveau projet il faut aller dans le menu : *File > New Project > New Directory > New Project > entrer un nom de projet, éventuellement changer l'espace de travail > Create Project*, ou à partir du `r icon_style(fontawesome("plus-circle", style = NULL), fill = "#009900")` juste en dessous du '*Edit*' dans la barre de menu.
+
+<br>
+
+<style>
+div.blue { background-color:#efefef; border-radius: 5px; padding: 20px;}
+</style>
+<div class = "blue">
+
+ `r icon_style(fontawesome("thumbs-up", style = "solid"), fill = "#666666")`  <FONT COLOR="#333333">**Bonne pratique**
+
+Un bon réflexe à prendre dès le début de votre carrière de programmeur est de ne laisser **aucun espace blanc** dans les noms des fichiers/dossiers, de manière à ce qu'ils puissent être lus à la fois par des personnes mais aussi par des machines. Les bons séparateurs des mots sont alors `-`ou `_`. Il est aussi recommandé de ne **pas mettre d'accent**, pour prévenir d'éventuels problèmes d'encodage. 
+
+*Exemple de **mauvais nom** :* `Extraction des données de data.gouv.R`
+
+*Exemple de **bon nom** :* `Extraction_donnees_data-gouv.R`</FONT>
+
+</div>
 
 <br>
 
@@ -178,13 +238,29 @@ Pour créer un nouveau document il faut aller dans le menu : *File > New File > 
 <br>
 
 
-Maintenant que la notion de programmation est plus claire et que vous connaissez le langage R, nous allons entrer dans le vif du sujet en apprenant à manier les données ; que ce soit de la mise en forme, de l'analyse ou de la visualisation. Cette partie reprendra étape par étape le schéma d'exploitation des données que nous avons vu en première partie :
+Maintenant que la notion de programmation est plus claire et que vous connaissez les rouages du langage R, nous allons entrer dans le vif du sujet en apprenant à manier les données ; que ce soit la mise en forme, l'analyse ou la visualisation. Cette partie reprendra étape par étape le schéma d'exploitation des données que nous avons vu en première partie :
 
 ```{r echo=FALSE, out.width='52%', fig.align='center'}
 knitr::include_graphics(here::here("images/cycle_data.png"))
 ```
 
 
+* **Deux manières de coder en R**
+
+Avant de nous pencher sur l'import de données, voyons les deux manières de coder en R : le R-base et le tidyverse. La programmation dans ce langage a été révolutionnée ces dernières années par le statisticien *Hadley Wickham* et son équipe qui ont développé le **tidyverse**. Contraction de *tidy* et *universe*, le tidyverse est une collection de packages R qui ont tous la même structure, simplifiant ainsi leur utilisation pour la data science. 
+
+![](images/pipe_magritte.png){width=13%} explication ici
+
+iiii
+
+et ici
+
+<br>
+
+* **Installation des packages fondamentaux**
+
+
+<br>
 
 ### Importer les données
 
@@ -199,8 +275,9 @@ knitr::include_graphics(here::here("images/cycle_data.png"))
 
 
 
+<br>
 
-
+# `r icon_style(fontawesome("book", style = NULL), fill = "#0000CC")` <FONT COLOR="#0000CC">Bibliographie</FONT>
 
 
 
