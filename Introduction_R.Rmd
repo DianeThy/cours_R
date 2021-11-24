@@ -15,6 +15,10 @@ text-align: justify}
 knitr::opts_chunk$set(echo = TRUE, eval = TRUE, message = FALSE, warning = FALSE, collapse = TRUE,  fig.show = "hold", out.width = "100%", fig.align='center')
 ```
 
+```{r klippy, echo=FALSE, include=TRUE}
+klippy::klippy()
+```
+
 <br> 
 
 Cette formation a pour but de rendre **accessible à tous** la programmation en R. Pour cela, nous introduirons la notion de programmation dans un contexte général, puis nous nous pencherons sur le langage R en partant d'une vue globale pour entrer petit à petit dans les manipulations techniques. 
@@ -163,9 +167,9 @@ Il est aussi possible de relier RStudio à **Git**, ce qui permet de déposer du
 
 Les principaux documents que l'on peut créer à partir de l'interface RStudio sont les suivants :
 
-* **R Script** : document le plus basique où l'on peut (seulement) écrire du code et l'exécuter - très fonctionnel
-* **R Markdown** : document où l'on peut combiner du texte, du code, des graphiques et des tableaux de manière esthétique, comme celui-ci
-* **Shiny web app** : application interactive où l'on peut assembler des visualisations et des tableaux
+* **R Script**, extension *".R"* **:** document le plus basique où l'on peut (seulement) écrire du code et l'exécuter - très fonctionnel
+* **R Markdown**, extension *".Rmd"* **:** document où l'on peut combiner du texte, du code, des graphiques et des tableaux de manière esthétique, comme celui-ci
+* **Shiny web app**, extension *".R"* **:** application interactive où l'on peut assembler des visualisations et des tableaux
 
 Pour créer un nouveau document il faut aller dans le menu : *File > New File > choisir celui que vous voulez créer*, ou sur le `r icon_style(fontawesome("plus-circle", style = NULL), fill = "#009900")` juste en dessous du '*File*' dans la barre de menu.
 
@@ -247,26 +251,53 @@ knitr::include_graphics(here::here("images/cycle_data.png"))
 
 * **Deux manières de coder en R**
 
-Avant de nous pencher sur l'import de données, voyons les deux manières de coder en R : le R-base et le tidyverse. La programmation dans ce langage a été révolutionnée ces dernières années par le statisticien *Hadley Wickham* et son équipe qui ont développé le **tidyverse**. Contraction de *tidy* et *universe*, le tidyverse est une collection de packages R qui ont tous la même structure, simplifiant ainsi leur utilisation pour la data science. 
+Avant de nous pencher sur l'import de données, voyons les deux manières de coder en R : le R-base et le tidyverse. La programmation dans le langage R a été révolutionnée ces dernières années par le statisticien *Hadley Wickham* et son équipe, qui ont développé le **tidyverse**. Contraction de *tidy* et *universe*, le tidyverse est une collection de packages R qui ont tous la même structure, simplifiant ainsi leur utilisation pour la data science. 
 
-![](images/pipe_magritte.png){width=13%} explication ici
+![](images/pipe_magritte.png){width=13%}  Le tidyverse fonctionne grâce au **pipe** (%>%) contenu dans le package `magrittr`, qui permet d'appliquer un certain nombre de fonctions à une base de données. Le code est alors plus lisible grâce à une structuration des séquences d'opérations de **gauche à droite** (et non de l'extérieur à l'intérieur comme en R-base), 
 
-iiii
+Un exemple de code en R-base et en tidyverse : 
 
-et ici
+* **R-base** : `f(g(h(x)))`
+* **tidyverse** : `x %>% f() %>% g() %>% h()`
+
+Nous apprendrons à coder seulement en tidyverse dont l'approche est beaucoup plus simple pour débuter la programmation. 
 
 <br>
 
 * **Installation des packages fondamentaux**
 
+Comme dit précédemment, un *package* contient un certain nombre de **fonctions** qui permettent de faire toutes sortes de manipulations sur des bases de données ou autres. Pour les utiliser il faut d'abord les installer grâce à la fonction `install.packages("nom_package")`, puis les appeler pour pouvoir les utiliser via la fonction `library(nom_package)`. 
+
+```{r echo=TRUE}
+library(tidyverse)
+```
 
 <br>
 
 ### Importer les données
 
+via fichier en dur, via lien (astuces clique droit, copier le lien)
+csv, excel, zip, sata, sas, xml, json etc.
+scrapping, API
+
 ### Nettoyer les données
 
+- nombre de NA, les supprimer, les remplacer (moyenne, mode...)
+- observer les données : summary, moyenne, données, occurences avec table()
+- différents types de données, voir avec str(), changer avec as.
+- dire format tidy data : 1 ligne = 1 pays, individus, collectivité etc et 1 colonne = 1 varibale
+- extraire carac d'une chaîne de caractères
+- renommer les variables
+- définir un indice
+
+
 ### Transformer les données
+
+- ajout / suppression de colonnes
+- jointures
+- créer variables comme moyenne, médiane..
+- fonctions principales du tidyverse : select, arrange, filter, mutate, group_by
+
 
 ### Visualiser les données
 
