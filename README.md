@@ -1,5 +1,4 @@
-# cours_R
-Introduction au langage R
+# Introduction au langage R
 
 Ce cours porte sur le langage de programmation **R**, il sera divisé en plusieurs parties.
 Nous partirons du plus général pour entrer petit à petit dans les manipulations techniques pour que vous soyiez à l'aise avec la manipulation et le traitement des données de tous genres. Vous apprendrez à importer, nettoyer, transformer et analyser les données en codant en R. 
