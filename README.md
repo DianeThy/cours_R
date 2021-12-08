@@ -24,6 +24,7 @@ Le plan détaillé de cette introduction est le suivant :
 
 * **Science et analyse de données avec R**
     * Deux manières de coder en R
+    * Coder sous R : les bases
     * Installation des packages fondamentaux
    * **Importer les données**
    * **Nettoyer les données**
