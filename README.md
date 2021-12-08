@@ -28,7 +28,7 @@ Le plan détaillé de cette introduction est le suivant :
    * **Import les données**
    * **Nettoyer les données**
    * **Transformer les données**
-   * **Visulaiser les données**
+   * **Visualiser les données**
    * **Communiquer**
 
 
