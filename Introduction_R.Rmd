@@ -16,7 +16,7 @@ knitr::opts_chunk$set(echo = TRUE, eval = TRUE, message = FALSE, warning = FALSE
 ```
 
 ```{r klippy, echo=FALSE, include=TRUE}
-klippy::klippy()
+klippy::klippy(position = c('top', 'right'), color = '#333333', tooltip_message = 'Click to copy')
 ```
 
 <br> 
@@ -29,6 +29,8 @@ library(icons)
 ```
 
 <br>
+
+---
 
 # `r icon_style(fontawesome("code", style = NULL), fill = "#0000CC")` <FONT COLOR="#0000CC">La programmation</FONT>
 
@@ -49,6 +51,8 @@ knitr::include_graphics(here::here("images/cycle_data.png"))
 ```
 
 <br>
+
+---
 
 # `r icon_style(fontawesome("eye", style = NULL), fill = "#0000CC")` <FONT COLOR="#0000CC">Vue globale du langage R</FONT>
 
@@ -236,6 +240,7 @@ Un bon réflexe à prendre dès le début de votre carrière de programmeur est 
 
 <br>
 
+---
 
 # `r icon_style(fontawesome("search", style = NULL), fill = "#0000CC")` <FONT COLOR="#0000CC">Science et analyse des données avec R</FONT>
 
@@ -248,47 +253,139 @@ Maintenant que la notion de programmation est plus claire et que vous connaissez
 knitr::include_graphics(here::here("images/cycle_data.png"))
 ```
 
+<br>
 
 * **Deux manières de coder en R**
 
 Avant de nous pencher sur l'import de données, voyons les deux manières de coder en R : le R-base et le tidyverse. La programmation dans le langage R a été révolutionnée ces dernières années par le statisticien *Hadley Wickham* et son équipe, qui ont développé le **tidyverse**. Contraction de *tidy* et *universe*, le tidyverse est une collection de packages R qui ont tous la même structure, simplifiant ainsi leur utilisation pour la data science. 
 
-![](images/pipe_magritte.png){width=13%}  Le tidyverse fonctionne grâce au **pipe** (%>%) contenu dans le package `magrittr`, qui permet d'appliquer un certain nombre de fonctions à une base de données. Le code est alors plus lisible grâce à une structuration des séquences d'opérations de **gauche à droite** (et non de l'extérieur à l'intérieur comme en R-base), 
+
+<div class="row">
+<div class="col-md-2">
+![](images/pipe_magritte.png){width=120%}
+</div>
+<div class="col-md-10">
+
+<br>
+
+Le tidyverse fonctionne grâce au **pipe** (%>%) contenu dans le package `magrittr`, qui permet d'appliquer un certain nombre de fonctions à une base de données. Le code est alors plus lisible grâce à une structuration des séquences d'opérations de **gauche à droite** (et non de l'extérieur à l'intérieur comme en R-base), qui permet d'**ajouter des étapes** n'importe où dans les séquences d'opérations. 
+</div>
+</div>
+
 
 Un exemple de code en R-base et en tidyverse : 
 
-* **R-base** : `f(g(h(x)))`
-* **tidyverse** : `x %>% f() %>% g() %>% h()`
+* **R-base** : `h(g(f(x)))`
+* **tidyverse** : `x %>% f %>% g %>% h`
 
 Nous apprendrons à coder seulement en tidyverse dont l'approche est beaucoup plus simple pour débuter la programmation. 
 
 <br>
 
+* **Coder sous R : les bases**
+
+Pour **exécuter** du code il faut placer son curseur sur la ligne de commande, puis cliquer sur le bouton ![](images/button_run.png){width=5.7%} en haut de la fenêtre, ou appuyer sur les touches *Ctrl-Enter*. Pour exécuter plusieurs lignes de code simultanément il suffit de les **sélectionner** avant de les *runer*. vous pouvez notamment vous entraîner en *runant* de simples opérations arithmétiques : 
+
+```{r}
+13+4
+5*2
+13+4-5*2
+```
+
+
+Il est possible d'*assigner** une valeur à un objet (dataframe, liste, vecteur, fonctions...) avec `<-` ou `=`, de manière à les **sauvegarder** dans l'environnement de travail (partie en haut à droite de la fenêtre RStudio). Vous pouvez par exemple *runer* les commandes suivantes :
+
+```{r}
+x <- 13+4
+y <- 5*2
+resultat = x-y
+resultat
+```
+
+
+De cette manière, le code sous R se lit de droite à gauche ; 
+
+* **à droite** on trouve la valeur 
+* **à gauche** on trouve l'objet créé
+
+
+<br>
+
 * **Installation des packages fondamentaux**
 
-Comme dit précédemment, un *package* contient un certain nombre de **fonctions** qui permettent de faire toutes sortes de manipulations sur des bases de données ou autres. Pour les utiliser il faut d'abord les installer grâce à la fonction `install.packages("nom_package")`, puis les appeler pour pouvoir les utiliser via la fonction `library(nom_package)`. 
+Comme dit précédemment, un *package* contient un certain nombre de **fonctions** qui permettent de faire toutes sortes de manipulations sur des bases de données ou autres. Le *repository* officiel où sont stockés tous les packages R est appelé **CRAN** ; "the Comprehensive R Archive Network". Pour installer un package depuis le CRAN il faut utiliser la fonction `install.packages("nom_package")`. Mais il existe d'autres dépôts des packages créés, tel que Git (GitHub, GitLab, Bitbucket...) ; pour installer un package stocké sur *github* par exemple il faut utiliser la fonction `install_github("user_name/package_name")`, elle-même contenue dans le package **devtools**.
 
-```{r echo=TRUE}
-library(tidyverse)
+
+Pour utiliser un package, après l'avoir installé, il faut l'appeler via la fonction `library(nom_package)`. Le code ci-dessous permet d'installer les packages fondamentaux, il faut le copier, le coller dans un script R basique (*File > New File > R Script*) puis l'exécuter. 
+
+
+*Plusieurs packages sont attachés au "tidyverse" :* 
+
+* **ggplot2** : *pour visualiser les données*
+* **tibble** : *pour traiter les données de type 'tibble'*
+* **tidyr** : *pour nettoyer les données*
+* **readr** : *pour importer des données CSV, TSV ou FWL*
+* **purrr** : *pour itérer des fonctions*
+* **dplyr** : *pour manipuler les donnée*
+* **stringr** : *pour travailler avec des chaînes de caractères*
+* **forcats** : *pour travailler avec des variables catégorielles*
+
+
+```{r  eval=F, echo=T}
+packages <- c("tidyverse", "remotes", "devtools", "rmarkdown", "rio")
+install.packages(packages)
 ```
 
 <br>
 
 ### Importer les données
 
+
+* **Deux manières d'importer des données en R**
+
+Il est possible d'importer des données dans l'environnement RStudio de deux manières : par un **fichier exporté** présent sur notre machine, ou directement via un **lien** qui pointe vers le téléchargement de ce fichier en ligne. Voici quelques exemples de plates-formes où il est possible d'en importer les données sans besoin préalable d'exporter le fichier :
+
+
++bonne pratique : via lien vpour reproductibilité des scirpts, n'implique pas manips exterieure
+
+* **Les différents types de base de données**
+
+Il existe un certain nombre de formats de jeux de données, nous allons lister les plus courants en précisant la commande qui permet de les lire sous R et importer les données correctement.
+
+
+
+aide sur fonction : Fn+F1
 via fichier en dur, via lien (astuces clique droit, copier le lien)
 csv, excel, zip, sata, sas, xml, json etc.
 scrapping, API
 
+Si vous avez un doute pour importer vos données, vous pouvez le faire en presse-bouton via le menu : *File > Import Dataset > From ...*
+
+* **From Text (base)** : 
+* **From Text (readr)** : 
+* **From Excel** : 
+* **From SPSS** : 
+* **From SAS** : 
+* **From Stata** : 
+
+<br>
+
+
 ### Nettoyer les données
 
-- nombre de NA, les supprimer, les remplacer (moyenne, mode...)
+
+* **Les différents types de données**
+
+- nombre de NA (NC, N..), les supprimer, les remplacer (moyenne, mode...)
 - observer les données : summary, moyenne, données, occurences avec table()
 - différents types de données, voir avec str(), changer avec as.
 - dire format tidy data : 1 ligne = 1 pays, individus, collectivité etc et 1 colonne = 1 varibale
 - extraire carac d'une chaîne de caractères
 - renommer les variables
 - définir un indice
+
+<br>
+
 
 
 ### Transformer les données
@@ -299,14 +396,25 @@ scrapping, API
 - fonctions principales du tidyverse : select, arrange, filter, mutate, group_by
 
 
+<br>
+
+
 ### Visualiser les données
 
+<br>
+
+
 ### Communiquer
+
+
+<br>
 
 
 
 
 <br>
+
+---
 
 # `r icon_style(fontawesome("book", style = NULL), fill = "#0000CC")` <FONT COLOR="#0000CC">Bibliographie</FONT>
 
