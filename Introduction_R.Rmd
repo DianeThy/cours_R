@@ -17,6 +17,7 @@ knitr::opts_chunk$set(echo = TRUE, eval = TRUE, message = FALSE, warning = FALSE
 
 ```{r klippy, echo=FALSE, include=TRUE}
 klippy::klippy(position = c('top', 'right'), color = '#333333', tooltip_message = 'Click to copy')
+library(kableExtra)
 ```
 
 <br> 
@@ -293,11 +294,14 @@ Pour **exécuter** du code il faut placer son curseur sur la ligne de commande, 
 ```
 
 
-Il est possible d'*assigner** une valeur à un objet (dataframe, liste, vecteur, fonctions...) avec `<-` ou `=`, de manière à les **sauvegarder** dans l'environnement de travail (partie en haut à droite de la fenêtre RStudio). Vous pouvez par exemple *runer* les commandes suivantes :
+Il est possible d'**assigner** une valeur à un objet (dataframe, liste, vecteur, fonction...) avec `<-` ou `=`, de manière à les **sauvegarder** dans l'environnement de travail (partie en haut à droite de la fenêtre RStudio). Vous pouvez par exemple *runer* les commandes suivantes :
 
 ```{r}
+# Opérations
 x <- 13+4
 y <- 5*2
+
+# Calcul du résultat
 resultat = x-y
 resultat
 ```
@@ -308,6 +312,16 @@ De cette manière, le code sous R se lit de droite à gauche ;
 * **à droite** on trouve la valeur 
 * **à gauche** on trouve l'objet créé
 
+<style>
+div.blue { background-color:#efefef; border-radius: 5px; padding: 20px;}
+</style>
+<div class = "blue">
+
+ `r icon_style(fontawesome("thumbs-up", style = "solid"), fill = "#666666")`  <FONT COLOR="#333333">**Bonne pratique**
+
+Tout texte peut être intégré dans un script R après un "**#**" ; il ne sera pas considéré comme du code mais comme un **commentaire** donc ne sera pas exécuté. Un bon réflexe est de mettre le **plus d'explications du code** grâce aux "#", pour qu'il soit lisible et compréhensible par toute personne qui travaillerait sur le script. 
+
+</div>
 
 <br>
 
@@ -332,7 +346,7 @@ Pour utiliser un package, après l'avoir installé, il faut l'appeler via la fon
 
 
 ```{r  eval=F, echo=T}
-packages <- c("tidyverse", "remotes", "devtools", "rmarkdown", "rio")
+packages <- c("tidyverse", "remotes", "devtools", "rmarkdown", "rio", "datasets")
 install.packages(packages)
 ```
 
@@ -346,27 +360,104 @@ install.packages(packages)
 Il est possible d'importer des données dans l'environnement RStudio de deux manières : par un **fichier exporté** présent sur notre machine, ou directement via un **lien** qui pointe vers le téléchargement de ce fichier en ligne. Voici quelques exemples de plates-formes où il est possible d'en importer les données sans besoin préalable d'exporter le fichier :
 
 
-+bonne pratique : via lien vpour reproductibilité des scirpts, n'implique pas manips exterieure
+```{r echo=FALSE, out.width='88%', fig.align='center'}
+knitr::include_graphics(here::here("images/import_liens.png"))
+```
+
+
+
+<style>
+div.blue { background-color:#efefef; border-radius: 5px; padding: 20px;}
+</style>
+<div class = "blue">
+
+ `r icon_style(fontawesome("thumbs-up", style = "solid"), fill = "#666666")`  <FONT COLOR="#333333">**Bonne pratique**
+
+Un autre bon réflexe est de privilégier tant que possible **l'import via un lien**, puisque ça n'implique aucune manipulation extérieure au script, donc une plus grande reproductibilité pour partager ou automatiser le code.
+
+</div>
+
+<br>
+
 
 * **Les différents types de base de données**
 
 Il existe un certain nombre de formats de jeux de données, nous allons lister les plus courants en précisant la commande qui permet de les lire sous R et importer les données correctement.
 
+<br>
+
+|        &rarr; **Excel** 
 
 
-aide sur fonction : Fn+F1
-via fichier en dur, via lien (astuces clique droit, copier le lien)
-csv, excel, zip, sata, sas, xml, json etc.
-scrapping, API
+```{r eval=F, echo=T}
+library(readxl)
+data <- read_excel(path = "chemin_acces/vers_le/fichier.xlsx", sheet = "feuille_n_1")  # préciser le nom de la feuille à importer s'il y en a plusieurs
+```
 
-Si vous avez un doute pour importer vos données, vous pouvez le faire en presse-bouton via le menu : *File > Import Dataset > From ...*
 
-* **From Text (base)** : 
-* **From Text (readr)** : 
-* **From Excel** : 
-* **From SPSS** : 
-* **From SAS** : 
-* **From Stata** : 
+<br>
+
+
+|        &rarr; **CSV** : *Comma Separated Values*
+
+```{r eval=F, echo=T}
+library(readr)
+data <- read_csv("fichier.csv") 
+```
+
+
+<br>
+
+|        &rarr; **SCSV** : *Semicolon Separated Values*
+
+```{r eval=F, echo=T}
+library(readr)
+data <- read_delim("fichier.csv", delim = ";") 
+```
+
+
+<br>
+
+|        &rarr; **TXT** ou **TSV** : *Tab Separated Values*
+
+```{r eval=F, echo=T}
+library(readr)
+data <- read_delim("fichier.txt")  # le délimiteur est reconnu automatiquement par R, c'est "\t" 
+# ou
+data <- read_table("fichier.txt")
+```
+
+
+<br>
+
+Il existe encore bien d'autres formats de fichiers tels que XML, JSON, SAS... Si besoin, vous trouverez toute l'aide nécessaire sur internet (notamment sur **Stack Overflow** vu en partie précédente). 
+
+<style>
+div.yellow { background-color:#FFFFe5; border-radius: 5px; padding: 20px;}
+</style>
+<div class = "yellow">
+
+ `r icon_style(fontawesome("lightbulb", style = "solid"), fill = "#666666")`  <FONT COLOR="#333333">**Astuce**
+
+Lorsque vous avez un doute sur l'utilisation d'une fonction et que vous voulez savoir quels arguments elle attend et comment les spécifier, vous pouvez placer le curseur de la souris sur le nom de la fonction écrite dans le script puis appuyer sur les touches *Ctrl-F1* ; la **page d'aide** de la fonction s'ouvrira dans la partie inférieure droite (***Help***) de la fenêtre RStudio.
+
+</div>
+
+<br>
+
+Si vous avez un doute pour importer vos données, vous pouvez le faire en presse-bouton via le menu : *File > Import Dataset > From*
+
+* **From Text (base)** : pour lire les fichiers *.csv, .txt, .scsv*, la différence étant dans le séparateur 
+* **From Text (readr)** : même fonction qu'en R-base mais ici plus rapide, avec plus d'options et la possibilité d'importer via un lien
+* **From Excel** : pour lire les fichiers Excel
+* **From SPSS** : pour lire les fichiers SPSS (Statistical Package for the Social Sciences) qui ont l'extension *.sav*
+* **From SAS** : pour lire les fichiers SAS (Statistical Analysis Software)
+* **From Stata** : pour lire les fichiers exportés depuis Stata, un logiciel de statistiques et d'économétrie
+
+Il est possible de "jouer" avec les paramètres si ceux par défaut ne sont pas bons ; par exemple changer le séparateur de valeurs (***Delimiter***), l'encoding pour reconnaître les caractères spéciaux (***Locale : Configure...***), le nom de la base de données (***Name***), le nombre de lignes à ignorer en cas d'en-tête sur le fichier (***Skip***). Avant de finaliser l'import des données par le menu, il est important de **copier le code** qui apparaît en bas à droite de la fenêtre (***Code Preview***) puis le coller dans le script, pour ne pas refaire cette manipulation à chaque ouverture du script, et pour le rendre reproductible. 
+
+
+
 
 <br>
 
@@ -376,13 +467,184 @@ Si vous avez un doute pour importer vos données, vous pouvez le faire en presse
 
 * **Les différents types de données**
 
-- nombre de NA (NC, N..), les supprimer, les remplacer (moyenne, mode...)
-- observer les données : summary, moyenne, données, occurences avec table()
-- différents types de données, voir avec str(), changer avec as.
-- dire format tidy data : 1 ligne = 1 pays, individus, collectivité etc et 1 colonne = 1 varibale
-- extraire carac d'une chaîne de caractères
-- renommer les variables
-- définir un indice
+Entre une liste de **notes d'élèves** et une liste de **noms de villes**, on voit bien que la structure de données est différente. Listons ici les différents types de données qui existent, avant de voir comment les nettoyer : 
+
+<style type="text/css">
+.tg  {border-collapse:collapse;border-color:#ccc;border-spacing:0;margin:0px auto;}
+.tg td{background-color:#fff;border-color:#ccc;border-style:solid;border-width:1px;color:#333;
+  font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg th{background-color:#f0f0f0;border-color:#ccc;border-style:solid;border-width:1px;color:#333;
+  font-family:Arial, sans-serif;font-size:14px;font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg .tg-k7ar{background-color:#c0c0c0;border-color:#000000;font-weight:bold;text-align:center;vertical-align:top}
+.tg .tg-2q5c{background-color:#efefef;border-color:#000000;font-style:italic;text-align:center;vertical-align:middle}
+.tg .tg-i817{background-color:#f9f9f9;border-color:#000000;text-align:left;vertical-align:top}
+.tg .tg-73oq{border-color:#000000;text-align:left;vertical-align:top}
+.tg .tg-bi3z{background-color:#efefef;border-color:#000000;font-style:italic;text-align:center;vertical-align:middle}
+.tg .tg-vnuo{background-color:#efefef;border-color:#000000;font-style:italic;text-align:center;vertical-align:top}
+</style>
+<table class="tg">
+<thead>
+  <tr>
+    <th class="tg-k7ar">Famille de données</th>
+    <th class="tg-k7ar">Structure</th>
+    <th class="tg-k7ar">Nom retourné sous R</th>
+    <th class="tg-k7ar">Exemple</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td class="tg-2q5c" rowspan="3">quantitatif</td>
+    <td class="tg-i817">entier</td>
+    <td class="tg-i817">int = integer</td>
+    <td class="tg-i817">3</td>
+  </tr>
+  <tr>
+    <td class="tg-73oq">décimal inexact</td>
+    <td class="tg-73oq">dbl = double</td>
+    <td class="tg-73oq">3.5</td>
+  </tr>
+  <tr>
+    <td class="tg-i817">décimal exact</td>
+    <td class="tg-i817">num = numeric</td>
+    <td class="tg-i817">3.500001</td>
+  </tr>
+  <tr>
+    <td class="tg-bi3z" rowspan="3">qualitatif</td>
+    <td class="tg-73oq">chaîne de caractères</td>
+    <td class="tg-73oq">chr = character</td>
+    <td class="tg-73oq">Ville de Paris</td>
+  </tr>
+  <tr>
+    <td class="tg-i817">facteur à n niveaux</td>
+    <td class="tg-i817">Factor</td>
+    <td class="tg-i817">petit / moyen / grand</td>
+  </tr>
+  <tr>
+    <td class="tg-73oq">facteur à 2 niveaux dit "booléen"</td>
+    <td class="tg-73oq">bool = boolean</td>
+    <td class="tg-73oq">0 / 1, True / False</td>
+  </tr>
+  <tr>
+    <td class="tg-vnuo">autre</td>
+    <td class="tg-i817">date</td>
+    <td class="tg-i817">POSIX</td>
+    <td class="tg-i817">13-12-1998</td>
+  </tr>
+</tbody>
+</table>
+
+<br>
+
+<style>
+div.blue { background-color:#efefef; border-radius: 5px; padding: 20px;}
+</style>
+<div class = "blue">
+
+ `r icon_style(fontawesome("thumbs-up", style = "solid"), fill = "#666666")`  <FONT COLOR="#333333">**Bonne pratique**
+
+Bien que numériques, les **identifiants** tels que numéros de SIREN, numéros de marchés, etc. doivent être considérés comme une **chaîne de caractères** et non une valeur numérique.
+
+</div>
+
+<br>
+
+Une fois importée, il est possible de regarder la *structure* des données qui composent la base grâce à la fonction `str()` :
+
+```{r}
+# On importe des données ODS
+data(iris)
+# On regarde le type des variables qui composent la base
+str(iris)
+```
+
+*Nous réaliserons toutes sortes de manipulations sur une base de données déjà chargée dans l'environnement RStudio, c'est la base **iris**. Cette base recense des mesures de 4 attributs de 150 fleurs appartenant à 3 familles différentes. Plus d'informations sur la base [sur ce lien](https://www.rdocumentation.org/packages/datasets/versions/3.6.2/topics/iris).* 
+
+<br>
+
+Il arrive que la structure d'une variable ne soit pas la bonne, il faut alors la changer pour avoir les données au bon format. Cela est possible grâce à la fonction `as.type_souhaite()` :
+
+```{r}
+# Pour passer en chaîne de caractères la variable "Species"
+iris$Species <- as.character(iris$Species)
+
+# Pour passer en nombres décimaux arrondis les 4 autres variables (sans le faire une par une)
+iris[,c(1:4)] <- lapply(iris[,c(1:4)], as.double) 
+```
+
+<style>
+div.yellow { background-color:#FFFFe5; border-radius: 5px; padding: 20px;}
+</style>
+<div class = "yellow">
+
+ `r icon_style(fontawesome("lightbulb", style = "solid"), fill = "#666666")`  <FONT COLOR="#333333">**Astuce**
+
+Pour accéder à une variable dans une base de données, il et possible d'utiliser le "*\$*". Il fonctionne de la manière suivante ; *base_de_donnees\$variable*.
+
+La fonction *lapply()* permet d'appliquer une fonction à plusieurs variables simultanément et permet ainsi de réduire le nombre de lignes de code dans le script. 
+
+</div>
+
+<br>
+
+<br>
+
+* **Observer les données**
+
+Voilà quelques fonctions pour observer les données lorsqu'elles viennent d'être importées pour les cerner au mieux :
+
+```{r}
+# 5 premières lignes
+head(iris, 5)
+
+# 5 dernières lignes
+tail(iris, 5)
+
+# Nombre de colonnes
+ncol(iris)
+
+# Nombre de lignes
+nrow(iris)
+length(iris)
+
+# Nom des colonnes
+names(iris)
+
+# Nombre de lignes ET nombre de colonnes
+dim(iris)
+
+# Résumé des valeurs d'une variable
+summary(iris$Petal.Length)
+
+# Occurrences des valeurs d'une variable
+table(iris$Species)
+```
+
+<br>
+
+* **Traiter les valeurs manquantes**
+
+Il arrive souvent que certaines valeurs manquent à une base de données, elles peuvent alors prendre plusieurs écritures : NA, NaN, N/A, NC, NULL... La plus connue étant "NA" qui signifie *Not Available*. La fonction `is.na()` peut être appliquée pour connaître le nombre de valeurs manquantes dans une base de données, et `na.omit()` pour supprimer toutes les lignes qui contiennent au moins 1 valeur manquante.
+
+```{r eval=F, echo=T}
+# Compter le nombre de NA dans une colonne
+data %>% count(is.na(nom_colonne))
+
+# Retirer toutes les lignes avec au moins 1 NA
+new_data <- na.omit(data)
+```
+
+<br>
+
+* **Des données propres**
+
+On parle de "*tidy data*" à partir du moment où les données sont propres, c'est-à-dire qu'elles respectent le schéma ci-dessous :
+
+```{r echo=FALSE, out.width='82%', fig.align='center'}
+knitr::include_graphics(here::here("images/tidy_data.png"))
+```
+
+Chaque ligne est une observation et chaque colonne est une variable correspondant à l'observation en question. Selon le format des données les observations peuvent correspondre à des individus/pays/villes etc. (on parle de **données en coupe**, c'est-à-dire une "photo" d'une situation à un moment précis), à des périodes de temps (on parle de **données temporelles**) ou aux 2 simultanément c'est-à-dire par individu **et** dans le temps (on parle alors de **données de panel**).
+
 
 <br>
 
@@ -390,10 +652,175 @@ Si vous avez un doute pour importer vos données, vous pouvez le faire en presse
 
 ### Transformer les données
 
+* **Les principales fonctions du dplyr**
+
+Dans un premier temps nous allons voir les différentes fonctions qui composent le dplyr et permettent de transformer les données, il s'agit des fonctions suivantes :
+
+- `filter()` : pour sélectionner certaines lignes à partir d'une condition
+- `arrange()` : pour réordonner les lignes
+- `rename()` : pour changer le nom des colonnes (renommer)
+- `select()` : pour sélectionner certaines colonnes
+- `mutate()` : pour créer de nouvelles variables
+- `summarise()` : pour résumer plusieurs valeurs en 1 valeur (moyenne, médiane, mode...)
+- `group_by()` : pour grouper les observations avant d'appliquer une fonction
+
+<br>
+
+|        &rarr; `filter()`
+
+Cette fonction sert à sélectionner des lignes dans une base de données (dataframe ; df). Les lignes qui répondent à un certain critère ou condition logique sont sélectionnées. Les filtres peuvent être appliqués tant aux variables quantitatives que qualitatives. Par exemple : 
+
+```{r}
+# On appelle la librairie tidyverse qui contient toutes ces fonctions et le pipe
+library(tidyverse)
+
+# Fleurs de l'espèce "versicolor"
+df1 <- iris %>% filter(Species == "versicolor")
+dim(df1)
+
+# Fleurs dont les pétales sont supérieurs ou égaux à 5 cm
+df2 <- iris %>% filter(Petal.Length >= 5)
+dim(df2)
+
+# Fleurs de l'espèce versicolor ET dont les pétales sont supérieurs ou égaux à 5 cm
+df3 <- iris %>% filter(Species == "versicolor" & Petal.Length >= 5)
+dim(df3)
+
+# Fleurs dont les pétales sont exactement larges de 2 OU de 2.5 cm
+df4 <- iris %>% filter(Petal.Width == 2 | Petal.Width == 2.5)
+dim(df4)
+```
+
+Avec le pipe (![](images/pipe2.png){width=3%}) on part de la base de données entière puis on applique nos filtres. On obtient ici deux sous-dataframes, et grâce à la fonction `dim()` on voit que l'on a :
+
+- 50 fleurs de l'espèce versicolor
+- 46 fleurs dont les pétales sont égaux ou plus longs que 5 cm
+- 2 fleurs de l'espèce versicolor dont les pétales sont longs d'au moins 5 cm
+- 9 fleurs dont les pétales sont larges d'exactement 2 ou 2.5 cm
+
+Le tableau ci-dessous résume les filtres que l'on peut appliquer sur une plusieurs variable(s) d'une base de données. Pour filtrer des variables qualitatives il faut mettre la condition entre guillemets pour que la machine reconnaisse qu'il s'agit d'un texte. 
+
+<style type="text/css">
+.tg  {border-collapse:collapse;border-color:#ccc;border-spacing:0;margin:0px auto;}
+.tg td{background-color:#fff;border-color:#ccc;border-style:solid;border-width:1px;color:#333;
+  font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg th{background-color:#f0f0f0;border-color:#ccc;border-style:solid;border-width:1px;color:#333;
+  font-family:Arial, sans-serif;font-size:14px;font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg .tg-baqh{text-align:center;vertical-align:top}
+.tg .tg-k7ar{background-color:#c0c0c0;border-color:#000000;font-weight:bold;text-align:center;vertical-align:top}
+.tg .tg-c3ow{border-color:inherit;text-align:center;vertical-align:top}
+.tg .tg-txu4{background-color:#f9f9f9;border-color:inherit;font-style:italic;text-align:left;vertical-align:top}
+.tg .tg-71bg{background-color:#f9f9f9;border-color:inherit;font-style:italic;text-align:left;vertical-align:middle}
+.tg .tg-abip{background-color:#f9f9f9;border-color:inherit;text-align:center;vertical-align:top}
+.tg .tg-btxf{background-color:#f9f9f9;border-color:inherit;text-align:left;vertical-align:top}
+.tg .tg-0lax{text-align:left;vertical-align:top}
+.tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
+</style>
+<table class="tg">
+<thead>
+  <tr>
+    <th class="tg-k7ar">Equation</th>
+    <th class="tg-k7ar">Traduction pour R</th>
+    <th class="tg-k7ar">Exemple</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td class="tg-71bg">égal</td>
+    <td class="tg-abip">==</td>
+    <td class="tg-btxf">Species == "versicolor"</td>
+  </tr>
+  <tr>
+    <td class="tg-0lax"><span style="font-style:italic">différent</span></td>
+    <td class="tg-baqh">!=</td>
+    <td class="tg-0lax">Species != "setosa"</td>
+  </tr>
+  <tr>
+    <td class="tg-txu4">supérieur</td>
+    <td class="tg-abip">&gt;</td>
+    <td class="tg-btxf">Petal.Length &gt; 5</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">supérieur ou égal</td>
+    <td class="tg-c3ow">&gt;=</td>
+    <td class="tg-0pky">Petal.Length &gt;= 5</td>
+  </tr>
+  <tr>
+    <td class="tg-btxf">inférieur</td>
+    <td class="tg-abip">&lt;</td>
+    <td class="tg-btxf">Petal.Length &lt; 5</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">inférieur ou égal</td>
+    <td class="tg-c3ow">&lt;=</td>
+    <td class="tg-0pky">Petal.Length &lt;= 5</td>
+  </tr>
+</tbody>
+</table>
+
+<br>
+
+|        &rarr; `arrange()`
+
+Cette fonction sert à réordonner les observations selon un ordre alphabétique ou numérique croissant ou décroissant. Quelques exemples ci-dessous : 
+
+```{r}
+# On trie par longueur de sépale ascendante
+iris <- iris %>% arrange(Sepal.Length)
+
+# On trie par longueur de pétale descendante
+iris <- iris %>% arrange(desc(Petal.Length))
+
+# On trie par espèce puis par largeur de pétale ascendante
+iris <- iris %>% arrange(Species, Petal.Width)
+```
+
+<br> 
+
+<style>
+div.blue { background-color:#efefef; border-radius: 5px; padding: 20px;}
+</style>
+<div class = "blue">
+
+ `r icon_style(fontawesome("thumbs-up", style = "solid"), fill = "#666666")`  <FONT COLOR="#333333">**Bonne pratique**
+
+Ici nous avons attribué les changements sur la même base de données "iris", ce qui a **"écrasé"** l'ancienne par la nouvelle dans laquelle les observations sont triées d'une certaine manière. Lorsque vous êtes sûrs de vos modifications vous pouvez attribuer les modifications au même nom d'objet ce qui écrasera l'ancien, mais dès lors que vous voulez garder une trace de la base initiale il convient de **créer un nouvel objet**, c'est-à-dire avec un nouveau *nom* qui apparaîtra dans votre environnement de travail (partie supérieure droite de la fenêtre RStudio). 
+
+</div>
+
+<br>
+
+|        &rarr; `rename()`
+
+
+
+<br>
+
+|        &rarr; `select()`
+
+
+
+<br>
+
+|        &rarr; `mutate()`
+
+
+
+<br>
+
+|        &rarr; `summarise()`
+
+
+
+<br>
+
+|        &rarr; `group_by()`
+
+
+
 - ajout / suppression de colonnes
 - jointures
 - créer variables comme moyenne, médiane..
-- fonctions principales du tidyverse : select, arrange, filter, mutate, group_by
 
 
 <br>
