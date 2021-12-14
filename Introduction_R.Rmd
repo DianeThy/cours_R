@@ -792,35 +792,137 @@ Ici nous avons attribué les changements sur la même base de données "iris", c
 
 |        &rarr; `rename()`
 
+Cette fonction permet de renommer une ou plusieurs colonnes d'un dataframe, elle fonctionne de la manière suivante : `data <- data %>% rename(nouveau_nom = ancien_nom)`. Ci-dessous un exemple :
+
+```{r}
+# On renomme 2 colonnnes
+iris <- iris %>% rename(espece = Species,
+                        longueur_petale = Petal.Length)
+
+# Noms de colonnes en majuscules
+names(iris) <- names(iris) %>% toupper
+
+# Noms de colonnes en minuscules
+names(iris) <- names(iris) %>% tolower
+```
 
 
 <br>
 
 |        &rarr; `select()`
 
+Cette fonction permet de sélectionner certaines colonnes, cela est possible en les identifiant par leur nom ou leur place dans le dataframe (numéro de colonne). Quelques exemples :
 
+```{r}
+# Sous df (dataframe) avec 2 colonnes
+df5 <- iris %>% select(espece, sepal.width)
+  # ou
+df5_bis <- iris %>% select(5, 2)
+
+# Sous df sans 1 colonne
+df6 <- iris %>% select(-longueur_petale)
+  # ou
+df6_bis <- iris %>% select(-3)
+
+# Sous df sans 2 colonnes
+df6 <- iris %>% select(-c(longueur_petale,petal.width)) # c() permet de mettre dans 1 objet plusieurs arguments séparés par des virgules
+  # ou
+df6_bis <- iris %>% select(-c(3,4))
+
+# On change l'ordre des colonnes
+iris <- iris %>% select(5,2:4,1)
+```
+
+
+
+<style>
+div.yellow { background-color:#FFFFe5; border-radius: 5px; padding: 20px;}
+</style>
+<div class = "yellow">
+
+ `r icon_style(fontawesome("lightbulb", style = "solid"), fill = "#666666")`  <FONT COLOR="#333333">**Astuce**
+
+Lorsqu'un nom de colonne contient un espace (par exemple : taille individu) il faut l'entourer de **\`** pour qu'il soit reconnu comme le nom d'une seule colonne par R. Sans cette astuce, la commande ne pourra pas s'exécuter, d'où l'importance de nommer les bases de données et leurs variables par des noms séparés par les caractères `-` ou `_`. 
+
+*Exemple de **mauvaise commande** :* data\$premier nom <- as.numeric(data\$premier nom)
+
+*Exemple de **bonne commande** :* data\$\`premier nom\` <- as.numeric(data\$\`premier nom\`)</FONT>
+
+
+</div>
 
 <br>
 
+
+
 |        &rarr; `mutate()`
 
+Cette fonction permet de créer de nouvelles variables à partir des variables existantes, elle est très utile pour l'analyse de données. Elle fonctionne de la manière suivante : `data <- data %>% mutate(nouvelle_colonne = ancienne_colonne*100)`. La "*mutation*" peut être arithmétique comme textuelle. 
 
+```{r}
+# On créé 1 colonne et on modifie 1 autre
+iris <- iris %>% mutate(pourcentage_max_petale_width = petal.width / max(petal.width) *100,
+                        espece = paste("L'espèce est", espece, sep = ": "))
+
+# On affiche les 5 premières lignes des variables crées
+head(iris[,c(1,6)], 5)
+```
+
+La commande ci-dessus a par exemple permis de créer une variable qui informe à combien de points de pourcentage la largeur du pétale se situe par rapport à la largeur maximale. En deuxième argument de la fonction `mutate()` on modifie la variable *espece* (on écrase l'ancienne variable) en ajoutant du texte grâce à la fonction `paste()`. Cette dernière permet de **coller du texte**, ici avant chaque espèce de fleur on ajoute "*L'espèce est:* ", puis on colle le nom actuel de l'espèce qui se trouve dans la base (***sep*** correspondant au séparateur entre le texte ajouté et l'ancienne valeur). 
 
 <br>
 
 |        &rarr; `summarise()`
 
+Cette fonction permet de **résumer** plusieurs valeurs en une seule, ce qui est très utile pour avoir quelques statistiques sur les bases de données. 
 
+```{r}
+# Calcul de la longueur moyenne des pétales
+iris %>% summarise(moyenne_PL = mean(longueur_petale))
+
+# Calcul de la largeur maximale des sépales
+iris %>% summarise(max(sepal.width))
+
+# Calcul des minimums des mesures des pétales
+iris %>% summarise(min(petal.width),
+                   min(longueur_petale))
+```
+
+On peut aussi calculer des statistiques sur **toutes les variables** à la fois avec la fonction `summarise_all()` :
+
+```{r}
+# Calcul des médianes de toutes les variables
+iris %>% summarise_all(median)
+
+# Calcul des écart-types et de la variance 
+iris %>% select(-espece) %>% summarise_all(list(sd, var))  #list() quand plusieurs mesures à la fois
+```
+
+On voit que la médiane n'a pas été calculée pour la variable '*espece*' puisqu'elle n'est pas numérique, la valeur retournée est donc *NA* (Not Available). Pour la deuxième commande qui calcule l'écart-type et la variance on exclut donc cette variable qualitative grâce à la fonction `select()` que nous avons vu précédemment. 
 
 <br>
 
 |        &rarr; `group_by()`
 
+Cette dernière fonction principale du tidyverse permet de grouper les variables, elle est spécialement utile en analyse de données pour calculer des statistiques par groupe (genre, pays, espèce...). `group_by()` prend le dataframe et le converti en une base groupée pour laquelle les opérations seront effectuées non plus sur la base entière mais pour chacun des groupes identifiés. 
+
+```{r}
+# Nombre d'observations par groupe
+iris %>% group_by(espece) %>% summarise(n())
+
+# Calcul de la taille moyenne des pétales par espèce
+iris %>% group_by(espece) %>% summarise(mean(longueur_petale))
+```
+
+On voit par exemple que l'on a 50 fleurs par espèce dans notre base, et que la longueur des pétales est la plus grande pour l'espèce *virginica* ; elle est de 5.55cm. 
 
 
+```{r eval=FALSE, include=FALSE}
 - ajout / suppression de colonnes
 - jointures
-- créer variables comme moyenne, médiane..
+```
+
+
 
 
 <br>

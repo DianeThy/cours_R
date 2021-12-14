@@ -932,23 +932,121 @@ div.blue { background-color:#efefef; border-radius: 5px; padding: 20px;}
 </style>
 <div class="blue">
 <p><svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#666666;" xmlns="http://www.w3.org/2000/svg"> <path d="M104 224H24c-13.255 0-24 10.745-24 24v240c0 13.255 10.745 24 24 24h80c13.255 0 24-10.745 24-24V248c0-13.255-10.745-24-24-24zM64 472c-13.255 0-24-10.745-24-24s10.745-24 24-24 24 10.745 24 24-10.745 24-24 24zM384 81.452c0 42.416-25.97 66.208-33.277 94.548h101.723c33.397 0 59.397 27.746 59.553 58.098.084 17.938-7.546 37.249-19.439 49.197l-.11.11c9.836 23.337 8.237 56.037-9.308 79.469 8.681 25.895-.069 57.704-16.382 74.757 4.298 17.598 2.244 32.575-6.148 44.632C440.202 511.587 389.616 512 346.839 512l-2.845-.001c-48.287-.017-87.806-17.598-119.56-31.725-15.957-7.099-36.821-15.887-52.651-16.178-6.54-.12-11.783-5.457-11.783-11.998v-213.77c0-3.2 1.282-6.271 3.558-8.521 39.614-39.144 56.648-80.587 89.117-113.111 14.804-14.832 20.188-37.236 25.393-58.902C282.515 39.293 291.817 0 312 0c24 0 72 8 72 81.452z"></path></svg> <FONT COLOR="#333333"><strong>Bonne pratique</strong></p>
-<p>Ici nous avons attribué les changements sur la base de données “iris” à cette même base donc l’ancienne a été <strong>“écrasée”</strong> par la nouvelle dans laquelle les observations sont triées d’une certaine manière. Lorsque vous êtes sûrs de vos modifications vous pouvez attribuer les modifications au même nom d’objet ce qui écrasera l’ancien, mais dès lors que vous voulez garder une trace de la base initiale il convient de <strong>créer un nouvel objet</strong>, c’est-à-dire avec un nouveau <em>nom</em> qui apparaîtra dans votre environnement de travail (partie supérieure droite de la fenêtre RStudio).</p>
+<p>Ici nous avons attribué les changements sur la même base de données “iris”, ce qui a <strong>“écrasé”</strong> l’ancienne par la nouvelle dans laquelle les observations sont triées d’une certaine manière. Lorsque vous êtes sûrs de vos modifications vous pouvez attribuer les modifications au même nom d’objet ce qui écrasera l’ancien, mais dès lors que vous voulez garder une trace de la base initiale il convient de <strong>créer un nouvel objet</strong>, c’est-à-dire avec un nouveau <em>nom</em> qui apparaîtra dans votre environnement de travail (partie supérieure droite de la fenêtre RStudio).</p>
 </div>
 <p><br></p>
 <div class="line-block">       → <code>rename()</code></div>
+<p>Cette fonction permet de renommer une ou plusieurs colonnes d’un dataframe, elle fonctionne de la manière suivante : <code>data &lt;- data %&gt;% rename(nouveau_nom = ancien_nom)</code>. Ci-dessous un exemple :</p>
+<pre class="r"><code># On renomme 2 colonnnes
+iris &lt;- iris %&gt;% rename(espece = Species,
+                        longueur_petale = Petal.Length)
+
+# Noms de colonnes en majuscules
+names(iris) &lt;- names(iris) %&gt;% toupper
+
+# Noms de colonnes en minuscules
+names(iris) &lt;- names(iris) %&gt;% tolower</code></pre>
 <p><br></p>
 <div class="line-block">       → <code>select()</code></div>
+<p>Cette fonction permet de sélectionner certaines colonnes, cela est possible en les identifiant par leur nom ou leur place dans le dataframe (numéro de colonne). Quelques exemples :</p>
+<pre class="r"><code># Sous df (dataframe) avec 2 colonnes
+df5 &lt;- iris %&gt;% select(espece, sepal.width)
+  # ou
+df5_bis &lt;- iris %&gt;% select(5, 2)
+
+# Sous df sans 1 colonne
+df6 &lt;- iris %&gt;% select(-longueur_petale)
+  # ou
+df6_bis &lt;- iris %&gt;% select(-3)
+
+# Sous df sans 2 colonnes
+df6 &lt;- iris %&gt;% select(-c(longueur_petale,petal.width)) # c() permet de mettre dans 1 objet plusieurs arguments séparés par des virgules
+  # ou
+df6_bis &lt;- iris %&gt;% select(-c(3,4))
+
+# On change l&#39;ordre des colonnes
+iris &lt;- iris %&gt;% select(5,2:4,1)</code></pre>
+<style>
+div.yellow { background-color:#FFFFe5; border-radius: 5px; padding: 20px;}
+</style>
+<div class="yellow">
+<p><svg viewBox="0 0 352 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#666666;" xmlns="http://www.w3.org/2000/svg"> <path d="M96.06 454.35c.01 6.29 1.87 12.45 5.36 17.69l17.09 25.69a31.99 31.99 0 0 0 26.64 14.28h61.71a31.99 31.99 0 0 0 26.64-14.28l17.09-25.69a31.989 31.989 0 0 0 5.36-17.69l.04-38.35H96.01l.05 38.35zM0 176c0 44.37 16.45 84.85 43.56 115.78 16.52 18.85 42.36 58.23 52.21 91.45.04.26.07.52.11.78h160.24c.04-.26.07-.51.11-.78 9.85-33.22 35.69-72.6 52.21-91.45C335.55 260.85 352 220.37 352 176 352 78.61 272.91-.3 175.45 0 73.44.31 0 82.97 0 176zm176-80c-44.11 0-80 35.89-80 80 0 8.84-7.16 16-16 16s-16-7.16-16-16c0-61.76 50.24-112 112-112 8.84 0 16 7.16 16 16s-7.16 16-16 16z"></path></svg> <FONT COLOR="#333333"><strong>Astuce</strong></p>
+<p>Lorsqu’un nom de colonne contient un espace (par exemple : taille individu) il faut l’entourer de <strong>`</strong> pour qu’il soit reconnu comme le nom d’une seule colonne par R. Sans cette astuce, la commande ne pourra pas s’exécuter, d’où l’importance de nommer les bases de données et leurs variables par des noms séparés par les caractères <code>-</code> ou <code>_</code>.</p>
+<p><em>Exemple de <strong>mauvaise commande</strong> :</em> data$premier nom &lt;- as.numeric(data$premier nom)</p>
+<p><em>Exemple de <strong>bonne commande</strong> :</em> data$`premier nom` &lt;- as.numeric(data$`premier nom`)</FONT></p>
+</div>
 <p><br></p>
 <div class="line-block">       → <code>mutate()</code></div>
+<p>Cette fonction permet de créer de nouvelles variables à partir des variables existantes, elle est très utile pour l’analyse de données. Elle fonctionne de la manière suivante : <code>data &lt;- data %&gt;% mutate(nouvelle_colonne = ancienne_colonne*100)</code>. La “<em>mutation</em>” peut être arithmétique comme textuelle.</p>
+<pre class="r"><code># On créé 1 colonne et on modifie 1 autre
+iris &lt;- iris %&gt;% mutate(pourcentage_max_petale_width = petal.width / max(petal.width) *100,
+                        espece = paste(&quot;L&#39;espèce est&quot;, espece, sep = &quot;: &quot;))
+
+# On affiche les 5 premières lignes des variables crées
+head(iris[,c(1,6)], 5)
+##                 espece pourcentage_max_petale_width
+## 1 L&#39;espèce est: setosa                            4
+## 2 L&#39;espèce est: setosa                            4
+## 3 L&#39;espèce est: setosa                            4
+## 4 L&#39;espèce est: setosa                            4
+## 5 L&#39;espèce est: setosa                            4</code></pre>
+<p>La commande ci-dessus a par exemple permis de créer une variable qui informe à combien de points de pourcentage la largeur du pétale se situe par rapport à la largeur maximale. En deuxième argument de la fonction <code>mutate()</code> on modifie la variable <em>espece</em> (on écrase l’ancienne variable) en ajoutant du texte grâce à la fonction <code>paste()</code>. Cette dernière permet de <strong>coller du texte</strong>, ici avant chaque espèce de fleur on ajoute “<em>L’espèce est:</em>”, puis on colle le nom actuel de l’espèce qui se trouve dans la base (<strong><em>sep</em></strong> correspondant au séparateur entre le texte ajouté et l’ancienne valeur).</p>
 <p><br></p>
 <div class="line-block">       → <code>summarise()</code></div>
+<p>Cette fonction permet de <strong>résumer</strong> plusieurs valeurs en une seule, ce qui est très utile pour avoir quelques statistiques sur les bases de données.</p>
+<pre class="r"><code># Calcul de la longueur moyenne des pétales
+iris %&gt;% summarise(moyenne_PL = mean(longueur_petale))
+##   moyenne_PL
+## 1      3.758
+
+# Calcul de la largeur maximale des sépales
+iris %&gt;% summarise(max(sepal.width))
+##   max(sepal.width)
+## 1              4.4
+
+# Calcul des minimums des mesures des pétales
+iris %&gt;% summarise(min(petal.width),
+                   min(longueur_petale))
+##   min(petal.width) min(longueur_petale)
+## 1              0.1                    1</code></pre>
+<p>On peut aussi calculer des statistiques sur <strong>toutes les variables</strong> à la fois avec la fonction <code>summarise_all()</code> :</p>
+<pre class="r"><code># Calcul des médianes de toutes les variables
+iris %&gt;% summarise_all(median)
+##   espece sepal.width longueur_petale petal.width sepal.length
+## 1     NA           3            4.35         1.3          5.8
+##   pourcentage_max_petale_width
+## 1                           52
+
+# Calcul des écart-types et de la variance 
+iris %&gt;% select(-espece) %&gt;% summarise_all(list(sd, var))  #list() quand plusieurs mesures à la fois
+##   sepal.width_fn1 longueur_petale_fn1 petal.width_fn1 sepal.length_fn1
+## 1       0.4358663            1.765298       0.7622377        0.8280661
+##   pourcentage_max_petale_width_fn1 sepal.width_fn2 longueur_petale_fn2
+## 1                         30.48951       0.1899794            3.116278
+##   petal.width_fn2 sepal.length_fn2 pourcentage_max_petale_width_fn2
+## 1       0.5810063        0.6856935                           929.61</code></pre>
+<p>On voit que la médiane n’a pas été calculée pour la variable ‘<em>espece</em>’ puisqu’elle n’est pas numérique, la valeur retournée est donc <em>NA</em> (Not Available). Pour la deuxième commande qui calcule l’écart-type et la variance on exclut donc cette variable qualitative grâce à la fonction <code>select()</code> que nous avons vu précédemment.</p>
 <p><br></p>
 <div class="line-block">       → <code>group_by()</code></div>
-<ul>
-<li>ajout / suppression de colonnes</li>
-<li>jointures</li>
-<li>créer variables comme moyenne, médiane..</li>
-</ul>
+<p>Cette dernière fonction principale du tidyverse permet de grouper les variables, elle est spécialement utile en analyse de données pour calculer des statistiques par groupe (genre, pays, espèce…). <code>group_by()</code> prend le dataframe et le converti en une base groupée pour laquelle les opérations seront effectuées non plus sur la base entière mais pour chacun des groupes identifiés.</p>
+<pre class="r"><code># Nombre d&#39;observations par groupe
+iris %&gt;% group_by(espece) %&gt;% summarise(n())
+## # A tibble: 3 x 2
+##   espece                   `n()`
+##   &lt;chr&gt;                    &lt;int&gt;
+## 1 L&#39;espèce est: setosa        50
+## 2 L&#39;espèce est: versicolor    50
+## 3 L&#39;espèce est: virginica     50
+
+# Calcul de la taille moyenne des pétales par espèce
+iris %&gt;% group_by(espece) %&gt;% summarise(mean(longueur_petale))
+## # A tibble: 3 x 2
+##   espece                   `mean(longueur_petale)`
+##   &lt;chr&gt;                                      &lt;dbl&gt;
+## 1 L&#39;espèce est: setosa                        1.46
+## 2 L&#39;espèce est: versicolor                    4.26
+## 3 L&#39;espèce est: virginica                     5.55</code></pre>
+<p>On voit par exemple que l’on a 50 fleurs par espèce dans notre base, et que la longueur des pétales est la plus grande pour l’espèce <em>virginica</em> ; elle est de 5.55cm.</p>
 <p><br></p>
 </div>
 <div id="visualiser-les-données" class="section level3">
