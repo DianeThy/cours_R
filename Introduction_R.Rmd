@@ -5,8 +5,6 @@ output:
     highlight: textmate
     toc: yes
     toc_float: yes
-    includes:
-      after_body: footer.html
 ---
 
 <style>
@@ -16,7 +14,7 @@ text-align: justify}
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, eval = TRUE, message = FALSE, warning = FALSE, collapse = TRUE,  fig.show = "hold", out.width = "100%", fig.align='center', 
-                      comment = ' #>', class.output = 'red')
+                      comment = ' #>')
 ```
 
 ```{r klippy, echo=FALSE, include=TRUE}
@@ -35,9 +33,14 @@ library(icons)
 
 <br>
 
+<br>
+
+
 ---
 
 # `r icon_style(fontawesome("code", style = NULL), fill = "#0000CC")` <FONT COLOR="#0000CC">La programmation</FONT>
+
+<br>
 
 <br>
 
@@ -56,6 +59,9 @@ knitr::include_graphics(here::here("images/cycle_data.png"))
 ```
 
 <br>
+
+<br>
+
 
 ---
 
@@ -245,6 +251,9 @@ Un bon réflexe à prendre dès le début de votre carrière de programmeur est 
 
 <br>
 
+<br>
+
+
 ---
 
 # `r icon_style(fontawesome("search", style = NULL), fill = "#0000CC")` <FONT COLOR="#0000CC">Science et analyse des données avec R</FONT>
@@ -316,6 +325,9 @@ De cette manière, le code sous R se lit de droite à gauche ;
 * **à droite** on trouve la valeur 
 * **à gauche** on trouve l'objet créé
 
+<br>
+
+
 <style>
 div.blue { background-color:#efefef; border-radius: 5px; padding: 20px;}
 </style>
@@ -335,6 +347,9 @@ Comme dit précédemment, un *package* contient un certain nombre de **fonctions
 
 
 Pour utiliser un package, après l'avoir installé, il faut l'appeler via la fonction `library(nom_package)`. Le code ci-dessous permet d'installer les packages fondamentaux, il faut le copier, le coller dans un script R basique (*File > New File > R Script*) puis l'exécuter. 
+
+<br>
+
 
 
 *Plusieurs packages sont attachés au "tidyverse" :* 
@@ -356,7 +371,12 @@ install.packages(packages)
 
 <br>
 
+--- 
+
 ### Importer les données
+
+<br>
+
 
 
 * **Deux manières d'importer des données en R**
@@ -367,6 +387,9 @@ Il est possible d'importer des données dans l'environnement RStudio de deux man
 ```{r echo=FALSE, out.width='88%', fig.align='center'}
 knitr::include_graphics(here::here("images/import_liens.png"))
 ```
+
+
+<br>
 
 
 
@@ -390,7 +413,7 @@ Il existe un certain nombre de formats de jeux de données, nous allons lister l
 
 <br>
 
-|        &rarr; **Excel** 
+|        <font size="3">&rarr; **Excel**</font>
 
 
 ```{r eval=F, echo=T}
@@ -402,7 +425,7 @@ data <- read_excel(path = "chemin_acces/vers_le/fichier.xlsx", sheet = "feuille_
 <br>
 
 
-|        &rarr; **CSV** : *Comma Separated Values*
+|        <font size="3">&rarr; **CSV** : *Comma Separated Values*</font>
 
 ```{r eval=F, echo=T}
 library(readr)
@@ -412,7 +435,7 @@ data <- read_csv("fichier.csv")
 
 <br>
 
-|        &rarr; **SCSV** : *Semicolon Separated Values*
+|        <font size="3">&rarr; **SCSV** : *Semicolon Separated Values*</font>
 
 ```{r eval=F, echo=T}
 library(readr)
@@ -422,7 +445,7 @@ data <- read_delim("fichier.csv", delim = ";")
 
 <br>
 
-|        &rarr; **TXT** ou **TSV** : *Tab Separated Values*
+|        <font size="3">&rarr; **TXT** ou **TSV** : *Tab Separated Values*</font>
 
 ```{r eval=F, echo=T}
 library(readr)
@@ -435,6 +458,9 @@ data <- read_table("fichier.txt")
 <br>
 
 Il existe encore bien d'autres formats de fichiers tels que XML, JSON, SAS... Si besoin, vous trouverez toute l'aide nécessaire sur internet (notamment sur **Stack Overflow** vu en partie précédente). 
+
+<br>
+
 
 <style>
 div.yellow { background-color:#FFFFe5; border-radius: 5px; padding: 20px;}
@@ -465,8 +491,13 @@ Il est possible de "jouer" avec les paramètres si ceux par défaut ne sont pas 
 
 <br>
 
+--- 
+
 
 ### Nettoyer les données
+
+<br>
+
 
 
 * **Les différents types de données**
@@ -575,6 +606,9 @@ iris$Species <- as.character(iris$Species)
 iris[,c(1:4)] <- lapply(iris[,c(1:4)], as.double) 
 ```
 
+<br>
+
+
 <style>
 div.yellow { background-color:#FFFFe5; border-radius: 5px; padding: 20px;}
 </style>
@@ -653,8 +687,13 @@ Chaque ligne est une observation et chaque colonne est une variable correspondan
 <br>
 
 
+--- 
+
 
 ### Transformer les données
+
+<br>
+
 
 * **Les principales fonctions du dplyr**
 
@@ -670,7 +709,7 @@ Dans un premier temps nous allons voir les différentes fonctions qui composent 
 
 <br>
 
-|        &rarr; `filter()`
+|        <font size="5">&rarr; `filter()`</font>
 
 Cette fonction sert à sélectionner des lignes dans une base de données (dataframe ; df). Les lignes qui répondent à un certain critère ou condition logique sont sélectionnées. Les filtres peuvent être appliqués tant aux variables quantitatives que qualitatives. Par exemple : 
 
@@ -701,6 +740,9 @@ Avec le pipe (![](images/pipe2.png){width=3%}) on part de la base de données en
 - 46 fleurs dont les pétales sont égaux ou plus longs que 5 cm
 - 2 fleurs de l'espèce versicolor dont les pétales sont longs d'au moins 5 cm
 - 9 fleurs dont les pétales sont larges d'exactement 2 ou 2.5 cm
+
+<br>
+
 
 Le tableau ci-dessous résume les filtres que l'on peut appliquer sur une plusieurs variable(s) d'une base de données. Pour filtrer des variables qualitatives il faut mettre la condition entre guillemets pour que la machine reconnaisse qu'il s'agit d'un texte. 
 
@@ -745,17 +787,17 @@ Le tableau ci-dessous résume les filtres que l'on peut appliquer sur une plusie
     <td class="tg-btxf">Petal.Length &gt; 5</td>
   </tr>
   <tr>
-    <td class="tg-0pky">supérieur ou égal</td>
+    <td class="tg-0pky"><span style="font-style:italic">supérieur ou égal</span></td>
     <td class="tg-c3ow">&gt;=</td>
     <td class="tg-0pky">Petal.Length &gt;= 5</td>
   </tr>
   <tr>
-    <td class="tg-btxf">inférieur</td>
+    <td class="tg-btxf"><span style="font-style:italic">inférieur</span></td>
     <td class="tg-abip">&lt;</td>
     <td class="tg-btxf">Petal.Length &lt; 5</td>
   </tr>
   <tr>
-    <td class="tg-0pky">inférieur ou égal</td>
+    <td class="tg-0pky"><span style="font-style:italic">inférieur ou égal</span></td>
     <td class="tg-c3ow">&lt;=</td>
     <td class="tg-0pky">Petal.Length &lt;= 5</td>
   </tr>
@@ -764,7 +806,7 @@ Le tableau ci-dessous résume les filtres que l'on peut appliquer sur une plusie
 
 <br>
 
-|        &rarr; `arrange()`
+|        <font size="5">&rarr; `arrange()`</font>
 
 Cette fonction sert à réordonner les observations selon un ordre alphabétique ou numérique croissant ou décroissant. Quelques exemples ci-dessous : 
 
@@ -794,7 +836,7 @@ Ici nous avons attribué les changements sur la même base de données "iris", c
 
 <br>
 
-|        &rarr; `rename()`
+|        <font size="5">&rarr; `rename()`</font>
 
 Cette fonction permet de renommer une ou plusieurs colonnes d'un dataframe, elle fonctionne de la manière suivante : `data <- data %>% rename(nouveau_nom = ancien_nom)`. Ci-dessous un exemple :
 
@@ -813,7 +855,7 @@ names(iris) <- names(iris) %>% tolower
 
 <br>
 
-|        &rarr; `select()`
+|        <font size="5">&rarr; `select()`</font>
 
 Cette fonction permet de sélectionner certaines colonnes, cela est possible en les identifiant par leur nom ou leur place dans le dataframe (numéro de colonne). Quelques exemples :
 
@@ -838,6 +880,9 @@ iris <- iris %>% select(5,2:4,1)
 ```
 
 
+<br>
+
+
 
 <style>
 div.yellow { background-color:#FFFFe5; border-radius: 5px; padding: 20px;}
@@ -859,9 +904,15 @@ Lorsqu'un nom de colonne contient un espace (par exemple : taille individu) il f
 
 
 
-|        &rarr; `mutate()`
+|         <font size="5">&rarr; `mutate()`</font>
 
-Cette fonction permet de créer de nouvelles variables à partir des variables existantes, elle est très utile pour l'analyse de données. Elle fonctionne de la manière suivante : `data <- data %>% mutate(nouvelle_colonne = ancienne_colonne*100)`. La "*mutation*" peut être arithmétique comme textuelle. 
+Cette fonction permet de créer de nouvelles variables à partir des variables existantes, elle est très utile pour l'analyse de données. Elle fonctionne de la manière suivante : 
+
+<CENTER>`data <- data %>% mutate(nouvelle_colonne = ancienne_colonne*100)`</CENTER>
+
+<br>
+
+La "*mutation*" peut être arithmétique comme textuelle. 
 
 ```{r}
 # On créé 1 colonne et on modifie 1 autre
@@ -872,11 +923,13 @@ iris <- iris %>% mutate(pourcentage_max_petale_width = petal.width / max(petal.w
 head(iris[,c(1,6)], 5)
 ```
 
-La commande ci-dessus a par exemple permis de créer une variable qui informe à combien de points de pourcentage la largeur du pétale se situe par rapport à la largeur maximale. En deuxième argument de la fonction `mutate()` on modifie la variable *espece* (on écrase l'ancienne variable) en ajoutant du texte grâce à la fonction `paste()`. Cette dernière permet de **coller du texte**, ici avant chaque espèce de fleur on ajoute "*L'espèce est:* ", puis on colle le nom actuel de l'espèce qui se trouve dans la base (***sep*** correspondant au séparateur entre le texte ajouté et l'ancienne valeur). 
+La commande ci-dessus a par exemple permis de créer une variable qui informe à combien de points de pourcentage la largeur du pétale se situe par rapport à la largeur maximale. 
+
+En deuxième argument de la fonction `mutate()` on modifie la variable *espece* (on écrase l'ancienne variable) en ajoutant du texte grâce à la fonction `paste()`. Cette dernière permet de **coller du texte**, ici avant chaque espèce de fleur on ajoute "*L'espèce est:* ", puis on colle le nom actuel de l'espèce qui se trouve dans la base (***sep*** correspondant au séparateur entre le texte ajouté et l'ancienne valeur). 
 
 <br>
 
-|        &rarr; `summarise()`
+|        <font size="5">&rarr; `summarise()`</font>
 
 Cette fonction permet de **résumer** plusieurs valeurs en une seule, ce qui est très utile pour avoir quelques statistiques sur les bases de données. 
 
@@ -892,6 +945,9 @@ iris %>% summarise(min(petal.width),
                    min(longueur_petale))
 ```
 
+<br>
+
+
 On peut aussi calculer des statistiques sur **toutes les variables** à la fois avec la fonction `summarise_all()` :
 
 ```{r}
@@ -902,13 +958,105 @@ iris %>% summarise_all(median)
 iris %>% select(-espece) %>% summarise_all(list(sd, var))  #list() quand plusieurs mesures à la fois
 ```
 
-On voit que la médiane n'a pas été calculée pour la variable '*espece*' puisqu'elle n'est pas numérique, la valeur retournée est donc *NA* (Not Available). Pour la deuxième commande qui calcule l'écart-type et la variance on exclut donc cette variable qualitative grâce à la fonction `select()` que nous avons vu précédemment. 
+On voit que la médiane n'a pas été calculée pour la variable '*espece*' puisqu'elle n'est pas numérique, la valeur retournée est donc *NA* (Not Available). Pour la deuxième commande qui calcule l'écart-type et la variance, on exclut donc cette variable qualitative grâce à la fonction `select()` que nous avons vu précédemment. 
 
 <br>
 
-|        &rarr; `group_by()`
+Le tableau ci-dessous **résume les différentes statistiques** que l'on peut calculer sur les données, avec la fonction équivalente sous R :
+<style type="text/css">
+.tg  {border-collapse:collapse;border-color:#ccc;border-spacing:0;margin:0px auto;}
+.tg td{background-color:#fff;border-color:#ccc;border-style:solid;border-width:1px;color:#333;
+  font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg th{background-color:#f0f0f0;border-color:#ccc;border-style:solid;border-width:1px;color:#333;
+  font-family:Arial, sans-serif;font-size:14px;font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg .tg-baqh{text-align:center;vertical-align:top}
+.tg .tg-buh4{background-color:#f9f9f9;text-align:left;vertical-align:top}
+.tg .tg-k7ar{background-color:#c0c0c0;border-color:#000000;font-weight:bold;text-align:center;vertical-align:top}
+.tg .tg-c3ow{border-color:inherit;text-align:center;vertical-align:top}
+.tg .tg-txu4{background-color:#f9f9f9;border-color:inherit;font-style:italic;text-align:left;vertical-align:top}
+.tg .tg-3o7t{background-color:#f9f9f9;font-style:italic;text-align:left;vertical-align:top}
+.tg .tg-71bg{background-color:#f9f9f9;border-color:inherit;font-style:italic;text-align:left;vertical-align:middle}
+.tg .tg-abip{background-color:#f9f9f9;border-color:inherit;text-align:center;vertical-align:top}
+.tg .tg-btxf{background-color:#f9f9f9;border-color:inherit;text-align:left;vertical-align:top}
+.tg .tg-f8tv{border-color:inherit;font-style:italic;text-align:left;vertical-align:top}
+.tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
+.tg .tg-dzk6{background-color:#f9f9f9;text-align:center;vertical-align:top}
+.tg .tg-8zwo{font-style:italic;text-align:left;vertical-align:top}
+.tg .tg-0lax{text-align:left;vertical-align:top}
+</style>
+<table class="tg">
+<thead>
+  <tr>
+    <th class="tg-k7ar">Opération</th>
+    <th class="tg-k7ar">Commande R</th>
+    <th class="tg-k7ar">Exemple</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td class="tg-71bg">moyenne</td>
+    <td class="tg-abip">mean</td>
+    <td class="tg-btxf">mean(Petal.Length)</td>
+  </tr>
+  <tr>
+    <td class="tg-f8tv">médiane</td>
+    <td class="tg-c3ow">med</td>
+    <td class="tg-0pky">med(Petal.Length)</td>
+  </tr>
+  <tr>
+    <td class="tg-3o7t">étendue</td>
+    <td class="tg-dzk6">range</td>
+    <td class="tg-buh4">range(Petal.Length)</td>
+  </tr>
+  <tr>
+    <td class="tg-8zwo">minimum</td>
+    <td class="tg-baqh">min</td>
+    <td class="tg-0lax">min(Petal.Length)</td>
+  </tr>
+  <tr>
+    <td class="tg-3o7t">maximum</td>
+    <td class="tg-dzk6">max</td>
+    <td class="tg-buh4">max(Petal.Length)</td>
+  </tr>
+  <tr>
+    <td class="tg-f8tv">écart-type</td>
+    <td class="tg-c3ow">sd</td>
+    <td class="tg-0pky">sd(Petal.Length)</td>
+  </tr>
+  <tr>
+    <td class="tg-txu4">variance</td>
+    <td class="tg-abip">var</td>
+    <td class="tg-btxf">var(Petal.Length)</td>
+  </tr>
+  <tr>
+    <td class="tg-8zwo">skewness</td>
+    <td class="tg-baqh">skewness</td>
+    <td class="tg-0lax">skewness(Petal.Length)</td>
+  </tr>
+  <tr>
+    <td class="tg-3o7t">kurtosis</td>
+    <td class="tg-dzk6">kurtosis</td>
+    <td class="tg-buh4">kurtosis(Petal.Length)</td>
+  </tr>
+  <tr>
+    <td class="tg-f8tv">quantiles</td>
+    <td class="tg-c3ow">quantile</td>
+    <td class="tg-0pky">quantile(Petal.Length, probs = seq(0, 1, 1/10)</td>
+  </tr>
+</tbody>
+</table>
 
-Cette dernière fonction principale du tidyverse permet de grouper les variables, elle est spécialement utile en analyse de données pour calculer des statistiques par groupe (genre, pays, espèce...). `group_by()` prend le dataframe et le converti en une base groupée pour laquelle les opérations seront effectuées non plus sur la base entière mais pour chacun des groupes identifiés. 
+Le dernier argument des séquences de probabilités pour les quantiles précise le *type de quantiles* que l'on souhaite calculer :
+
+- `quantile(Petal.Length, probs = seq(0, 1, 1/4)` : pour obtenir les **quartiles**
+- `quantile(Petal.Length, probs = seq(0, 1, 1/10)` : pour obtenir les **déciles**
+- `quantile(Petal.Length, probs = seq(0, 1, 1/100)` : pour obtenir les **centiles** etc.
+
+<br>
+
+|        <font size="5">&rarr; `group_by()`</font>
+
+Cette dernière fonction principale du tidyverse permet de grouper les variables, elle est spécialement utile en analyse de données pour calculer des statistiques par groupe (genre, pays, espèce...). **`group_by()`** prend le dataframe et le converti en une base groupée pour laquelle les opérations seront effectuées non plus sur la base entière mais pour chacun des groupes identifiés. 
 
 ```{r}
 # Nombre d'observations par groupe
@@ -922,20 +1070,340 @@ On voit par exemple que l'on a 50 fleurs par espèce dans notre base, et qu'en m
 
 <br>
 
-* **Les jointures**
+--- 
 
+* **Les combinaisons de données**
 
+Nous savons à présent comment traiter les données grâce aux principales fonctions du dplyr, mais une manipulation importante reste à apprendre ; les **combinaisons de données**. Il y a 4 types de fonctions dans le dplyr qui permettent la combinaison de données :
 
+- les **jointures** lorsque les df ont des observations ou variables différentes mais 1 colonne commune
+- les **filtres** sur les observations d'un df basés sur les observations d'un autre df
+- les **liaisons** lorsque les 2 dataframes (df) ont exactement les mêmes observations ou variables
+- les **opérations** pour combiner les observations des 2 df
+ 
+Toutes ces fonctions ont la **même structure** : les deux premiers arguments sont des dataframes, et le résultat sera une nouvelle base du même type que le df stipulé comme premier argument. 
 
 <br>
 
+Pour illustrer les fonctions de **jointures** et les **filtres** nous les appliquerons aux 2 bases de données suivantes, reprises de la [cheatsheet Data Wrangling](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf) : 
+
+```{r echo=FALSE, out.width='34%', fig.align='center'}
+knitr::include_graphics(here::here("images/a_b.png"))
+```
+
+<br>
+
+
+|        <font size="3">&rarr; **Jointures**</font>
+
+Il y a 4 types de jointures applicables dès lors qu'une variable (colonne) est commune aux 2 df : cela peut être utile par exemple pour ajouter des informations d'une base extérieure (*bases nationales telles que Sirene, Prénoms, DECP...*) à une base existante. 
+
+Il est nécessaire d'avoir une variable de jointure, dite "**clé**" (*identifiants, numéros de SIRET, noms de pays...*) qui permettra d'unir les 2 bases, elle se spécifie dans l'argument '*by=*'. Ici, la clé est `x1` qui est présente dans **a** comme dans **b**.
+
+<div class="row">
+<div class="col-md-2">
+![](images/join1.png){width=120%}
+</div>
+<div class="col-md-10">
+
+<br>
+`left_join(a, b, by = "x1")` : ajoute les lignes communes de **b** à **a**. Cette fonction est la **plus utilisée** pour ajouter des informations extérieures à une base de données existante.
+</div>
+</div>
+
+<br>
+
+<div class="row">
+<div class="col-md-2">
+![](images/join2.png){width=120%}
+</div>
+<div class="col-md-10">
+
+<br>
+`right_join(a, b, by = "x1")` : ajoute les lignes communes de **a** à **b**
+</div>
+</div>
+
+<br>
+
+<div class="row">
+<div class="col-md-2">
+![](images/join3.png){width=120%}
+</div>
+<div class="col-md-10">
+
+<br>
+`inner_join(a, b, by = "x1")` : joint en ne gardant que les lignes communes aux 2 df
+</div>
+</div>
+
+<br>
+
+<div class="row">
+<div class="col-md-2">
+![](images/join4.png){width=120%}
+</div>
+<div class="col-md-10">
+
+<br>
+`full_join(a, b, by = "x1")` : joint les données en gardant toutes les valeurs
+</div>
+</div>
+
+<br>
+
+
+<style>
+div.yellow { background-color:#FFFFe5; border-radius: 5px; padding: 20px;}
+</style>
+<div class = "yellow">
+
+ `r icon_style(fontawesome("lightbulb", style = "solid"), fill = "#666666")`  <FONT COLOR="#333333">**Astuce**
+
+Lorsque la variable de jointure (la **clé**) n'a pas le même nom dans les 2 bases à joindre, il est possible de spécifier les noms à matcher. La commande est alors la suivante, "*col_1*" correspondant au nom de colonne dans le **df1**, et "*Col_n1*" dans le **df2** :
+
+<CENTER><font size="4">`new_df <- left_join(df1, df2, by = c("col_1" = "Col_n1"))`</font></CENTER>
+
+</div>
+
+<br>
+
+|        <font size="3">&rarr; **Filtres**</font>
+
+
+<div class="row">
+<div class="col-md-2">
+![](images/filter1.png){width=120%}
+</div>
+<div class="col-md-10">
+
+<br>
+`semi_join(a, b, by = "x1")` : toutes les lignes dans **a** qui matchent celles dans **b**
+</div>
+</div>
+
+<br>
+
+
+<div class="row">
+<div class="col-md-2">
+![](images/filter2.png){width=120%}
+</div>
+<div class="col-md-10">
+
+<br>
+`anti_join(a, b, by = "x1")` : toutes les lignes dans **a** qui ne matchent pas celles dans **b**
+</div>
+</div>
+
+<br>
+
+--- 
+
+Pour illustrer les fonctions d'**opérations** et de **liaisons** nous les appliquerons aux 2 bases de données suivantes : 
+
+```{r echo=FALSE, out.width='34%', fig.align='center'}
+knitr::include_graphics(here::here("images/y_z.png"))
+```
+
+<br>
+
+|        <font size="3">&rarr; **Opérations**</font>
+
+<div class="row">
+<div class="col-md-2">
+![](images/ope1.png){width=120%}
+</div>
+<div class="col-md-10">
+
+<br>
+`intersect(y, z)` : lignes qui apparaissent dans **y** ET dans **z**
+</div>
+</div>
+
+<br>
+
+<div class="row">
+<div class="col-md-2">
+![](images/ope2.png){width=120%}
+</div>
+<div class="col-md-10">
+
+<br>
+`union(y, z)` : lignes qui apparaissent dans **y** ET/OU dans **z**
+</div>
+</div>
+
+<br>
+
+
+<div class="row">
+<div class="col-md-2">
+![](images/ope3.png){width=120%}
+</div>
+<div class="col-md-10">
+
+<br>
+`setdiff(y, z)` : lignes qui apparaissent dans **y** MAIS PAS dans **z**
+</div>
+</div>
+
+<br>
+
+
+|        <font size="3">&rarr; **Liaisons**</font>
+
+
+<div class="row">
+<div class="col-md-2">
+![](images/bind1.png){width=120%}
+</div>
+<div class="col-md-10">
+
+<br>
+`bind_rows(y, z)` : ajoute **z** à **y** en tant que nouvelles ***lignes*** 
+</div>
+</div>
+
+<br>
+
+<div class="row">
+<div class="col-md-2">
+![](images/bind2.png){width=120%}
+</div>
+<div class="col-md-10">
+
+<br>
+`bind_cols(y, z)` : ajoute **z** à **y** en tant que nouvelles ***colonnes***
+</div>
+</div>
+
+<br>
+
+<style>
+div.blue { background-color:#efefef; border-radius: 5px; padding: 20px;}
+</style>
+<div class = "blue">
+
+ `r icon_style(fontawesome("thumbs-up", style = "solid"), fill = "#666666")`  <FONT COLOR="#333333">**Bonne pratique**
+ 
+Les fonctions **`bind_rows()`** (*ou `rbind`*) et **`bind_cols()`** (*ou `cbind`*) font de simples *liaisons* entre 2 jeux de données, sans match préalable sur les valeurs communes. Elles ne peuvent donc être appliquées qu'aux bases de données qui ont **exactement** les mêmes spécifications :
+
+- les mêmes colonnes et dans le même ordre pour appliquer la fonction `bind_rows()`
+- les mêmes lignes et dans le même ordre pour appliquer la fonction `bind_cols()`
+
+</div>
+
+<br>
+
+--- 
 
 ### Visualiser les données
 
 <br>
 
+La partie de **visualisation** qui vient après l'import, le nettoyage et le traitement est très importante dans la science et l'analyse de données. Le mot-clé, un plutôt le *package* clé pour faire des graphiques sous R est **`ggplot`**. Initialement développé par Hadley Wickham, ce *package* permet de créer facilement des graphiques de qualité avec une immense variété de paramètres modifiables selon les besoins, ce qui permet de créer des graphiques adaptés à tous types de problèmes.
+
+Quelque soit le graphique voulu, il y a toujours 3 éléments qui composent la fonction `ggplot()` :
+
+- les **données** qui vont être visualisées : `data=`
+- les **propriétés esthétiques** (aesthetics : `aes(x,y)`) pour indiquer les variables ***X*** (*abscisses=axe horizontal*) et ***Y*** (*ordonnées=axe vertical*), contrôler la couleur, la taille ou la forme du dernier composant
+- la **géométrie** qui sera représentée, celle-ci définit le type de graphique (histogramme, boxplot, lignes, densité, nuages de points...) : `geom_**()`
+
+<br>
+
+```{r out.width='60%', fig.align='center'}
+# On recharge nos données 'iris'
+data(iris)
+
+# Graphique simple ; nuage de points
+ggplot(data = iris, aes(x = Sepal.Length,  y = Petal.Length)) +
+  geom_point()
+```
+
+<style type="text/css">
+.tg  {border-collapse:collapse;border-color:#ccc;border-spacing:0;margin:0px auto;}
+.tg td{background-color:#fff;border-color:#ccc;border-style:solid;border-width:1px;color:#333;
+  font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg th{background-color:#f0f0f0;border-color:#ccc;border-style:solid;border-width:1px;color:#333;
+  font-family:Arial, sans-serif;font-size:14px;font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg .tg-lboi{border-color:inherit;text-align:left;vertical-align:middle}
+.tg .tg-9wq8{border-color:inherit;text-align:center;vertical-align:middle}
+.tg .tg-zlqz{background-color:#c0c0c0;border-color:inherit;font-weight:bold;text-align:center;vertical-align:top}
+.tg .tg-c3ow{border-color:inherit;text-align:center;vertical-align:top}
+.tg .tg-kyy7{background-color:#f9f9f9;border-color:inherit;text-align:center;vertical-align:middle}
+.tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
+.tg .tg-abip{background-color:#f9f9f9;border-color:inherit;text-align:center;vertical-align:top}
+</style>
+<table class="tg" style="undefined;table-layout: fixed; width: 480px">
+<colgroup>
+<col style="width: 180px">
+<col style="width: 160px">
+<col style="width: 140px">
+</colgroup>
+<thead>
+  <tr>
+    <th class="tg-zlqz">Géométrie</th>
+    <th class="tg-zlqz">Commande R</th>
+    <th class="tg-zlqz">Exemple</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td class="tg-lboi">Nuage de points</td>
+    <td class="tg-kyy7">geom_point</td>
+    <td class="tg-9wq8">![](./images/plot_scatter.png){width=70%}</td>
+  </tr>
+  <tr>
+    <td class="tg-lboi">Ligne</td>
+    <td class="tg-kyy7">geom_line</td>
+    <td class="tg-9wq8">![](./images/plot_line.png){width=70%}</td>
+  </tr>
+  <tr>
+    <td class="tg-lboi">Boîte à moustaches</td>
+    <td class="tg-kyy7">geom_boxplot</td>
+    <td class="tg-9wq8">![](./images/plot_box.png){width=70%}</td>
+  </tr>
+  <tr>
+    <td class="tg-lboi">Violon</td>
+    <td class="tg-kyy7">geom_violin</td>
+    <td class="tg-9wq8">![](./images/plot_violin.png){width=70%}</td>
+  </tr>
+  <tr>
+    <td class="tg-lboi">Densité</td>
+    <td class="tg-kyy7">geom_density</td>
+    <td class="tg-9wq8">![](./images/plot_density.png){width=70%}</td>
+  </tr>
+  <tr>
+    <td class="tg-lboi">Histogramme</td>
+    <td class="tg-kyy7">geom_histogram</td>
+    <td class="tg-9wq8">![](./images/plot_histo.png){width=70%}</td>
+  </tr>
+  <tr>
+    <td class="tg-lboi">Barres</td>
+    <td class="tg-kyy7">geom_bar</td>
+    <td class="tg-9wq8">![](./images/plot_bar.png){width=70%}</td>
+  </tr>
+</tbody>
+</table>
+
+
+<br>
+
+--> table qui donne toutes les stats directement
+--> R graph gallery
+
+
+
+<br>
+
+--- 
+
 
 ### Communiquer
+
+<br>
+
 
 
 <br>
@@ -961,9 +1429,15 @@ https://eranraviv.com/syntax-highlighting-style-in-rmarkdown/
 
 
 
+- http://www.sthda.com/english/wiki/ggplot2-essentials
 
+- https://r4ds.had.co.nz/data-visualisation.html
 
+- file:///C:/Users/diane/Desktop/Ordi%20perso/Aide%20R/tutoriales_intro_DS-master/tt_06_ggplot2_v6.html
 
+- file:///C:/Users/diane/Desktop/Ordi%20perso/Aide%20R/tutoriales_intro_DS-master/tt_07_Rmarkdown_v2.html#6_a%C3%BAn_m%C3%A1s_cosas
+
+- file:///C:/Users/diane/Desktop/Ordi%20perso/Aide%20R/tutoriales_intro_DS-master/tt_08_tablas_v1.html
 
 
 
