@@ -1443,6 +1443,48 @@ Pour tous ces paramètres, un argument normal peut être spécifie ('*red*' pour
 
 * **Personnalisation basique**
 
+```{r out.width = '47%'}
+# Graphique en nuage de points personnalisé
+ggplot(data = iris) + 
+  geom_point(mapping = aes(x = Sepal.Length, y = Petal.Length), 
+             color = "blue", size = 2, alpha = 0.7, shape = 3)
+```
+
+<style type="text/css">
+.tg  {border-collapse:collapse;border-color:#ccc;border-spacing:0;margin:0px auto;}
+.tg td{background-color:#fff;border-color:#ccc;border-style:solid;border-width:1px;color:#333;
+  font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg th{background-color:#f0f0f0;border-color:#ccc;border-style:solid;border-width:1px;color:#333;
+  font-family:Arial, sans-serif;font-size:14px;font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg .tg-lhti{font-style:italic;text-align:center;vertical-align:middle}
+.tg .tg-v4j2{background-color:#c0c0c0;font-weight:bold;text-align:center;vertical-align:middle}
+.tg .tg-nrix{text-align:center;vertical-align:middle}
+</style>
+<table class="tg">
+<thead>
+  <tr>
+    <th class="tg-v4j2">Les couleurs</th>
+    <th class="tg-v4j2">Les formes</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td class="tg-xwyw">![](./images/colors.png){width=160%}</td>
+    <td class="tg-xwyw">![](./images/shape.png){width=70%}</td>
+  </tr>
+  <tr>
+    <td class="tg-lhti">[pour plus d'informations](http://www.stat.columbia.edu/~tzheng/files/Rcolors.pdf)</td>
+    <td class="tg-lhti">[pour plus d'informations](https://www.datanovia.com/en/fr/blog/ggplot-forme-des-points-meilleures-reference/)</td>
+  </tr>
+  </tr>
+</tbody>
+</table>
+
+
+
+
+<br>
+
 * **Personnalisation en fonction d'autres variables**
 
 
