@@ -1311,15 +1311,7 @@ Quelque soit le graphique voulu, il y a toujours 3 éléments qui composent la f
 - la **géométrie** qui sera représentée, celle-ci définit le type de graphique (histogramme, boxplot, lignes, densité, nuages de points...) : `geom_**()`
 
 <br>
-
-```{r out.width='60%', fig.align='center'}
-# On recharge nos données 'iris'
-data(iris)
-
-# Graphique simple ; nuage de points
-ggplot(data = iris, aes(x = Sepal.Length,  y = Petal.Length)) +
-  geom_point()
-```
+Le tableau ci-dessous reprend tous les types de géométrie faisables à partir de la fonction `ggplot` :
 
 <style type="text/css">
 .tg  {border-collapse:collapse;border-color:#ccc;border-spacing:0;margin:0px auto;}
@@ -1390,8 +1382,91 @@ ggplot(data = iris, aes(x = Sepal.Length,  y = Petal.Length)) +
 
 <br>
 
+|        <font size="3">&rarr; **Construction d'un graphique pas-à-pas**</font>
+
+<br>
+
+La **structure** de la fonction `ggplot` est donc la suivante, avec les 3 principaux éléments décrits ci-dessus : 
+
+```{r eval=F, echo=T}
+# Modèle d'une fonction ggplot
+ggplot(data = <DATA>) + 
+  <GEOM_FUNCTION>(mapping = aes(<MAPPINGS>))
+```
+
+
+<br>
+
+Sur nos données de fleurs (*iris*) nous construisons un premier graphique en nuage de points où nous introduirons peu à peu différents paramètres. 
+
+```{r out.width = '47%'}
+# On recharge les données iris pour ne pas avoir les modifications des parties précédentes
+data(iris)
+
+# Graphique en nuage de points
+ggplot(data = iris) + 
+  geom_point(mapping = aes(x = Sepal.Length, y = Petal.Length))
+```
+
+
+Sur ce graphique le plus basique :
+
+- les **données** sont appelées dans la fonction `ggplot`
+- le **type de géométrie** est spécifié dans la fonction `geom_**` qui est ajoutée par un `+` (*ici geom_point puisque nous voulons un nuage de points*)
+- les **variables à visualiser** sont précisées comme arguments `x` et `y` du *mapping*. 
+
+
+Nous pouvons personnaliser les points en spécifiant certains paramètres tels que :
+
+- `color` ou `colour` : la **couleur** des points 
+- `size` : la **taille** des points (*par défaut à 1*)
+- `alpha` : l'**opacité** des points (*0 < alpha < 1*, où 1 correspond à une opacité totale)
+- `shape` : la **forme** des points
+
+
+
+
+
+<style>
+div.yellow { background-color:#FFFFe5; border-radius: 5px; padding: 20px;}
+</style>
+<div class = "yellow">
+
+ `r icon_style(fontawesome("lightbulb", style = "solid"), fill = "#666666")`  <FONT COLOR="#333333">**Astuce**
+
+Pour tous ces paramètres, un argument normal peut être spécifie ('*red*' pour la couleur, *2* pour la taille etc.), mais il est aussi possible de mettre le nom d'une autre variable de manière à intégrer une **information supplémentaire** au graphique. Ce peut être une variable catégorielle pour la couleur, une variable numérique pour la taille des points etc.
+
+</div>
+
+<br>
+
+
+* **Personnalisation basique**
+
+* **Personnalisation en fonction d'autres variables**
+
+
+
+
+
+
+
+
+
+
+
+
+```{r eval=FALSE, include=FALSE}
+
++ toutes les couleurs dans R
++ toutes les shapes
+
+
 --> table qui donne toutes les stats directement
 --> R graph gallery
+
+```
+
 
 
 
