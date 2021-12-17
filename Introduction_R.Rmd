@@ -1399,7 +1399,7 @@ ggplot(data = <DATA>) +
 
 Sur nos données de fleurs (*iris*) nous construisons un premier graphique en nuage de points où nous introduirons peu à peu différents paramètres. 
 
-```{r out.width = '47%'}
+```{r out.width = '52%'}
 # On recharge les données iris pour ne pas avoir les modifications des parties précédentes
 data(iris)
 
@@ -1443,12 +1443,18 @@ Pour tous ces paramètres, un argument normal peut être spécifie ('*red*' pour
 
 * **Personnalisation basique**
 
-```{r out.width = '47%'}
+```{r out.width = '52%'}
 # Graphique en nuage de points personnalisé
 ggplot(data = iris) + 
   geom_point(mapping = aes(x = Sepal.Length, y = Petal.Length), 
-             color = "blue", size = 2, alpha = 0.7, shape = 3)
+             color = "blue", size = 2, alpha = 0.7, shape = 2)
 ```
+
+Il existe sur R deux manières de renseigner les couleurs : soit en spécifiant la couleur **par son nom** (*exemple : "brown"*), soit en la spécifiant par **son code Hex** (*exemple : "#dd9933"*). Il s'agit d'une chaîne de 6 caractères (chiffres et/ou lettres) qui correspond à une couleur que l'on peut [créer soi-même](https://www.color-hex.com/), sur le tableau ci-dessous on retrouve une palette de couleurs déjà créées pour lesquelles on a le code HEX.
+
+Les formes des points peuvent aussi être spécifiées de deux manières : soit **par un chiffre** (*exemple : 18*) qui correspond à une forme déjà définie visible dans le tableau ci-dessous, soit **par un caractère** - un seul (*exemple : "B"*), qui sera utilisé comme forme de point. 
+
+
 
 <style type="text/css">
 .tg  {border-collapse:collapse;border-color:#ccc;border-spacing:0;margin:0px auto;}
@@ -1488,12 +1494,236 @@ ggplot(data = iris) +
 * **Personnalisation en fonction d'autres variables**
 
 
+```{r  eval=F, echo=T}
+# Forme et couleur selon l'espèce de fleur
+ggplot(data = iris) + 
+  geom_point(mapping = aes(x = Sepal.Length, y = Petal.Length, color = Species, shape = Species))
+
+# Taille et opacité selon la largeur du pétale
+ggplot(data = iris) + 
+  geom_point(mapping = aes(x = Sepal.Length, y = Petal.Length, alpha = Petal.Width, size = Petal.Width))
+```
+
+```{r echo=FALSE, fig.width=12}
+# Forme et couleur selon l'espèce de fleur
+g1 <- ggplot(data = iris) + 
+  geom_point(mapping = aes(x = Sepal.Length, y = Petal.Length, color = Species, shape = Species))
+
+# Taille et opacité selon la largeur du pétale
+g2 <- ggplot(data = iris) + 
+  geom_point(mapping = aes(x = Sepal.Length, y = Petal.Length, alpha = Petal.Width, size = Petal.Width))
+
+library(gridExtra)
+grid.arrange(g1, g2, ncol = 2)
+```
 
 
+Sur les graphiques ci-dessus on a défini les paramètres visuels des points selon d'autres variables du dataframe 'iris'. Comme il s'agit de variables, leur spécification se fait **à l'intérieur de la parenthèse `aes()`** qui pour rappel, correspond aux propriétés esthétiques. 
+
+<br>
+
+* **Les titres**
+
+Par défaut le **nom des variables** sera mis comme *label* aux axes des abscisse et des ordonnées, mais il est possible de les modifier ou d'ajouter des titres au graphique grâce à la fonction `labs()`, qui peut être ajoutée aux paramètres actuels par un `+`. 
+
+```{r out.width='52%'}
+# Titres du graphique
+ggplot(data = iris) + 
+  geom_point(mapping = aes(x = Sepal.Length, y = Petal.Length, color = Species, shape = Species)) +
+  labs(title = "Relation entre les longueurs des sépales et des pétales", 
+       subtitle = "Différenciée par espèce de fleur",
+       caption = "Données de la base Iris", 
+       x = "Longueur du sépale", 
+       y = "Longueur du pétale") 
+```
+
+<br>
+
+Pour n'avoir aucun titre sur le graphique il suffit de spécifier `x` et `y = NULL` dans la fonction `labs()` :
+
+```{r out.width='52%'}
+# Aucun titre
+ggplot(data = iris) + 
+  geom_point(mapping = aes(x = Sepal.Length, y = Petal.Length, color = Species, shape = Species)) +
+  labs(x = NULL, 
+       y = NULL) 
+```
+
+<br>
+
+* **Les thèmes**
+
+Il est possible de modifier **l'apparence du graphique** (taille, polices et couleur des titres, fond du graphique, quadrillages etc.) de deux manières : 
+
+- **manuellement** en spécifiant les éléments à modifier dans la fonction `theme()` qui peut s'ajouter à la suite des paramètres existant du graphique par un `+`
+- **automatiquement** en utilisant des thèmes déjà définis dans ***ggplot*** grâce à la fonction `theme_**()`
+
+La liste complète des thèmes disponibles se trouve au lien [ggplot2.tidyverse.org](https://ggplot2.tidyverse.org/reference/ggtheme.html), voilà quelques exemples de thèmes appliqués à notre graphique en construction :
+
+```{r echo=T, eval=F}
+# Thèmes
+ggplot(data = iris) + 
+  geom_point(mapping = aes(x = Sepal.Length, y = Petal.Length, color = Species, shape = Species)) +
+  theme_minimal()
+
+ggplot(data = iris) + 
+  geom_point(mapping = aes(x = Sepal.Length, y = Petal.Length, color = Species, shape = Species)) +
+  theme_classic()
+
+ggplot(data = iris) + 
+  geom_point(mapping = aes(x = Sepal.Length, y = Petal.Length, color = Species, shape = Species)) +
+  theme_light()
+
+ggplot(data = iris) + 
+  geom_point(mapping = aes(x = Sepal.Length, y = Petal.Length, color = Species, shape = Species)) +
+  theme_dark()
+```
 
 
+```{r echo=FALSE, fig.width=8}
+# Thèmes
+g1 <- ggplot(data = iris) + 
+  geom_point(mapping = aes(x = Sepal.Length, y = Petal.Length, color = Species, shape = Species)) +
+  theme_minimal()
+
+g2 <- ggplot(data = iris) + 
+  geom_point(mapping = aes(x = Sepal.Length, y = Petal.Length, color = Species, shape = Species)) +
+  theme_classic()
+
+g3 <- ggplot(data = iris) + 
+  geom_point(mapping = aes(x = Sepal.Length, y = Petal.Length, color = Species, shape = Species)) +
+  theme_light()
+
+g4 <- ggplot(data = iris) + 
+  geom_point(mapping = aes(x = Sepal.Length, y = Petal.Length, color = Species, shape = Species)) +
+  theme_dark()
+
+grid.arrange(g1,g2,g3,g4, ncol = 2)
+```
+
+D'autres encore sont disponibles dans le package `ggthemes`, l'utilisation est la même que pour les thèmes de `ggplot2`, après avoir installé le package (*install.package("ggthemes")*). La liste des thèmes disponibles dans ce package se trouve [ici](https://yutannihilation.github.io/allYourFigureAreBelongToUs/ggthemes/).
+
+<br>
+
+* **La légende**
+
+Les éléments de légende peuvent être modifiés comme arguments de la fonction `theme()` que nous venons de voir, il est possible de modifier la position, le titre, les textes, les couleurs de la légende. Quelques exemples : 
+
+```{r echo=T, eval=F}
+# Position 
+ggplot(data = iris) + 
+  geom_point(mapping = aes(x = Sepal.Length, y = Petal.Length, color = Species, shape = Species)) +
+  theme(legend.position = "top")  #top, bottom, left or right
+
+# Paramétrage du titre de la légende
+ggplot(data = iris) + 
+  geom_point(mapping = aes(x = Sepal.Length, y = Petal.Length, color = Species, shape = Species)) +
+  theme(legend.title = element_text(color="blue", size=10, 
+                                      face="bold"))
+# Paramétrage du texte de la légende
+ggplot(data = iris) + 
+  geom_point(mapping = aes(x = Sepal.Length, y = Petal.Length, color = Species, shape = Species)) +
+  theme(legend.text = element_text(colour="red", size=10, 
+                                     face="italic"))
+
+# Supprimer la légende
+ggplot(data = iris) + 
+  geom_point(mapping = aes(x = Sepal.Length, y = Petal.Length, color = Species, shape = Species)) +
+  theme(legend.position = "none")
+```
 
 
+```{r echo=FALSE}
+# Position 
+g1 <- ggplot(data = iris) + 
+  geom_point(mapping = aes(x = Sepal.Length, y = Petal.Length, color = Species, shape = Species)) +
+  theme(legend.position = "top")  #top, bottom, left or right
+
+# Paramétrage du titre de la légende
+g2 <- ggplot(data = iris) + 
+  geom_point(mapping = aes(x = Sepal.Length, y = Petal.Length, color = Species, shape = Species)) +
+  theme(legend.title = element_text(color="blue", size=10, 
+                                      face="bold"))
+# Paramétrage du texte de la légende
+g3 <- ggplot(data = iris) + 
+  geom_point(mapping = aes(x = Sepal.Length, y = Petal.Length, color = Species, shape = Species)) +
+  theme(legend.text = element_text(colour="red", size=10, 
+                                     face="italic"))
+
+# Supprimer la légende
+g4 <- ggplot(data = iris) + 
+  geom_point(mapping = aes(x = Sepal.Length, y = Petal.Length, color = Species, shape = Species)) +
+  theme(legend.position = "none")
+
+library(cowplot)
+plot_grid(g1,g2,g3,g4, align = 'vh')
+```
+
+<style>
+div.yellow { background-color:#FFFFe5; border-radius: 5px; padding: 20px;}
+</style>
+<div class = "yellow">
+
+ `r icon_style(fontawesome("lightbulb", style = "solid"), fill = "#666666")`  <FONT COLOR="#333333">**Astuce**
+
+Bien que l'apparence puisse être définie par la fonction `theme_**()`, il est possible de modifier les paramètres du thème existant en ajoutant **après** celle-ci la fonction `theme()` - dans laquelle il est par exemple possible de modifier les éléments de la légende, comme ci-dessus. 
+
+</div>
+
+<br>
+
+* **Les facettes**
+
+Lorsque l'on veut représenter graphiquement les données par ***groupe*** on peut le faire de différentes manières : 
+
+- en les **colorant** selon le groupe (comme vu précédemment avec l'**espèce** de fleur)
+- en les **séparant** en sous-graphiques selon le groupe
+
+Dans le package `ggplot` ce sont les fonctions `facet_grid()` et `facet_wrap()` qui permettent de créer des 'facettes' à un graphique, selon une variable catégorielle (un groupe). 
+
+<br>
+
+```{r out.width='52%'}
+# Facettes sur une seule ligne avec facet_grid 
+ggplot(data = iris) + 
+  geom_point(mapping = aes(x = Sepal.Length, y = Petal.Length, color = Species, shape = Species)) +
+  facet_grid(cols = vars(Species)) 
+```
+
+
+```{r out.width='52%'}
+# Facettes sur une seule colonne avec facet_grid 
+ggplot(data = iris) + 
+  geom_point(mapping = aes(x = Sepal.Length, y = Petal.Length, color = Species, shape = Species)) +
+  facet_grid(rows = vars(Species)) 
+```
+
+
+```{r out.width='52%'}
+# Facettes en matrice avec facet_wrap
+ggplot(data = iris) + 
+  geom_point(mapping = aes(x = Sepal.Length, y = Petal.Length, color = Species, shape = Species)) +
+  facet_wrap(vars(Species), ncol = 2, nrow = 2) 
+```
+
+<br>
+
+* **Les limites**
+
+La fonction `lims()` permet de spécifier soi-même les **limites du graphique**, de la manière suivante : `c(min, max)`.
+
+
+```{r out.width='52%'}
+# Modification des limites
+ggplot(data = iris) + 
+  geom_point(mapping = aes(x = Sepal.Length, y = Petal.Length, color = Species, shape = Species)) +
+  lims(x = c(1,10), y = c(2,7))
+```
+
+
+* 2 geom en mm temps
+* combinaison de graphs
+* ggplotly
 
 
 
