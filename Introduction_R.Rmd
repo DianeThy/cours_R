@@ -1382,11 +1382,11 @@ Le tableau ci-dessous reprend tous les types de géométrie faisables à partir 
 
 <br>
 
-|        <font size="3">&rarr; **Construction d'un graphique pas-à-pas**</font>
+Nous allons maintenant **construire un graphique pas-à-pas** en introduisant tous les paramètres modifiables à partir du package `ggplot`.
 
 <br>
 
-La **structure** de la fonction `ggplot` est donc la suivante, avec les 3 principaux éléments décrits ci-dessus : 
+La **structure** de la fonction `ggplot` est la suivante, avec les 3 principaux éléments décrits ci-dessus : 
 
 ```{r eval=F, echo=T}
 # Modèle d'une fonction ggplot
@@ -1720,26 +1720,249 @@ ggplot(data = iris) +
   lims(x = c(1,10), y = c(2,7))
 ```
 
-
-* 2 geom en mm temps
-* combinaison de graphs
-* ggplotly
+<br>
 
 
 
-
-```{r eval=FALSE, include=FALSE}
-
-+ toutes les couleurs dans R
-+ toutes les shapes
+* **Les différentes géométries**
 
 
---> table qui donne toutes les stats directement
---> R graph gallery
+Avec le package `ggplot` il est facile de combiner plusieurs géométries sur un même graphique. Sur les visualisations qui suivent, nous avons ajouté une **ligne qui relie tous les points** grâce à la fonction `geom_line()`, puis une **ligne qui représente la tendance générale** (courbe lissée) grâce à la fonction `geom_smooth()`.
 
+
+
+```{r echo=T, eval=F}
+# Geom_point + geom_line
+ggplot(data = iris) + 
+  geom_point(mapping = aes(x = Sepal.Length, y = Petal.Length, color = Species, shape = Species)) +
+  geom_line(mapping = aes(x = Sepal.Length, y = Petal.Length))
+
+# Geom_point + geom_smooth
+ggplot(data = iris) + 
+  geom_point(mapping = aes(x = Sepal.Length, y = Petal.Length, color = Species, shape = Species)) +
+  geom_smooth(mapping = aes(x = Sepal.Length, y = Petal.Length))  #ou stat_smooth()
+```
+
+```{r echo=FALSE, fig.width=12}
+# Geom_point + geom_line
+g1 <- ggplot(data = iris) + 
+  geom_point(mapping = aes(x = Sepal.Length, y = Petal.Length, color = Species, shape = Species)) +
+  geom_line(mapping = aes(x = Sepal.Length, y = Petal.Length))
+
+# Geom_point + geom_smooth
+g2 <- ggplot(data = iris) + 
+  geom_point(mapping = aes(x = Sepal.Length, y = Petal.Length, color = Species, shape = Species)) +
+  geom_smooth(mapping = aes(x = Sepal.Length, y = Petal.Length))
+
+grid.arrange(g1, g2, ncol=2)
+```
+
+<br>
+
+---
+
+
+|       Voyons aussi quelques exemples d'autres types de graphiques que le *nuage de points* sur lequel nous travaillons depuis le début de cette partie. 
+
+<br>
+
+Le **boxplot** aussi appelé la **boîte à moustaches** permet de visualiser une ***distribution***, de la même manière qu'un *histogramme*, *violin plot* ou *graphique en densité* le permettent. Sur le graphique de droite nous ajoutons la moyenne de chaque longueur de sépale par espèce, grâce à la fonction `stat_summary()`. Celle-ci permet d'intégrer aux graphiques des statistiques, sans besoin de les calculer avant le graphique. L'argument `fun` permet de préciser le type de statistique souhaité ; ici `fun = mean` pour représenter par un point la **moyenne** de la variable '*Sepal.Length*'. 
+
+```{r echo=T, eval=F}
+# Box plot
+ggplot(data = iris) + 
+  geom_boxplot(mapping = aes(x = Species, y = Sepal.Length))
+
+# Box plot avec valeur moyenne pour chaque espèce
+ggplot(data = iris) + 
+  geom_boxplot(mapping = aes(x = Species, y = Sepal.Length)) +
+  stat_summary(mapping = aes(x = Species, y = Sepal.Length), fun = mean, color = 'red')
+```
+```{r echo=F, eval=T, fig.width=12}
+# Box plot
+g1 <- ggplot(data = iris) + 
+  geom_boxplot(mapping = aes(x = Species, y = Sepal.Length))
+
+# Box plot avec valeur moyenne pour chaque espèce
+g2 <- ggplot(data = iris) + 
+  geom_boxplot(mapping = aes(x = Species, y = Sepal.Length)) +
+  stat_summary(mapping = aes(x = Species, y = Sepal.Length), fun = mean, color = 'red')
+
+grid.arrange(g1, g2, ncol = 2)
+```
+
+<br>
+
+Les **histogrammes** permettent aussi d'observer la distribution d'une variable, ils montrent le nombre d'observations par valeur. Ici par exemple, 4 fleurs ont un sépale de moins de 4.5 cm et 1 fleur a un sépale de 4.5 cm. Sur le deuxième graphique on distingue par espèce, ce qui permet d'observer des sépales plus longs pour l'espèce '*virginica*' et plus courts pour l'espèce '*setosa*'. 
+
+```{r eval=F, echo=T}
+# Histogramme
+ggplot(data = iris) + 
+  geom_histogram(mapping = aes(x = Sepal.Length))  
+
+# Histogramme coloré par groupe
+ggplot(data = iris) + 
+  geom_histogram(mapping = aes(Sepal.Length, fill = Species),  #fill contrôle la couleur de remplissage
+                 color = 'black')  #color contrôle la couleur des bordures
+```
+
+```{r eval=T, echo=F, fig.width=12}
+# Histogramme
+g1 <- ggplot(data = iris) + 
+  geom_histogram(mapping = aes(x = Sepal.Length))  
+
+# Histogramme coloré par groupe
+g2 <- ggplot(data = iris) + 
+  geom_histogram(mapping = aes(x = Sepal.Length, fill = Species), color = 'black')  #fill contrôle la couleur de remplissage
+
+grid.arrange(g1, g2, ncol=2)
 ```
 
 
+<br>
+
+Les **graphiques en barres** permettent de représenter un montant, une répartition par variable catégorielle (groupes). Ici on regarde le nombre d'observations (fleurs) de la base dans chaque espèce. Il y en a 50 par espèce don la représentation n'est pas très pertinente, mais on voit en deuxième graphique la même visualisation avec les barres horizontales, ce qui est possible grâce à la fonction `coord_flip()` que l'on ajoute à la suite du code existant. 
+
+```{r eval=F, echo=T}
+# Bar plot
+ggplot(data = iris) + 
+  geom_bar(mapping = aes(x = Species))  
+
+# Bar plot horizontale
+ggplot(data = iris) + 
+  geom_bar(mapping = aes(x = Species)) +
+  coord_flip()
+```
+
+```{r eval=T, echo=F, fig.width = 12}
+# Bar plot
+g1 <- ggplot(data = iris) + 
+  geom_bar(mapping = aes(x = Species))  
+
+# Bar plot horizontale
+g2 <- ggplot(data = iris) + 
+  geom_bar(mapping = aes(x = Species)) +
+  coord_flip()
+
+grid.arrange(g1, g2, ncol = 2)
+```
+
+<br>
+
+Il existe encore bien d'autres géométries dans le package `ggplot` qui permettent de représenter toutes sortes de variables. Les liens suivants aident à utiliser la bonne visualisation selon ce que l'on cherche à représenter et/ou selon le type de variable :
+
+https://clauswilke.com/dataviz/directory-of-visualizations.html 
+
+https://rkabacoff.github.io/datavis/
+
+<br>
+
+
+* **Les combinaisons de graphiques**
+
+Lorsque l'on cherche à combiner plusieurs graphiques sur une même page on peut utiliser la fonction `grid.arrange()` contenue dans le package `gridExtra` (`install.packages("gridExtra")` pour l'installer). Pour l'utiliser il faut au préalable **sauvegarder** les graphiques créés dans un objet, de manière à les appeler dans la fonction `grid.arrange()`. Dans un premier temps on combine 2 graphiques côte à côte sur une même ligne donc sur 2 "colonnes" (`nrow = 1`, et `ncol = 2`) :
+
+
+```{r eval=T, echo=T, fig.width = 12}
+# Box plot avec valeur moyenne pour chaque espèce
+g1 <- ggplot(data = iris) + 
+  geom_boxplot(mapping = aes(x = Species, y = Sepal.Length)) +
+  stat_summary(mapping = aes(x = Species, y = Sepal.Length), fun = mean, color = 'red')
+
+# Histogramme coloré par groupe
+g2 <- ggplot(data = iris) + 
+  geom_histogram(mapping = aes(Sepal.Length, fill = Species), 
+                 color = 'black') 
+
+# Combinaison des graphiques
+library(gridExtra)
+grid.arrange(g1, g2, ncol = 2, nrow = 1)
+```
+
+<br>
+
+Puis on les combine sur une même colonne donc sur 2 lignes (`nrow = 2`, et `ncol = 1`) :
+
+```{r eval=T, echo=T, fig.width = 12, out.width='65%'}
+# Box plot avec valeur moyenne pour chaque espèce
+g1 <- ggplot(data = iris) + 
+  geom_boxplot(mapping = aes(x = Species, y = Sepal.Length)) +
+  stat_summary(mapping = aes(x = Species, y = Sepal.Length), fun = mean, color = 'red')
+
+# Histogramme coloré par groupe
+g2 <- ggplot(data = iris) + 
+  geom_histogram(mapping = aes(Sepal.Length, fill = Species), 
+                 color = 'black') 
+
+# Combinaison des graphiques
+grid.arrange(g1, g2, ncol = 1, nrow = 2)
+```
+
+
+<br>
+
+* **Les graphiques dynamiques**
+
+Tous les graphiques que nous venons de voir jusqu'ici étaient **statiques**, mais il est possible de les rendre **dynamiques** grâce à la fonction `ggplotly()` contenue dans le package `plotly` (`install.packages("plotly")` pour l'installer). Il suffit de sauvegarder le graphique créé dans un objet puis de passer cet objet dans la fonction `ggplotly()` : 
+
+
+```{r}
+# Histogramme coloré par groupe
+g1 <- ggplot(data = iris) + 
+  geom_point(mapping = aes(x = Sepal.Length, y = Petal.Length, color = Species, shape = Species)) 
+
+# Graphique dynamique
+library(plotly)
+ggplotly(g1)
+```
+
+Il est maintenant possible de zoomer sur le graphique, de capturer une image, de passer le curseur sur les différentes valeurs etc. On peut voir que lorsque l'on passe le curseur sur les points, les valeurs des variables entrées dans la fonction apparaissent ; on a ici '*Sepal.Length*', '*Species*' et '*Petal.Length*'. Mais il est possible de ***customiser*** ce texte pour le rendre plus lisible, ce qui se fait directement dans le graphique `ggplot` puis est appelé dans la fonction `ggplotly()`.
+
+```{r}
+# Histogramme coloré par groupe
+g1 <- ggplot(data = iris) + 
+  geom_point(mapping = aes(x = Sepal.Length, y = Petal.Length, color = Species, shape = Species,
+                           text = paste("Fleur au pétale de", Petal.Length, "cm, et sépale de", Sepal.Length, "cm",
+                                        "\n", "Espèce", Species)))  #"\n" permet d'aller à la ligne
+
+# Graphique dynamique
+ggplotly(g1, tooltip = c("text"))
+```
+
+Comme on le voit dans la commande, il faut utiliser la fonction `paste()` qui permet de coller du **texte** (entre *guillemets*) et la **valeur des variables** en séparant le tout par des *virgules*. Ce texte est à rentrer dans les paramètres esthétiques (`aes()`), puis à appeler dans la fonction `ggplotly()` par l'argument **`tooltip = c("text")`**.
+
+
+<br>
+
+* **Sauvegarde de graphiques**
+
+Une fois les graphiques créés, il est possible de les **exporter** via la fonction `ggsave()` contenue dans le package `ggplot`. Le premier argument correspond au nom tel que sera exporté le graphique, le second (`plot`) correspond à l'objet créé sous R que l'on veut exporter, puis en 3è et 4è arguments peuvent être spécifiées les largeurs et hauteurs souhaitées pour le graphique. Il s'enregistrera dans le *working directory* actuel. 
+
+
+```{r}
+ggsave("mon_graphique.png", plot = g1, width = 8, height = 6)
+```
+
+---
+
+<br>
+
+Nous avons vu dans cette partie quelques bases pour construire un graphique sous R, mais beaucoup d'autres choses encore peuvent être ajoutées, modifiées etc. Vous pouvez trouver des **modèles de graphique** déjà construits sous R avec leur *code* sur [R Graph Gallery](https://www.r-graph-gallery.com/), il ne reste plus qu'à les modifier pour les appliquer à nos données. 
+
+<br>
+
+
+
+<style>
+div.yellow { background-color:#FFFFe5; border-radius: 5px; padding: 20px;}
+</style>
+<div class = "yellow">
+
+ `r icon_style(fontawesome("lightbulb", style = "solid"), fill = "#666666")`  <FONT COLOR="#333333">**Astuce**
+
+De la même manière qu'il est possible d'importer des données en presse-boutons, il est aussi possible de **construire des graphiques en presse-boutons** récupérer le code, et l'intégrer au script existant. Cela est faisable avec la fonction `esquisser()` contenue dans le package `esquisse` (`install.packages("esquisse")` pour l'installer). Pour l'utiliser il suffit d'exécuter la commande suivante qui va ouvrir une fenêtre permettant de construire un graphique pas-à-pas : `esquisse::esquisser()`.
+
+</div>
 
 
 <br>
@@ -1751,12 +1974,89 @@ ggplot(data = iris) +
 
 <br>
 
+Enfin, la dernière partie du schéma de traitement des données correspond à la **communication des résultats**. Nous ne verrons que les rapports R Markdown (Rmd) dans cette partie, qui permettent de combiner du texte, du code, des graphiques, des images et des tableaux avec une mise en page propre et totalement personnalisable. Un document Rmd se crée via le menu : *File > New File > R Markdown*. Il est alors possible de préciser un **nom d'auteur** et un **titre au rapport**, ainsi que le **type** de document qui sera généré. 3 types existent : un document html (comme celui-ci), un document PDF ou encore un document Word. Selon l'usage le type de document choisi sera différent. 
+
+
+<style>
+div.yellow { background-color:#FFFFe5; border-radius: 5px; padding: 20px;}
+</style>
+<div class = "yellow">
+
+ `r icon_style(fontawesome("lightbulb", style = "solid"), fill = "#666666")`  <FONT COLOR="#333333">**Astuce**
+
+Bien qu'il faille choisir le type de document dès la création du document Rmd, il est possible ensuite de changer le document alors qu'il est en cours d'écriture, ce qui permet de *switcher* facilement d'un format à un autre. 
+
+</div>
+
+<br>
+
+Tandis que les documents PDF et Word vont être séparés en pages et seront statiques, les documents html vont eux permettre d'intégrer des tables ou des graphiques interactifs, des cartographies, des onglets et bien d'autres choses encore. 
+
+```{r echo=FALSE, out.width='80%', fig.align='center'}
+knitr::include_graphics(here::here("images/knit_rmd.png"))
+```
+
+
+Après avoir créé un document R Markdown, vous pouvez générer le rapport en cliquant sur le bouton `knit` qui se trouve à droite du bouton de sauvegarde en dessous du titre du document. 
+
+<br>
+
+Voici un **exemple** très simple de code R Markdown qui permet de générer un document au format **html**. 
+
+    ---
+    title: "Mon premier document Rmd"
+    author: "Moi"
+    date: "Décembre 2021"
+    output: html_document
+    ---
+
+    Cette partie permet d'introduire le contenu du rapport dans sa globalité. 
+    
+    \```{r}
+    head(iris, 5)
+    ```
+
+    La partie juste au-dessus est un chunk de code R. Quand on compile le document (knit), le code sera exécuté et le résultat se montrera en dessous dans le document html final.
 
 
 <br>
 
+L'**output** de ce bout de code sera le suivant (sans le '\' qui sert à échapper le chunk pour pas qu'il ne run dans le corps du texte lui-même) :
 
-RMD
+
+
+```{r echo=FALSE, out.width='80%', fig.align='center'}
+knitr::include_graphics(here::here("images/premier_rmd.png"))
+```
+
+<br>
+
+Tout document R Markdown est composé de 3 types de contenus :
+
+- le **YAML header** précédé et suivi de "---", dans lequel on peut préciser le tire, l'auteur, la date et le type de document cet en-tête est optionnel)
+- les **chunks R** précédés et suivis de "```", dans lesquels on peut insérer du code qui sera exécuté et apparaîtra dans le document final
+- le **texte** dans lequel on peut retrouver les *titres* et le *corps de texte* 
+
+<br>
+
+
+|        <font size="3">&rarr; **Les différentes parties d'un Rmd**</font>
+
+
+* **Le YAML header**
+
+<br>
+
+* **Les chunks R**
+
+<br>
+
+* **Le texte**
+
+<br>
+
+---
+
 
 - themes possibles par défaut : texte
 https://www.datadreaming.org/post/r-markdown-theme-gallery/
@@ -1780,13 +2080,7 @@ https://eranraviv.com/syntax-highlighting-style-in-rmarkdown/
 
 - https://r4ds.had.co.nz/data-visualisation.html
 
-- file:///C:/Users/diane/Desktop/Ordi%20perso/Aide%20R/tutoriales_intro_DS-master/tt_06_ggplot2_v6.html
-
-- file:///C:/Users/diane/Desktop/Ordi%20perso/Aide%20R/tutoriales_intro_DS-master/tt_07_Rmarkdown_v2.html#6_a%C3%BAn_m%C3%A1s_cosas
-
-- file:///C:/Users/diane/Desktop/Ordi%20perso/Aide%20R/tutoriales_intro_DS-master/tt_08_tablas_v1.html
-
-
+- https://github.com/perezp44/tutoriales_intro_DS
 
 
 
