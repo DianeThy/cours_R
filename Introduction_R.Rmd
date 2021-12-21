@@ -2011,18 +2011,16 @@ Voici un **exemple** très simple de code R Markdown qui permet de générer un 
     ---
 
     Cette partie permet d'introduire le contenu du rapport dans sa globalité. 
-    
-    \```{r}
+
+    ```\{r}
     head(iris, 5)
     ```
-
     La partie juste au-dessus est un chunk de code R. Quand on compile le document (knit), le code sera exécuté et le résultat se montrera en dessous dans le document html final.
 
 
 <br>
 
-L'**output** de ce bout de code sera le suivant (sans le '\' qui sert à échapper le chunk pour pas qu'il ne run dans le corps du texte lui-même) :
-
+L'**output** de ce bout de code sera le suivant (sans le caractère `` \ `` qui sert à échapper le chunk pour pas qu'il ne run dans le corps du texte lui-même) :
 
 
 ```{r echo=FALSE, out.width='80%', fig.align='center'}
@@ -2031,10 +2029,10 @@ knitr::include_graphics(here::here("images/premier_rmd.png"))
 
 <br>
 
-Tout document R Markdown est composé de 3 types de contenus :
+Dans tout document R Markdown on retrouve 3 types de contenus :
 
-- le **YAML header** précédé et suivi de "---", dans lequel on peut préciser le tire, l'auteur, la date et le type de document cet en-tête est optionnel)
-- les **chunks R** précédés et suivis de "```", dans lesquels on peut insérer du code qui sera exécuté et apparaîtra dans le document final
+- le **YAML header** précédé et suivi de `---`, dans lequel on peut préciser le tire, l'auteur, la date et le type de document cet en-tête est optionnel)
+- les **chunks R** précédés et suivis de `` ``` ``, dans lesquels on peut insérer du code qui sera exécuté et apparaîtra dans le document final
 - le **texte** dans lequel on peut retrouver les *titres* et le *corps de texte* 
 
 <br>
@@ -2042,12 +2040,62 @@ Tout document R Markdown est composé de 3 types de contenus :
 
 |        <font size="3">&rarr; **Les différentes parties d'un Rmd**</font>
 
+<br>
 
 * **Le YAML header**
+
+Les éléments basiques et généraux peuvent être introduits dans l'en-tête du document, voici un exemple de ***header*** plus complet que l'on décomposera par la suite pour voir comment fonctionne chaque partie :
+
+    ---
+    title: "Titre du document"
+    author: "Auteur du document"
+    date: "`r "\u0060r Sys.Date()\u0060"`"  
+    output:
+      html_document:
+        theme: journal
+        highlight: textmate 
+        toc: yes
+        toc_float: yes
+        toc_depth: 2
+    ---
+
+<br>
+
+Le paramètre `` date: "`r "\u0060r Sys.Date()\u0060"`" `` donne la date du jour grâce à la fonction `Sys.Date()` qui est mise à l'intérieur de l'argument `` `r ` ``. Celui-ci permet d'exécuter du code R intégré dans le corps du texte, sans besoin de créer un *chunk R*. Les paramètres passés après l'argument `output:` servent à spécifier le type de rapport qui sera généré, il s'agit ici d'un document *html* (il faudrait spécifier `output: pdf_document` pour un document PDF, et `output: word_document` pour un Word).
+
+<br>
+
+Avec un autre niveau d'alinéa on peut ensuite paramétrer la **mise en page** avec les arguments `theme`  et `highlight`, puis la table des matières avec `toc`, `toc_float` et `toc_depth`. 
+
+- **`theme`** : il existe 12 thèmes qui ne nécessitent pas de packages supplémentaires et qui peuvent être utilisés facilement en spécifiant leur nom comme dans l'exemple ci-dessus (`theme: journal`). D'un thème à l'autre les polices, les tailles et les couleurs du texte peuvent changer : une liste des thèmes est [disponible ici](https://www.datadreaming.org/post/r-markdown-theme-gallery/).  
+
+- **`highlight`** : en complément à l'argument `theme` qui spécifie la mise en page du **texte** (titres + corps du texte), l'argument `highlight` permet de paramétrer la mise en page du code (des *chunks*) qui apparaît dans le rapport. Une liste des différents thèmes pour le *code* est [disponible ici](https://eranraviv.com/syntax-highlighting-style-in-rmarkdown/).
+
+- **`toc`** : cet argument permet d'intégrer une table des matières (*Table of contents : TOC*) dans le rapport, elle sera générée automatiquement à partir du moment où la valeur "*yes*" lui est attribuée. La table des matières reprendra les titres et sous-titres du document.
+
+- **`toc_float`** : cette option permet de faire "flotter" la table des matières, de manière à ce qu'elle reste toujours visible à gauche, même lorsque le document défile.
+
+- **`toc_depth`** : cette option contrôle la profondeur de la table des matières : ici par exemple seuls les titres de niveaux 1 et 2 apparaîtront dans la table.
 
 <br>
 
 * **Les chunks R**
+
+Comme dit précédemment, les *chunks* sont des bouts de code R qui permettent de faire des analyses et d'afficher les résultats dans le document final. Le code est reconnu comme du code et non du texte dès lors qu'il est placé après **`` ```{r} ``** et avant **`` ``` ``**. On peut par exemple appeler des librairies, importer des données, les manipuler, les visualiser et les modéliser. Globalement ; tout ce qui est faisable dans un script basique R (`fichier.R`) est faisable aussi dans un R Markdown, avec en plus la possibilité d'ajouter des commentaires, des titres, des images etc. 
+
+<br>
+
+Un chunk R peut être **créé** de la manière suivante : 
+
+```{r echo=FALSE, out.width='80%', fig.align='center'}
+knitr::include_graphics(here::here("images/chunk_r.png"))
+```
+
+<br>
+
+- chunk options
+
+Astuce : montrer ou cacher tous les chunks par défaut (code_folding: show).
 
 <br>
 
@@ -2055,21 +2103,6 @@ Tout document R Markdown est composé de 3 types de contenus :
 
 <br>
 
----
-
-
-- themes possibles par défaut : texte
-https://www.datadreaming.org/post/r-markdown-theme-gallery/
-
-- themes ds autres packages pour du texte html
-https://bookdown.org/yihui/rmarkdown/html-document.html#appearance-and-style
-
-- themes possibles par défaut : code
-https://eranraviv.com/syntax-highlighting-style-in-rmarkdown/
-
-<br>
-
----
 
 # `r icon_style(fontawesome("book", style = NULL), fill = "#0000CC")` <FONT COLOR="#0000CC">Bibliographie</FONT>
 
@@ -2079,7 +2112,7 @@ https://eranraviv.com/syntax-highlighting-style-in-rmarkdown/
 - http://www.sthda.com/english/wiki/ggplot2-essentials
 
 - https://r4ds.had.co.nz/data-visualisation.html
-
+*
 - https://github.com/perezp44/tutoriales_intro_DS
 
 
