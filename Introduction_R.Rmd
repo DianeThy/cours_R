@@ -2083,9 +2083,8 @@ Avec un autre niveau d'alinéa on peut ensuite paramétrer la **mise en page** a
 
 Comme dit précédemment, les *chunks* sont des bouts de code R qui permettent de faire des analyses et d'afficher les résultats dans le document final. Le code est reconnu comme du code et non du texte dès lors qu'il est placé après **`` ```{r} ``** et avant **`` ``` ``**. On peut par exemple appeler des librairies, importer des données, les manipuler, les visualiser et les modéliser. Globalement ; tout ce qui est faisable dans un script basique R (`fichier.R`) est faisable aussi dans un R Markdown, avec en plus la possibilité d'ajouter des commentaires, des titres, des images etc. 
 
-<br>
 
-Un chunk R peut être **créé** de la manière suivante : 
+Un *chunk* R peut être **créé** de la manière suivante : 
 
 ```{r echo=FALSE, out.width='80%', fig.align='center'}
 knitr::include_graphics(here::here("images/chunk_r.png"))
@@ -2093,15 +2092,264 @@ knitr::include_graphics(here::here("images/chunk_r.png"))
 
 <br>
 
-- chunk options
+Les *chunks* peuvent avoir plusieurs **options** qui permettent une plus grande flexibilité dans la manière dont le code et les résultats seront affichés dans le document final. Les principales options sont les suivantes (issues du livre "***R for Data Science***") : 
 
-Astuce : montrer ou cacher tous les chunks par défaut (code_folding: show).
+- **`eval = FALSE`** empêche l'évaluation du code, donc aucun résultat ne sera généré. Cette option peut être utile pour afficher un exemple de code sans l'exécuter.
+
+- **`include = FALSE`** exécute le code, mais n'affiche ni le code ni les résultats dans le document final. Cette option peut être utile pour le code de configuration qu'on ne veut pas afficher dans le rapport final.
+
+- **`echo = FALSE`** empêche le code, mais pas les résultats d'apparaître dans le fichier. Utile pour la rédaction de rapports destinés à des personnes qui ne souhaitent pas voir le code R sous-jacent.
+
+- **`message = FALSE`** ou **`warning = FALSE`** empêche l'apparition de messages ou d'avertissements dans le rapport final.
+
+- **`résultats = 'hide'`** masque la sortie imprimée ; **`fig.show = 'hide'`** masque les tracés.
+
+- **`error = TRUE`** entraîne la poursuite du rendu même si le code renvoie une erreur. La valeur par défaut, `error = FALSE`, entraîne l'échec du *knit* s'il y a une seule erreur dans le document. 
+
+<br>
+ 
+Ces différentes options peuvent être mises à la suite du `r` dans les accolades du *chunk*, il est possible d'en mettre plusieurs qui doivent alors être séparées par des virgules (exemple : `` ```{r eval = TRUE, echo = FALSE}``). Le tableau ci-dessous récapitule les options et leur effet sur le document final : 
+
+<style type="text/css">
+.tg  {border-collapse:collapse;border-color:#ccc;border-spacing:0;margin:0px auto;}
+.tg td{background-color:#fff;border-color:#ccc;border-style:solid;border-width:1px;color:#333;
+  font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg th{background-color:#f0f0f0;border-color:#ccc;border-style:solid;border-width:1px;color:#333;
+  font-family:Arial, sans-serif;font-size:14px;font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg .tg-wa9f{border-color:inherit;font-style:italic;text-align:left;vertical-align:middle}
+.tg .tg-9wq8{border-color:inherit;text-align:center;vertical-align:middle}
+.tg .tg-txu4{background-color:#f9f9f9;border-color:inherit;font-style:italic;text-align:left;vertical-align:top}
+.tg .tg-g7sd{border-color:inherit;font-weight:bold;text-align:left;vertical-align:middle}
+.tg .tg-uzvj{border-color:inherit;font-weight:bold;text-align:center;vertical-align:middle}
+.tg .tg-fymr{border-color:inherit;font-weight:bold;text-align:left;vertical-align:top}
+.tg .tg-71bg{background-color:#f9f9f9;border-color:inherit;font-style:italic;text-align:left;vertical-align:middle}
+.tg .tg-kyy7{background-color:#f9f9f9;border-color:inherit;text-align:center;vertical-align:middle}
+.tg .tg-f8tv{border-color:inherit;font-style:italic;text-align:left;vertical-align:top}
+</style>
+<table class="tg">
+<thead>
+  <tr>
+    <th class="tg-g7sd">Options</th>
+    <th class="tg-uzvj">Run code</th>
+    <th class="tg-fymr">Montre code</th>
+    <th class="tg-fymr">Résultats</th>
+    <th class="tg-fymr">Graphiques</th>
+    <th class="tg-fymr">Messages</th>
+    <th class="tg-fymr">Warnings</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td class="tg-71bg">eval = FALSE</td>
+    <td class="tg-kyy7"></td>
+    <td class="tg-kyy7">✓</td>
+    <td class="tg-kyy7"></td>
+    <td class="tg-kyy7"></td>
+    <td class="tg-kyy7"></td>
+    <td class="tg-kyy7"></td>
+  </tr>
+  <tr>
+    <td class="tg-wa9f">include = FALSE</td>
+    <td class="tg-9wq8">✓</td>
+    <td class="tg-9wq8"></td>
+    <td class="tg-9wq8"></td>
+    <td class="tg-9wq8"></td>
+    <td class="tg-9wq8"></td>
+    <td class="tg-9wq8"></td>
+  </tr>
+  <tr>
+    <td class="tg-71bg">echo = FALSE</td>
+    <td class="tg-kyy7">✓</td>
+    <td class="tg-kyy7"></td>
+    <td class="tg-kyy7">✓</td>
+    <td class="tg-kyy7">✓</td>
+    <td class="tg-kyy7">✓</td>
+    <td class="tg-kyy7">✓</td>
+  </tr>
+  <tr>
+    <td class="tg-f8tv">message = FALSE</td>
+    <td class="tg-9wq8">✓</td>
+    <td class="tg-9wq8">✓</td>
+    <td class="tg-9wq8">✓</td>
+    <td class="tg-9wq8">✓</td>
+    <td class="tg-9wq8"></td>
+    <td class="tg-9wq8">✓</td>
+  </tr>
+  <tr>
+    <td class="tg-txu4">warning = FALSE</td>
+    <td class="tg-kyy7">✓</td>
+    <td class="tg-kyy7">✓</td>
+    <td class="tg-kyy7">✓</td>
+    <td class="tg-kyy7">✓</td>
+    <td class="tg-kyy7">✓</td>
+    <td class="tg-kyy7"></td>
+  </tr>
+  <tr>
+    <td class="tg-f8tv">results = "hide"</td>
+    <td class="tg-9wq8">✓</td>
+    <td class="tg-9wq8">✓</td>
+    <td class="tg-9wq8"></td>
+    <td class="tg-9wq8">✓</td>
+    <td class="tg-9wq8">✓</td>
+    <td class="tg-9wq8">✓</td>
+  </tr>
+  <tr>
+    <td class="tg-txu4">fig.show = "hide"</td>
+    <td class="tg-kyy7">✓</td>
+    <td class="tg-kyy7">✓</td>
+    <td class="tg-kyy7">✓</td>
+    <td class="tg-kyy7"></td>
+    <td class="tg-kyy7">✓</td>
+    <td class="tg-kyy7">✓</td>
+  </tr>
+</tbody>
+</table>
+
+<br>
+
+
+
+<style>
+div.yellow { background-color:#FFFFe5; border-radius: 5px; padding: 20px;}
+</style>
+<div class = "yellow">
+
+ `r icon_style(fontawesome("lightbulb", style = "solid"), fill = "#666666")`  <FONT COLOR="#333333">**Astuce n°1**
+
+Il est possible de montrer ou de cacher tous les chunks par défaaut en spécifiant l'option dans le YAML header. Dans l'exemple qui suit tous les codes seront montrés par défaut ("`hide`" pour cacher tous les codes par défaut) :
+
+    ---
+    title: "Titre du document"
+    author: "Auteur du document"
+    date: "`r "\u0060r Sys.Date()\u0060"`"  
+    output:
+      html_document:
+        theme: journal
+        toc: yes
+        code_folding: show
+    ---
+
+
+</div>
+
+<br>
+
+<style>
+div.yellow { background-color:#FFFFe5; border-radius: 5px; padding: 20px;}
+</style>
+<div class = "yellow">
+
+ `r icon_style(fontawesome("lightbulb", style = "solid"), fill = "#666666")`  <FONT COLOR="#333333">**Astuce n°2**
+
+Au lieu d'écrire manuellement les options dans les *chunks* entre les accolades, il est possible d'utiliser le bouton `r icon_style(fontawesome("cog", style = NULL), fill = "#ccccCC")` qui se trouve en haut à droite du *chunk*. 
+
+
+<style type="text/css">
+.tg  {border-collapse:collapse;border-color:#ccc;border-spacing:0;margin:0px auto;}
+.tg td{background-color:#fff;border-color:#ccc;border-style:solid;border-width:1px;color:#333;
+  font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg th{background-color:#f0f0f0;border-color:#ccc;border-style:solid;border-width:1px;color:#333;
+  font-family:Arial, sans-serif;font-size:14px;font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg .tg-uzvj{border-color:inherit;font-weight:bold;text-align:center;vertical-align:middle}
+</style>
+<table class="tg">
+<thead>
+  <tr>
+    <td class="tg-uzvj">![](images/param_chunk.png){width=120%}</td>
+  </tr>
+</thead>
+</table>
+
+</div>
+
+<br>
+
+Lorsque l'on veut définir des options de chunk qui soient valables pour **tous les chunks du document**, il est possible de les définir d'une manière générale (par défaut) au début du script R Markdown. Cela est faisable grâce à la fonction `opts_chunk$set()` du package `knitr` (`install.packages("knitr")` pour l'installer). Voici un exemple de *chunk* qui définit les options par défaut, lui-même aux options `eval = FALSE` et `echo = TRUE` pour montrer le code sans l'évaluer. Ce *chunk* de paramètres généraux est à placer au début du document, après le YAML header. 
+
+```{r eval = FALSE, echo = TRUE}
+library(knitr)
+opts_chunk$set(echo = TRUE,   # affiche le code
+               message = FALSE,   # cache les messages d'erreurs
+               warning = FALSE,   # cache les messages d'avertissements
+               fig.align = "center",   # centre les figures
+               out.width = "80%")   # affiche les figures à 80% de leur taille
+```
 
 <br>
 
 * **Le texte**
 
+
+Dans un document R Markdown, tout ce qui n'est pas en-tête ou code - que nous venons de voir, correspond au **corps du texte**. Le texte s'écrit de la même manière qu'un fichier Word, mais la spécification de **la mise en page** va être différente : le texte en gras, les citations, les titres etc. Les captures d'écrans ci-dessous montrent comment faire les principales mises en forme de texte en markdown. 
+
+<style type="text/css">
+.tg  {border-collapse:collapse;border-color:#ccc;border-spacing:0;margin:0px auto;}
+.tg td{background-color:#fff;border-color:#ccc;border-style:solid;border-width:1px;color:#333;
+  font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg th{background-color:#f0f0f0;border-color:#ccc;border-style:solid;border-width:1px;color:#333;
+  font-family:Arial, sans-serif;font-size:14px;font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg .tg-rlkj{color:#222;text-align:center;vertical-align:middle}
+.tg .tg-e2p0{color:#222;font-weight:bold;text-align:center;vertical-align:middle}
+.tg .tg-05v1{border-color:inherit;color:#222;font-weight:bold;text-align:center;vertical-align:middle}
+</style>
+<table class="tg">
+<thead>
+  <tr>
+    <th class="tg-05v1">Texte brut</th>
+    <th class="tg-e2p0">Rendu</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td class="tg-9mlo">![](images/code_brut.png){width=120%}</td>
+    <td class="tg-9mlo">![](images/rendu.png){width=120%}</td>
+  </tr>
+</tbody>
+</table>
+
 <br>
+
+|        <font size="3">&rarr; **Autres possibilités avec markdown**</font>
+
+<br>
+
+Pour finir voyons comment intégrer une image et une table à un document R Markdown.  
+
+<br>
+
+* **Les images**
+
+Il y a plusieurs manières d'insérer une **image** à un document Rmd, en voilà deux :
+
+    # Première façon
+    ![](lien/vers/l_image.png){width=120%}
+    
+    # Deuxième façon
+    ```\{r out.width='80%'}
+    knitr::include_graphics(here::here("lien/vers/l_image.png"))
+    ```
+
+La taille de l'image est ajustable via les arguments `width` ou `out.width`. La première commande pour intégrer une image peut être placée telle quelle en corps de texte, dans un tableau ou encore au sein d'une phrase, tandis que la deuxième façon consiste à insérer un chunk R (sans le caractère `\` qui échappe le code) dans lequel on utilise la fonction `include_graphics()` qui permet d'afficher une image. 
+
+<br>
+
+* **Les tables** 
+
+Il est possible d'intégrer au texte d'un document Rmd un tableau en le créer directement sur le script. Il existe cependant des **outils** qui permettent de réaliser cette tâche plus facilement. L'outil [Tables Generator](https://www.tablesgenerator.com/) permet de construire son tableau comme sur un Word, puis de récupérer le code qu'il ne reste plus qu'à coller dans le script Rmd. Il est alors possible de choisir pour quel format le tableau doit être généré ; dans notre cas il convient de choisir ***Markdown***, ou ***HTML*** si l'output spécifié dans l'en-tête du document (YAML header) est un *html*.
+
+
+
+<br>
+
+---
+
+Dans ce document
+conclu
+
+
+
+
+
 
 
 # `r icon_style(fontawesome("book", style = NULL), fill = "#0000CC")` <FONT COLOR="#0000CC">Bibliographie</FONT>
