@@ -2343,27 +2343,43 @@ Il est possible d'intégrer au texte d'un document Rmd un tableau en le créer d
 
 ---
 
-Dans ce document
-conclu
+---
+
+<br>
+
+|        <font size="3">&rarr; **Conclusion**</font>
+
+<br>
+
+Au long de cette formation on a pu apprendre à manipuler les données sous toutes ses formes en R. Sur l'interface R Studio on a vu comment importer des données, les nettoyer, les transformer, les visualiser et communiquer sur l'analyse avec les documents Markdown de R. Il existe d'autres documents pour communiquer les résultats tels que slides, application Shiny, tableau de bord Flexdashboard etc. Si vous êtes curieux de connaître de tels outils, vous trouverez toutes les ressources nécessaires sur internet. Il existe pour tous les livres créés *sur* ou *pour* R, un recensement complet que l'on trouve dans le livre : [Big Book of R](https://www.bigbookofr.com/). Y sont rassemblés tous les tutoriels par thématique : Big Data, Data Science, Data Visualisation, Geospatial, Journalism...
+
+Une référence incontournable pour approfondir la Data Science est le livre de Hadley Wickham & Garrett Grolemund ; [R for Data Science](https://r4ds.had.co.nz/) (recensé en 10.2 dans Big Book of R).
+
+<br>
+
+En espérant que vous prendrez plaisir à programmer pour exploiter le potentiel des données, quittons-nous sur ce *meme*. 
 
 
+```{r echo=FALSE, out.width='80%'}
+knitr::include_graphics(here::here("images/meme_R.jpg"))
+```
 
 
-
-
+<br>
 
 # `r icon_style(fontawesome("book", style = NULL), fill = "#0000CC")` <FONT COLOR="#0000CC">Bibliographie</FONT>
 
+<br>
 
+- [R for Data Science - Hadley Wickham & Garrett Grolemund](https://r4ds.had.co.nz/)
 
+- [Programación y manejo de datos en la era del Big Data - Pedro J. Pérez](https://github.com/perezp44/tutoriales_intro_DS)
 
-- http://www.sthda.com/english/wiki/ggplot2-essentials
+- [Essentials ggplot2 - Statistical tools for high-throughput data analysis (STHDA)](http://www.sthda.com/english/wiki/ggplot2-essentials)
 
-- https://r4ds.had.co.nz/data-visualisation.html
-*
-- https://github.com/perezp44/tutoriales_intro_DS
+- [Cheat Sheet Data Wrangling - R Studio](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)
 
-
+- [Markdown tutorial - CommonMark](https://commonmark.org/help/)
 
 
 
