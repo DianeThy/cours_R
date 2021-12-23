@@ -306,7 +306,7 @@ Pour **exécuter** du code il faut placer son curseur sur la ligne de commande, 
 ```
 
 
-Il est possible d'**assigner** une valeur à un objet (dataframe, liste, vecteur, fonction...) avec `<-` ou `=`, de manière à les **sauvegarder** dans l'environnement de travail (partie en haut à droite de la fenêtre RStudio). Vous pouvez par exemple *runer* les commandes suivantes :
+Il est possible d'**assigner** une valeur à un objet (dataframe, liste, vecteur, fonction...) avec `<-` ou `=` (*`<-` s'utilise davantage et peut se faire avec le raccourci clavier Alt/6*), de manière à les **sauvegarder** dans l'environnement de travail (partie en haut à droite de la fenêtre RStudio). Vous pouvez par exemple *runer* les commandes suivantes :
 
 ```{r}
 # Opérations
@@ -347,9 +347,12 @@ Comme dit précédemment, un *package* contient un certain nombre de **fonctions
 
 Pour utiliser un package, après l'avoir installé, il faut l'appeler via la fonction `library(nom_package)`. Le code ci-dessous permet d'installer les packages fondamentaux, il faut le copier, le coller dans un script R basique (*File > New File > R Script*) puis l'exécuter. 
 
+```{r  eval=F, echo=T}
+packages <- c("tidyverse", "remotes", "devtools", "rmarkdown", "rio", "datasets")
+install.packages(packages)
+```
+
 <br>
-
-
 
 *Plusieurs packages sont attachés au "tidyverse" :* 
 
@@ -362,11 +365,6 @@ Pour utiliser un package, après l'avoir installé, il faut l'appeler via la fon
 * **stringr** : *pour travailler avec des chaînes de caractères*
 * **forcats** : *pour travailler avec des variables catégorielles*
 
-
-```{r  eval=F, echo=T}
-packages <- c("tidyverse", "remotes", "devtools", "rmarkdown", "rio", "datasets")
-install.packages(packages)
-```
 
 <br>
 
@@ -406,7 +404,7 @@ Un autre bon réflexe est de privilégier tant que possible **l'import via un li
 <br>
 
 
-* **Les différents types de base de données**
+* **Les différents types de bases de données**
 
 Il existe un certain nombre de formats de jeux de données, nous allons lister les plus courants en précisant la commande qui permet de les lire sous R et importer les données correctement.
 
@@ -587,11 +585,12 @@ Une fois importée, il est possible de regarder la *structure* des données qui 
 ```{r}
 # On importe des données ODS
 data(iris)
+
 # On regarde le type des variables qui composent la base
 str(iris)
 ```
 
-*Nous réaliserons toutes sortes de manipulations sur une base de données déjà chargée dans l'environnement RStudio, c'est la base **iris**. Cette base recense des mesures de 4 attributs de 150 fleurs appartenant à 3 familles différentes. Plus d'informations sur la base [sur ce lien](https://www.rdocumentation.org/packages/datasets/versions/3.6.2/topics/iris).* 
+*Nous réaliserons toutes sortes de manipulations sur une base de données déjà chargée dans l'environnement RStudio, c'est la base **iris**. Cette base recense des mesures de 4 attributs de 150 fleurs appartenant à 3 familles différentes. Plus d'informations sur les données [sur ce lien](https://www.rdocumentation.org/packages/datasets/versions/3.6.2/topics/iris).* 
 
 <br>
 
@@ -733,7 +732,7 @@ df4 <- iris %>% filter(Petal.Width == 2 | Petal.Width == 2.5)
 dim(df4)
 ```
 
-Avec le pipe (![](images/pipe2.png){width=3%}) on part de la base de données entière puis on applique nos filtres. On obtient ici deux sous-dataframes, et grâce à la fonction `dim()` on voit que l'on a :
+Avec le pipe (![](images/pipe2.png){width=3%}) on part de la base de données entière puis on applique nos filtres. On obtient ici quatre sous-dataframes, et grâce à la fonction `dim()` on voit que l'on a :
 
 - 50 fleurs de l'espèce versicolor
 - 46 fleurs dont les pétales sont égaux ou plus longs que 5 cm
@@ -743,7 +742,7 @@ Avec le pipe (![](images/pipe2.png){width=3%}) on part de la base de données en
 <br>
 
 
-Le tableau ci-dessous résume les filtres que l'on peut appliquer sur une plusieurs variable(s) d'une base de données. Pour filtrer des variables qualitatives il faut mettre la condition entre guillemets pour que la machine reconnaisse qu'il s'agit d'un texte. 
+Le tableau ci-dessous résume les filtres que l'on peut appliquer sur une ou plusieurs variable(s) d'une base de données. Pour filtrer des variables qualitatives il faut mettre la condition entre guillemets pour que le programme reconnaisse qu'il s'agit d'un texte. 
 
 <style type="text/css">
 .tg  {border-collapse:collapse;border-color:#ccc;border-spacing:0;margin:0px auto;}
@@ -829,7 +828,7 @@ div.blue { background-color:#efefef; border-radius: 5px; padding: 20px;}
 
  `r icon_style(fontawesome("thumbs-up", style = "solid"), fill = "#666666")`  <FONT COLOR="#333333">**Bonne pratique**
 
-Ici nous avons attribué les changements sur la même base de données "iris", ce qui a **"écrasé"** l'ancienne par la nouvelle dans laquelle les observations sont triées d'une certaine manière. Lorsque vous êtes sûrs de vos modifications vous pouvez attribuer les modifications au même nom d'objet ce qui écrasera l'ancien, mais dès lors que vous voulez garder une trace de la base initiale il convient de **créer un nouvel objet**, c'est-à-dire avec un nouveau *nom* qui apparaîtra dans votre environnement de travail (partie supérieure droite de la fenêtre RStudio). 
+Ici nous avons attribué les changements sur la même base de données "iris", ce qui a **"écrasé"** l'ancienne par la nouvelle dans laquelle les observations sont triées d'une certaine manière. Lorsque vous êtes sûrs de vos modifications, vous pouvez attribuer les modifications au même nom d'objet ce qui écrasera l'ancien, mais dès lors que vous voulez garder une trace de la base initiale il convient de **créer un nouvel objet**, c'est-à-dire avec un nouveau *nom* qui apparaîtra dans votre environnement de travail (partie supérieure droite de la fenêtre RStudio). 
 
 </div>
 
@@ -890,7 +889,7 @@ div.yellow { background-color:#FFFFe5; border-radius: 5px; padding: 20px;}
 
  `r icon_style(fontawesome("lightbulb", style = "solid"), fill = "#666666")`  <FONT COLOR="#333333">**Astuce**
 
-Lorsqu'un nom de colonne contient un espace (par exemple : taille individu) il faut l'entourer de **\`** pour qu'il soit reconnu comme le nom d'une seule colonne par R. Sans cette astuce, la commande ne pourra pas s'exécuter, d'où l'importance de nommer les bases de données et leurs variables par des noms séparés par les caractères `-` ou `_`. 
+Lorsqu'un nom de colonne contient un espace (par exemple : taille individu) il faut l'entourer de backticks (**\`**) pour qu'il soit reconnu comme le nom d'une seule colonne par R. Sans cette astuce, la commande ne pourra pas s'exécuter, d'où l'importance de nommer les bases de données et leurs variables par des noms séparés par le caractère `_`. 
 
 *Exemple de **mauvaise commande** :* data\$premier nom <- as.numeric(data\$premier nom)
 
@@ -957,11 +956,12 @@ iris %>% summarise_all(median)
 iris %>% select(-espece) %>% summarise_all(list(sd, var))  #list() quand plusieurs mesures à la fois
 ```
 
-On voit que la médiane n'a pas été calculée pour la variable '*espece*' puisqu'elle n'est pas numérique, la valeur retournée est donc *NA* (Not Available). Pour la deuxième commande qui calcule l'écart-type et la variance, on exclut donc cette variable qualitative grâce à la fonction `select()` que nous avons vu précédemment. 
+On voit que la médiane n'a pas été calculée pour la variable '*espece*' puisqu'elle n'est pas numérique, la valeur retournée est donc *NA* (*Not Available*). Pour la deuxième commande qui calcule l'écart-type et la variance, on exclut donc cette variable qualitative grâce à la fonction `select()` que nous avons vu précédemment. 
 
 <br>
 
-Le tableau ci-dessous **résume les différentes statistiques** que l'on peut calculer sur les données, avec la fonction équivalente sous R :
+Le tableau ci-dessous **résume les différentes statistiques** que l'on peut calculer sur les données, avec la fonction équivalente en R:
+
 <style type="text/css">
 .tg  {border-collapse:collapse;border-color:#ccc;border-spacing:0;margin:0px auto;}
 .tg td{background-color:#fff;border-color:#ccc;border-style:solid;border-width:1px;color:#333;
@@ -1055,7 +1055,7 @@ Le dernier argument des séquences de probabilités pour les quantiles précise 
 
 |        <font size="5">&rarr; `group_by()`</font>
 
-Cette dernière fonction principale du tidyverse permet de grouper les variables, elle est spécialement utile en analyse de données pour calculer des statistiques par groupe (genre, pays, espèce...). **`group_by()`** prend le dataframe et le converti en une base groupée pour laquelle les opérations seront effectuées non plus sur la base entière mais pour chacun des groupes identifiés. 
+Cette dernière fonction principale du tidyverse permet de grouper les variables, elle est spécialement utile en analyse de données pour calculer des statistiques par groupe (genre, pays, espèce...). **`group_by()`** prend le dataframe et le convertit en une base groupée pour laquelle les opérations seront effectuées non plus sur la base entière mais pour chacun des groupes identifiés. 
 
 ```{r}
 # Nombre d'observations par groupe
@@ -1075,10 +1075,10 @@ On voit par exemple que l'on a 50 fleurs par espèce dans notre base, et qu'en m
 
 Nous savons à présent comment traiter les données grâce aux principales fonctions du dplyr, mais une manipulation importante reste à apprendre ; les **combinaisons de données**. Il y a 4 types de fonctions dans le dplyr qui permettent la combinaison de données :
 
-- les **jointures** lorsque les df ont des observations ou variables différentes mais 1 colonne commune
+- les **jointures** lorsque les dataframes (df) ont des observations ou variables différentes mais 1 colonne commune
 - les **filtres** sur les observations d'un df basés sur les observations d'un autre df
-- les **liaisons** lorsque les 2 dataframes (df) ont exactement les mêmes observations ou variables
-- les **opérations** pour combiner les observations des 2 df
+- les **liaisons** lorsque les 2 df ont exactement les mêmes observations ou variables
+- les **opérations** pour combiner les observations de 2 df
  
 Toutes ces fonctions ont la **même structure** : les deux premiers arguments sont des dataframes, et le résultat sera une nouvelle base du même type que le df stipulé comme premier argument. 
 
@@ -1159,7 +1159,7 @@ div.yellow { background-color:#FFFFe5; border-radius: 5px; padding: 20px;}
 
  `r icon_style(fontawesome("lightbulb", style = "solid"), fill = "#666666")`  <FONT COLOR="#333333">**Astuce**
 
-Lorsque la variable de jointure (la **clé**) n'a pas le même nom dans les 2 bases à joindre, il est possible de spécifier les noms à matcher. La commande est alors la suivante, "*col_1*" correspondant au nom de colonne dans le **df1**, et "*Col_n1*" dans le **df2** :
+Lorsque la variable de jointure (la **clé**) n'a pas le même nom dans les 2 bases à joindre, il est possible de spécifier les noms à matcher. La commande est alors la suivante ("*col_1*" correspondant au nom de colonne dans le **df1**, et "*Col_n1*" dans le **df2**) :
 
 <CENTER><font size="4">`new_df <- left_join(df1, df2, by = c("col_1" = "Col_n1"))`</font></CENTER>
 
@@ -1419,7 +1419,7 @@ Nous pouvons personnaliser les points en spécifiant certains paramètres tels q
 
 - `color` ou `colour` : la **couleur** des points 
 - `size` : la **taille** des points (*par défaut à 1*)
-- `alpha` : l'**opacité** des points (*0 < alpha < 1*, où 1 correspond à une opacité totale)
+- `alpha` : l'**opacité** des points (*0 < alpha < 1*, où 1 correspond à une opacité totale qui est la valeur par défaut)
 - `shape` : la **forme** des points
 
 
@@ -1433,7 +1433,7 @@ div.yellow { background-color:#FFFFe5; border-radius: 5px; padding: 20px;}
 
  `r icon_style(fontawesome("lightbulb", style = "solid"), fill = "#666666")`  <FONT COLOR="#333333">**Astuce**
 
-Pour tous ces paramètres, un argument normal peut être spécifie ('*red*' pour la couleur, *2* pour la taille etc.), mais il est aussi possible de mettre le nom d'une autre variable de manière à intégrer une **information supplémentaire** au graphique. Ce peut être une variable catégorielle pour la couleur, une variable numérique pour la taille des points etc.
+Pour tous ces paramètres, un argument normal peut être spécifie ('*red*' pour la couleur, *2* pour la taille etc.), mais il est aussi possible de mettre le *nom d'une autre variable* de manière à intégrer une **information supplémentaire** au graphique. Ce peut être une variable catégorielle pour la couleur, une variable numérique pour la taille des points etc.
 
 </div>
 
@@ -1449,7 +1449,7 @@ ggplot(data = iris) +
              color = "blue", size = 2, alpha = 0.7, shape = 2)
 ```
 
-Il existe sur R deux manières de renseigner les couleurs : soit en spécifiant la couleur **par son nom** (*exemple : "brown"*), soit en la spécifiant par **son code Hex** (*exemple : "#dd9933"*). Il s'agit d'une chaîne de 6 caractères (chiffres et/ou lettres) qui correspond à une couleur que l'on peut [créer soi-même](https://www.color-hex.com/), sur le tableau ci-dessous on retrouve une palette de couleurs déjà créées pour lesquelles on a le code HEX.
+Il existe sur R deux manières de renseigner les couleurs : soit en spécifiant la couleur **par son nom** (*exemple : "brown"*), soit en la spécifiant par **son code Hex** (*exemple : "#dd9933"*). Il s'agit d'une chaîne de 6 caractères (chiffres et/ou lettres) qui correspond à une couleur que l'on peut [créer soi-même](https://www.color-hex.com/). Sur le tableau ci-dessous on retrouve une palette de couleurs déjà créées pour lesquelles on a le code HEX.
 
 Les formes des points peuvent aussi être spécifiées de deux manières : soit **par un chiffre** (*exemple : 18*) qui correspond à une forme déjà définie visible dans le tableau ci-dessous, soit **par un caractère** - un seul (*exemple : "B"*), qui sera utilisé comme forme de point. 
 
@@ -1761,11 +1761,11 @@ grid.arrange(g1, g2, ncol=2)
 ---
 
 
-|       Voyons aussi quelques exemples d'autres types de graphiques que le *nuage de points* sur lequel nous travaillons depuis le début de cette partie. 
+|       Voyons quelques exemples d'autres types de graphiques que le *nuage de points* sur lequel nous travaillons depuis le début de cette partie. 
 
 <br>
 
-Le **boxplot** aussi appelé la **boîte à moustaches** permet de visualiser une ***distribution***, de la même manière qu'un *histogramme*, *violin plot* ou *graphique en densité* le permettent. Sur le graphique de droite nous ajoutons la moyenne de chaque longueur de sépale par espèce, grâce à la fonction `stat_summary()`. Celle-ci permet d'intégrer aux graphiques des statistiques, sans besoin de les calculer avant le graphique. L'argument `fun` permet de préciser le type de statistique souhaité ; ici `fun = mean` pour représenter par un point la **moyenne** de la variable '*Sepal.Length*'. 
+Le **boxplot**, aussi appelé la **boîte à moustaches**, permet de visualiser une ***distribution***, de la même manière qu'un *histogramme*, *violin plot* ou *graphique en densité* le permettent. Sur le graphique de droite nous ajoutons la moyenne de chaque longueur de sépale par espèce, grâce à la fonction `stat_summary()`. Celle-ci permet d'intégrer aux graphiques des statistiques, sans besoin de les calculer avant le graphique. L'argument `fun` permet de préciser le type de statistique souhaité ; ici `fun = mean` pour représenter par un point la **moyenne** de la variable '*Sepal.Length*'. 
 
 ```{r echo=T, eval=F}
 # Box plot
@@ -1820,14 +1820,14 @@ grid.arrange(g1, g2, ncol=2)
 
 <br>
 
-Les **graphiques en barres** permettent de représenter un montant, une répartition par variable catégorielle (groupes). Ici on regarde le nombre d'observations (fleurs) de la base dans chaque espèce. Il y en a 50 par espèce don la représentation n'est pas très pertinente, mais on voit en deuxième graphique la même visualisation avec les barres horizontales, ce qui est possible grâce à la fonction `coord_flip()` que l'on ajoute à la suite du code existant. 
+Les **graphiques en barres** permettent de représenter un montant, une répartition par variable catégorielle (groupes). Ici on regarde le nombre d'observations (fleurs) de la base dans chaque espèce. Sachant qu'il y en a 50 par espèce, la représentation n'est pas très pertinente. On voit cependant en deuxième graphique la même visualisation avec les barres horizontales, ce qui est possible grâce à la fonction `coord_flip()` que l'on ajoute à la suite du code existant. 
 
 ```{r eval=F, echo=T}
 # Bar plot
 ggplot(data = iris) + 
   geom_bar(mapping = aes(x = Species))  
 
-# Bar plot horizontale
+# Bar plot horizontal
 ggplot(data = iris) + 
   geom_bar(mapping = aes(x = Species)) +
   coord_flip()
@@ -1848,7 +1848,7 @@ grid.arrange(g1, g2, ncol = 2)
 
 <br>
 
-Il existe encore bien d'autres géométries dans le package `ggplot` qui permettent de représenter toutes sortes de variables. Les liens suivants aident à utiliser la bonne visualisation selon ce que l'on cherche à représenter et/ou selon le type de variable :
+Il existe encore bien d'autres géométries dans le package `ggplot` qui permettent de représenter toutes sortes de variables. Les liens suivants aident à utiliser la bonne visualisation selon ce que l'on cherche à représenter et/ou selon le type de variables :
 
 https://clauswilke.com/dataviz/directory-of-visualizations.html 
 
@@ -1921,7 +1921,8 @@ Il est maintenant possible de zoomer sur le graphique, de capturer une image, de
 # Histogramme coloré par groupe
 g1 <- ggplot(data = iris) + 
   geom_point(mapping = aes(x = Sepal.Length, y = Petal.Length, color = Species, shape = Species,
-                           text = paste("Fleur au pétale de", Petal.Length, "cm, et sépale de", Sepal.Length, "cm",
+                           text = paste("Fleur au pétale de", Petal.Length, "cm, et sépale de", 
+                                        Sepal.Length, "cm",
                                         "\n", "Espèce", Species)))  #"\n" permet d'aller à la ligne
 
 # Graphique dynamique
@@ -1973,7 +1974,7 @@ De la même manière qu'il est possible d'importer des données en presse-bouton
 
 <br>
 
-Enfin, la dernière partie du schéma de traitement des données correspond à la **communication des résultats**. Nous ne verrons que les rapports R Markdown (Rmd) dans cette partie, qui permettent de combiner du texte, du code, des graphiques, des images et des tableaux avec une mise en page propre et totalement personnalisable. Un document Rmd se crée via le menu : *File > New File > R Markdown*. Il est alors possible de préciser un **nom d'auteur** et un **titre au rapport**, ainsi que le **type** de document qui sera généré. 3 types existent : un document html (comme celui-ci), un document PDF ou encore un document Word. Selon l'usage le type de document choisi sera différent. 
+Enfin, la dernière partie du schéma de traitement des données correspond à la **communication des résultats**. Nous ne verrons que les rapports R Markdown (Rmd) dans cette partie, qui permettent de combiner du texte, du code, des graphiques, des images et des tableaux avec une mise en page propre et totalement personnalisable. Un document Rmd se crée via le menu : *File > New File > R Markdown*. Il est alors possible de préciser un **nom d'auteur** et un **titre au rapport**, ainsi que le **type** de document qui sera généré. 3 types existent : un document html (comme celui-ci), un document PDF ou encore un document Word. Selon l'usage, le type de document choisi sera différent. 
 
 
 <style>
@@ -2072,7 +2073,7 @@ Avec un autre niveau d'alinéa on peut ensuite paramétrer la **mise en page** a
 
 - **`toc`** : cet argument permet d'intégrer une table des matières (*Table of contents : TOC*) dans le rapport, elle sera générée automatiquement à partir du moment où la valeur "*yes*" lui est attribuée. La table des matières reprendra les titres et sous-titres du document.
 
-- **`toc_float`** : cette option permet de faire "flotter" la table des matières, de manière à ce qu'elle reste toujours visible à gauche, même lorsque le document défile.
+- **`toc_float`** : cette option permet de faire "flotter" la table des matières, de manière à ce qu'elle reste toujours visible à gauche, même lorsque le document défile (comme sur ce document).
 
 - **`toc_depth`** : cette option contrôle la profondeur de la table des matières : ici par exemple seuls les titres de niveaux 1 et 2 apparaîtront dans la table.
 
@@ -2215,7 +2216,7 @@ div.yellow { background-color:#FFFFe5; border-radius: 5px; padding: 20px;}
 
  `r icon_style(fontawesome("lightbulb", style = "solid"), fill = "#666666")`  <FONT COLOR="#333333">**Astuce n°1**
 
-Il est possible de montrer ou de cacher tous les chunks par défaaut en spécifiant l'option dans le YAML header. Dans l'exemple qui suit tous les codes seront montrés par défaut ("`hide`" pour cacher tous les codes par défaut) :
+Il est possible de montrer ou de cacher tous les chunks par défaut en spécifiant l'option dans le YAML header. Dans l'exemple qui suit, tous les codes seront montrés par défaut ("`hide`" pour cacher tous les codes par défaut) :
 
     ---
     title: "Titre du document"
@@ -2263,7 +2264,7 @@ Au lieu d'écrire manuellement les options dans les *chunks* entre les accolades
 
 <br>
 
-Lorsque l'on veut définir des options de chunk qui soient valables pour **tous les chunks du document**, il est possible de les définir d'une manière générale (par défaut) au début du script R Markdown. Cela est faisable grâce à la fonction `opts_chunk$set()` du package `knitr` (`install.packages("knitr")` pour l'installer). Voici un exemple de *chunk* qui définit les options par défaut, lui-même aux options `eval = FALSE` et `echo = TRUE` pour montrer le code sans l'évaluer. Ce *chunk* de paramètres généraux est à placer au début du document, après le YAML header. 
+Lorsque l'on veut définir des options de chunk qui soient valables pour **tous les chunks du document**, il est possible de les définir d'une manière générale (par défaut) au début du script R Markdown. Cela est faisable grâce à la fonction `opts_chunk$set()` du package `knitr` (`install.packages("knitr")` pour l'installer). Voici un exemple de *chunk* qui définit les options par défaut, il est à placer au début du document, après le YAML header. 
 
 ```{r eval = FALSE, echo = TRUE}
 library(knitr)
@@ -2279,7 +2280,7 @@ opts_chunk$set(echo = TRUE,   # affiche le code
 * **Le texte**
 
 
-Dans un document R Markdown, tout ce qui n'est pas en-tête ou code - que nous venons de voir, correspond au **corps du texte**. Le texte s'écrit de la même manière qu'un fichier Word, mais la spécification de **la mise en page** va être différente : le texte en gras, les citations, les titres etc. Les captures d'écrans ci-dessous montrent comment faire les principales mises en forme de texte en markdown. 
+Dans un document R Markdown, tout ce qui n'est pas de l'en-tête ou du code - que nous venons de voir, correspond au **corps du texte**. Le texte s'écrit de la même manière qu'un fichier Word, mais la spécification de **la mise en page** va être différente : le texte en gras, les citations, les titres etc. Les captures d'écrans ci-dessous montrent comment faire les principales mises en forme de texte en markdown. 
 
 <style type="text/css">
 .tg  {border-collapse:collapse;border-color:#ccc;border-spacing:0;margin:0px auto;}
@@ -2312,13 +2313,13 @@ Dans un document R Markdown, tout ce qui n'est pas en-tête ou code - que nous v
 
 <br>
 
-Pour finir voyons comment intégrer une image et une table à un document R Markdown.  
+Pour finir, voyons comment intégrer une image et un tableau à un document R Markdown.  
 
 <br>
 
 * **Les images**
 
-Il y a plusieurs manières d'insérer une **image** à un document Rmd, en voilà deux :
+Il y a plusieurs manières d'insérer une **image** dans un document Rmd, en voilà deux :
 
     # Première façon
     ![](lien/vers/l_image.png){width=120%}
@@ -2334,7 +2335,7 @@ La taille de l'image est ajustable via les arguments `width` ou `out.width`. La 
 
 * **Les tables** 
 
-Il est possible d'intégrer au texte d'un document Rmd un tableau en le créer directement sur le script. Il existe cependant des **outils** qui permettent de réaliser cette tâche plus facilement. L'outil [Tables Generator](https://www.tablesgenerator.com/) permet de construire son tableau comme sur un Word, puis de récupérer le code qu'il ne reste plus qu'à coller dans le script Rmd. Il est alors possible de choisir pour quel format le tableau doit être généré ; dans notre cas il convient de choisir ***Markdown***, ou ***HTML*** si l'output spécifié dans l'en-tête du document (YAML header) est un *html*.
+Il est possible d'intégrer, au texte d'un document Rmd, un tableau et le créer directement sur le script. Il existe cependant des **outils** qui permettent de réaliser cette tâche plus facilement. L'outil [Tables Generator](https://www.tablesgenerator.com/) permet de construire un tableau comme sur un Word, puis de récupérer le code qu'il ne reste plus qu'à coller dans le script Rmd. Il est alors possible de choisir pour quel format le tableau doit être généré ; dans notre cas il convient de choisir ***Markdown***, ou ***HTML*** si l'output spécifié dans l'en-tête du document (*YAML header*) est un *html*.
 
 
 
@@ -2350,9 +2351,11 @@ Il est possible d'intégrer au texte d'un document Rmd un tableau en le créer d
 
 <br>
 
-Au long de cette formation on a pu apprendre à manipuler les données sous toutes ses formes en R. Sur l'interface R Studio on a vu comment importer des données, les nettoyer, les transformer, les visualiser et communiquer sur l'analyse avec les documents Markdown de R. Il existe d'autres documents pour communiquer les résultats tels que slides, application Shiny, tableau de bord Flexdashboard etc. Si vous êtes curieux de connaître de tels outils, vous trouverez toutes les ressources nécessaires sur internet. Il existe pour tous les livres créés *sur* ou *pour* R, un recensement complet que l'on trouve dans le livre : [Big Book of R](https://www.bigbookofr.com/). Y sont rassemblés tous les tutoriels par thématique : Big Data, Data Science, Data Visualisation, Geospatial, Journalism...
+Au long de cette formation nous avons pu apprendre à manier les données sous toutes ses formes en R. Sur l'interface R Studio nous avons vu comment importer des données, les nettoyer, les transformer, les visualiser et communiquer sur l'analyse avec les documents Markdown de R. Il existe d'autres documents pour communiquer les résultats tels que slides, application Shiny, tableau de bord Flexdashboard etc. Si vous êtes curieux de connaître de tels outils, vous trouverez toutes les ressources nécessaires sur internet. 
 
-Une référence incontournable pour approfondir la Data Science est le livre de Hadley Wickham & Garrett Grolemund ; [R for Data Science](https://r4ds.had.co.nz/) (recensé en 10.2 dans Big Book of R).
+Il existe pour tous les livres créés pour R, un recensement complet que l'on trouve dans le livre : [Big Book of R](https://www.bigbookofr.com/). Y sont rassemblés tous les tutoriels par **thématique** : Big Data, Data Science, Data Visualisation, Geospatial, Journalism...
+
+Une référence incontournable pour approfondir la Data Science est le livre de Hadley Wickham & Garrett Grolemund ; [R for Data Science](https://r4ds.had.co.nz/) (recensé en 10.2 dans *Big Book of R*).
 
 <br>
 
@@ -2366,47 +2369,27 @@ knitr::include_graphics(here::here("images/meme_R.jpg"))
 
 <br>
 
+---
+
 # `r icon_style(fontawesome("book", style = NULL), fill = "#0000CC")` <FONT COLOR="#0000CC">Bibliographie</FONT>
 
 <br>
 
-- [R for Data Science - Hadley Wickham & Garrett Grolemund](https://r4ds.had.co.nz/)
-
-- [Programación y manejo de datos en la era del Big Data - Pedro J. Pérez](https://github.com/perezp44/tutoriales_intro_DS)
-
-- [Essentials ggplot2 - Statistical tools for high-throughput data analysis (STHDA)](http://www.sthda.com/english/wiki/ggplot2-essentials)
-
 - [Cheat Sheet Data Wrangling - R Studio](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)
-
-- [Markdown tutorial - CommonMark](https://commonmark.org/help/)
-
-- [Langage de programmation : liste des 10 langages les plus courants (et leur utilisation) - Erell Le Gall](https://blog.hubspot.fr/marketing/langage-de-programmation)
 
 - [Combien de données sont créées chaque jour en 2021 ? - AFFDE](https://www.affde.com/fr/how-much-data-is-created-every-day.html)
 
+- [Essentials ggplot2 - Statistical tools for high-throughput data analysis (STHDA)](http://www.sthda.com/english/wiki/ggplot2-essentials)
+
+- [Langage de programmation : liste des 10 langages les plus courants (et leur utilisation) - Erell Le Gall](https://blog.hubspot.fr/marketing/langage-de-programmation)
+
+- [Magrittr tidyverse](https://magrittr.tidyverse.org/)
+
+- [Markdown tutorial - CommonMark](https://commonmark.org/help/)
+
+- [Programación y manejo de datos en la era del Big Data - Pedro J. Pérez](https://github.com/perezp44/tutoriales_intro_DS)
+
+- [R for Data Science - Hadley Wickham & Garrett Grolemund](https://r4ds.had.co.nz/)
+
 - [R (langage) - Wikipédia](https://fr.wikipedia.org/wiki/R_(langage))
-
-- []()
-
-- []()
-
-- []()
-
-- []()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
