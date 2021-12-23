@@ -211,7 +211,7 @@ Ces documents peuvent être créés/ouverts **seuls** ou dans un **projet** : ![
 
 <br>
 
-* il est alors possible d'appeler toute sorte d'objets (images, bases de données) en utilisant un **chemin relatif** et non un chemin global. Pour importer des données par exemple, le chemin global serait le suivant :
+* il est alors possible d'appeler toute sorte d'objets (images, bases de données) en utilisant un **chemin relatif** et non un chemin global. Pour importer des données par exemple, le chemin global serait le suivant (*attention R attend des `/` et non des `\`*) :
 
 <center>
 
@@ -348,7 +348,7 @@ Comme dit précédemment, un *package* contient un certain nombre de **fonctions
 Pour utiliser un package, après l'avoir installé, il faut l'appeler via la fonction `library(nom_package)`. Le code ci-dessous permet d'installer les packages fondamentaux, il faut le copier, le coller dans un script R basique (*File > New File > R Script*) puis l'exécuter. 
 
 ```{r  eval=F, echo=T}
-packages <- c("tidyverse", "remotes", "devtools", "rmarkdown", "rio", "datasets")
+packages <- c("tidyverse", "remotes", "devtools", "rmarkdown", "rio")
 install.packages(packages)
 ```
 
