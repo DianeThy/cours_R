@@ -71,7 +71,7 @@ knitr::include_graphics(here::here("images/cycle_data.png"))
 
 * **Qu'est-ce que R ?**
 
-Comme dit précédemment R est un **langage de programmation** en libre accès créé en 1993, destiné aux statistiques et à la science des données.
+Comme dit précédemment R est un **langage de programmation** en libre accès créé en 1993 par Ross Ihaka et Robert Gentleman, destiné aux statistiques et à la science des données.
 
 <br>
 
@@ -119,7 +119,7 @@ plot_grid(p1, p2)
 ```
 
 
-Il est aussi important de configurer la **sauvegarde** des scripts ; il faut spécifier un codage "UTF-8" pour que les caractères spéciaux de chaque script enregistré soient traités correctement, et ainsi faciliter le partage de codes. Cette option est disponible dans la fenêtre des *Global Options > Code > Saving > Default text encoding > Change... > UTF-8*. Enfin, dans cette même fenêtre des options générales de RStudio - dans l'option "***Appearance***", vous pouvez personnaliser l'apparence de votre interface en modifiant la police, la taille du texte, le thème etc.
+Il est aussi important de configurer la **sauvegarde** des scripts ; il faut spécifier un codage "UTF-8" pour que les caractères spéciaux de chaque script enregistré soient traités correctement, et ainsi faciliter le partage de codes. Cette option est disponible dans la fenêtre des *Global Options > Code > Saving > Default text encoding > Change... > UTF-8*. Enfin, dans cette même fenêtre des options générales de RStudio - dans l'option "***Appearance***", vous pouvez personnaliser l'apparence de votre interface en modifiant la police, la taille du texte, le thème etc. Le **zoom** qui peut se faire via cette option peut aussi se faire avec un raccourci clavier : *Ctrl/Shift/+* pour zoomer et *Ctrl/</-* pour dézoomer. 
 
 ```{r echo=FALSE, out.width='90%', fig.align='center', fig.asp=0.55}
 p1 <- ggdraw() + draw_image("images/options3_R.png", scale = 0.9)
@@ -141,7 +141,6 @@ NB : il est aussi possible de coder directement dans la console (partie inférie
 knitr::include_graphics(here::here("images/demarrage_R.png"))
 ```
 
-\vspace{-3cm}
 
 La partie inférieure droite est décomposée en 5 onglets :
 
@@ -184,7 +183,7 @@ Les principaux documents que l'on peut créer à partir de l'interface RStudio s
 
 * **R Script**, extension *".R"* **:** document le plus basique où l'on peut (seulement) écrire du code et l'exécuter - très fonctionnel
 * **R Markdown**, extension *".Rmd"* **:** document où l'on peut combiner du texte, du code, des graphiques et des tableaux de manière esthétique, comme celui-ci
-* **Shiny web app**, extension *".R"* **:** application interactive où l'on peut assembler des visualisations et des tableaux
+* **Shiny web app**, extension *".R"* **:** application interactive où l'on peut assembler des visualisations et des tableaux ([exemple](https://shiny.rstudio.com/gallery/nz-trade-dash.html))
 
 Pour créer un nouveau document il faut aller dans le menu : *File > New File > choisir celui que vous voulez créer*, ou sur le `r icon_style(fontawesome("plus-circle", style = NULL), fill = "#009900")` juste en dessous du '*File*' dans la barre de menu.
 
@@ -230,7 +229,7 @@ La limite de cette méthode apparaît quand on veut **partager** le code à quel
 
 Le point "**.**" correspond au répertoire de travail c'est-à-dire à l'emplacement du *RProject* ici. Le dossier avec le projet R peut être déplacé et partagé, l'import continuera de fonctionner grâce au chemin relatif. 
 
-Pour créer un nouveau projet il faut aller dans le menu : *File > New Project > New Directory > New Project > entrer un nom de projet, éventuellement changer l'espace de travail > Create Project*, ou à partir du `r icon_style(fontawesome("plus-circle", style = NULL), fill = "#009900")` juste en dessous du '*Edit*' dans la barre de menu.
+Pour créer un nouveau projet il faut aller dans le menu : *File > New Project > New Directory > New Project > entrer un nom de projet, éventuellement changer l'espace de travail > Create Project*, ou à partir du  `r icon_style(fontawesome("plus-circle", style = NULL), fill = "#009900")`  juste en dessous du '*Edit*' dans la barre de menu.
 
 <br>
 
@@ -2380,6 +2379,20 @@ knitr::include_graphics(here::here("images/meme_R.jpg"))
 - [Cheat Sheet Data Wrangling - R Studio](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)
 
 - [Markdown tutorial - CommonMark](https://commonmark.org/help/)
+
+- [Langage de programmation : liste des 10 langages les plus courants (et leur utilisation) - Erell Le Gall](https://blog.hubspot.fr/marketing/langage-de-programmation)
+
+- [Combien de données sont créées chaque jour en 2021 ? - AFFDE](https://www.affde.com/fr/how-much-data-is-created-every-day.html)
+
+- [R (langage) - Wikipédia](https://fr.wikipedia.org/wiki/R_(langage))
+
+- []()
+
+- []()
+
+- []()
+
+- []()
 
 
 
