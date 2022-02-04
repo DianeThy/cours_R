@@ -24,11 +24,13 @@ library(kableExtra)
 
 <br> 
 
-Cette formation a pour but de rendre **accessible à tous** la programmation en R. Pour cela, nous introduirons la notion de programmation dans un contexte général, puis nous nous pencherons sur le langage R en partant d'une vue globale pour entrer petit à petit dans les manipulations techniques. 
+Cette formation a pour but de rendre **accessible à tous** la programmation en R. Pour cela, nous introduirons la notion de programmation dans un contexte général, puis nous nous pencherons sur le langage R en partant d'une vue globale pour entrer petit à petit dans les manipulations techniques.
 
 ```{r icon-style, include=FALSE}
-#remotes::install_github("mitchelloharawild/icons")
+#remotes::install_github("mitchelloharawild/icons", force = TRUE)
+#download_fontawesome()
 library(icons)
+library(extrafont)
 ```
 
 <br>
@@ -653,6 +655,9 @@ summary(iris$Petal.Length)
 
 # Occurrences des valeurs d'une variable
 table(iris$Species)
+
+# Nom, structure et premières valeurs des colonnes
+dplyr::glimpse(iris)
 ```
 
 <br>
@@ -2380,6 +2385,8 @@ knitr::include_graphics(here::here("images/meme_R.jpg"))
 - [Combien de données sont créées chaque jour en 2021 ? - AFFDE](https://www.affde.com/fr/how-much-data-is-created-every-day.html)
 
 - [Essentials ggplot2 - Statistical tools for high-throughput data analysis (STHDA)](http://www.sthda.com/english/wiki/ggplot2-essentials)
+
+- [Introduction à R et au tidyverse - Julien Barnier](https://juba.github.io/tidyverse/)
 
 - [Langage de programmation : liste des 10 langages les plus courants (et leur utilisation) - Erell Le Gall](https://blog.hubspot.fr/marketing/langage-de-programmation)
 
