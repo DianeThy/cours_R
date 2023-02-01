@@ -18,6 +18,7 @@ knitr::opts_chunk$set(echo = TRUE, eval = TRUE, message = FALSE, warning = FALSE
 ```
 
 ```{r klippy, echo=FALSE, include=TRUE}
+#remotes::install_github("rlesur/klippy")
 klippy::klippy(position = c('top', 'right'), color = '#333333', tooltip_message = 'Cliquer pour copier')
 library(kableExtra)
 ```
@@ -54,7 +55,7 @@ Comme nous l'informe *Wikipédia*, la programmation - aussi appelée **codage** 
 
 * **Pourquoi la programmation ?**
 
-La troisième révolution industrielle, connue sous le nom de "révolution informatique" s'accompagne d'une création de 2.5 trillions d'octets de données chaque jour. C'est dans ce contexte d'**abondance des données** qu'est née la science des données, visant à obtenir des informations et des connaissances à partir des données qui génèrent de la valeur. Le schéma ci-dessous peut aider à comprendre **comment** exploiter la valeur des données :
+La troisième révolution industrielle, connue sous le nom de "révolution informatique" s'accompagne d'une création de 2.5 trillions d'octets de données chaque jour. C'est dans ce contexte d'**abondance de données** qu'est née la science de données, visant à obtenir des informations et des connaissances à partir de données qui génèrent de la valeur. Le schéma ci-dessous peut aider à comprendre **comment** exploiter la valeur des données :
 
 ```{r echo=FALSE, out.width='52%', fig.align='center'}
 knitr::include_graphics(here::here("images/cycle_data.png"))
@@ -73,7 +74,7 @@ knitr::include_graphics(here::here("images/cycle_data.png"))
 
 * **Qu'est-ce que R ?**
 
-Comme dit précédemment R est un **langage de programmation** en libre accès créé en 1993 par Ross Ihaka et Robert Gentleman, destiné aux statistiques et à la science des données.
+Comme dit précédemment R est un **langage de programmation** en libre accès créé en 1993 par Ross Ihaka et Robert Gentleman, destiné aux statistiques et à la science de données.
 
 <br>
 
@@ -89,7 +90,7 @@ Gratuit, facile d'accès, puissant, reproductible, design, le langage R est à l
 
 * **Comment coder en R ?**
 
-Pour coder en R on utilise généralement l'interface **R studio** qui permet d'interagir avec le langage R de manière *aisée.* Quoi qu'il en soit, l'image partagée par Sylvain montre que la programmation est un apprentissage infini :
+Pour coder en R on utilise généralement l'interface **R studio** qui permet d'interagir avec le langage R de manière *aisée.* Quoi qu'il en soit, l'image suivante montre que la programmation est un apprentissage infini :
 
 ```{r echo=FALSE, out.width='30%', fig.align='center'}
 knitr::include_graphics(here::here("images/using_r.jpeg"))
@@ -233,6 +234,8 @@ Le point "**.**" correspond au répertoire de travail c'est-à-dire à l'emplace
 
 Pour créer un nouveau projet il faut aller dans le menu : *File > New Project > New Directory > New Project > entrer un nom de projet, éventuellement changer l'espace de travail > Create Project*, ou à partir du  `r icon_style(fontawesome("plus-circle", style = NULL), fill = "#009900")`  juste en dessous du '*Edit*' dans la barre de menu.
 
+L'intérêt de l'utilisation des projets R réside aussi dans le fait de les déposer sur la plateforme de dépôt **[github](https://github.com/)**. Cela est possible en reliant RStudio à github, vous trouverez un tutoriel de configuration [à cette adresse](https://happygitwithr.com/rstudio-git-github.html).
+
 <br>
 
 <style>
@@ -257,7 +260,7 @@ Un bon réflexe à prendre dès le début de votre carrière de programmeur est 
 
 ---
 
-# `r icon_style(fontawesome("search", style = NULL), fill = "#0000CC")` <FONT COLOR="#0000CC">Science et analyse des données avec R</FONT>
+# `r icon_style(fontawesome("search", style = NULL), fill = "#0000CC")` <FONT COLOR="#0000CC">Science et analyse de données avec R</FONT>
 
 <br>
 
@@ -293,13 +296,13 @@ Un exemple de code en R-base et en tidyverse :
 * **R-base** : `h(g(f(x)))`
 * **tidyverse** : `x %>% f %>% g %>% h`
 
-Nous apprendrons à coder seulement en tidyverse dont l'approche est beaucoup plus simple pour débuter la programmation. 
+Nous apprendrons à coder principalement en tidyverse dont l'approche est beaucoup plus simple pour débuter la programmation. 
 
 <br>
 
 * **Coder sous R : les bases**
 
-Pour **exécuter** du code il faut placer son curseur sur la ligne de commande, puis cliquer sur le bouton ![](images/button_run.png){width=5.7%} en haut de la fenêtre, ou appuyer sur les touches *Ctrl-Enter*. Pour exécuter plusieurs lignes de code simultanément il suffit de les **sélectionner** avant de les *runer*. vous pouvez notamment vous entraîner en *runant* de simples opérations arithmétiques : 
+Pour **exécuter** du code il faut placer son curseur sur la ligne de commande, puis cliquer sur le bouton ![](images/button_run.png){width=5.7%} en haut de la fenêtre, ou appuyer sur les touches *Ctrl/Enter*. Pour exécuter plusieurs lignes de code simultanément il suffit de les **sélectionner** avant de les *runer*. Vous pouvez notamment vous entraîner en *runant* de simples opérations arithmétiques : 
 
 ```{r}
 13+4
@@ -363,7 +366,7 @@ install.packages(packages)
 * **tidyr** : *pour nettoyer les données*
 * **readr** : *pour importer des données CSV, TSV ou FWL*
 * **purrr** : *pour itérer des fonctions*
-* **dplyr** : *pour manipuler les donnée*
+* **dplyr** : *pour manipuler les données*
 * **stringr** : *pour travailler avec des chaînes de caractères*
 * **forcats** : *pour travailler avec des variables catégorielles*
 
@@ -380,7 +383,7 @@ install.packages(packages)
 
 * **Deux manières d'importer des données en R**
 
-Il est possible d'importer des données dans l'environnement RStudio de deux manières : par un **fichier exporté** présent sur notre machine, ou directement via un **lien** qui pointe vers le téléchargement de ce fichier en ligne. Voici quelques exemples de plates-formes où il est possible d'en importer les données sans besoin préalable d'exporter le fichier :
+Il est possible d'importer des données dans l'environnement RStudio de deux manières : par un **fichier exporté** présent sur notre machine, ou directement via un **lien** qui pointe vers le téléchargement de ce fichier en ligne. La fonction utilisée pour importer un même jeu de données via son fichier ou via son lien, sera la même ; l'une sera composée du chemin vers le fichier sur la machine, l'autre du lien internet pointant vers l'export. Voici quelques exemples de plates-formes où il est possible d'en importer les données sans besoin préalable d'exporter le fichier :
 
 
 ```{r echo=FALSE, out.width='88%', fig.align='center'}
@@ -468,7 +471,16 @@ div.yellow { background-color:#FFFFe5; border-radius: 5px; padding: 20px;}
 
  `r icon_style(fontawesome("lightbulb", style = "solid"), fill = "#666666")`  <FONT COLOR="#333333">**Astuce**
 
-Lorsque vous avez un doute sur l'utilisation d'une fonction et que vous voulez savoir quels arguments elle attend et comment les spécifier, vous pouvez placer le curseur de la souris sur le nom de la fonction écrite dans le script puis appuyer sur les touches *Ctrl-F1* ; la **page d'aide** de la fonction s'ouvrira dans la partie inférieure droite (***Help***) de la fenêtre RStudio.
+Lorsque vous avez un doute sur l'utilisation d'une fonction et que vous voulez savoir quels arguments elle attend et comment les spécifier, vous pouvez placer le curseur de la souris sur le nom de la fonction écrite dans le script puis appuyer sur les touches *Fn/F1* ; la **page d'aide** de la fonction s'ouvrira dans la partie inférieure droite (***Help***) de la fenêtre RStudio.
+
+D'une manière générale vous trouverez tous les raccourcis clavier dans le menu : *Tools > Keyboard Shortcuts Help*. 
+Les plus utiles sont les suivants : 
+
+- `<-` : *Alt/6* ;
+- `%>%` : *Ctrl/Maj/m*;
+- exécuter une ligne de code : *Ctrl/Enter* ;
+- supprimer la ligne de code où se trouve le curseur : *Ctrl/d* ; 
+- rechercher / remplacer : *Ctrl/f*.
 
 </div>
 
@@ -535,12 +547,12 @@ Entre une liste de **notes d'élèves** et une liste de **noms de villes**, on v
   <tr>
     <td class="tg-73oq">décimal inexact</td>
     <td class="tg-73oq">dbl = double</td>
-    <td class="tg-73oq">3.5</td>
+    <td class="tg-73oq">3.4</td>
   </tr>
   <tr>
     <td class="tg-i817">décimal exact</td>
     <td class="tg-i817">num = numeric</td>
-    <td class="tg-i817">3.500001</td>
+    <td class="tg-i817">3.400001</td>
   </tr>
   <tr>
     <td class="tg-bi3z" rowspan="3">qualitatif</td>
@@ -576,7 +588,7 @@ div.blue { background-color:#efefef; border-radius: 5px; padding: 20px;}
 
  `r icon_style(fontawesome("thumbs-up", style = "solid"), fill = "#666666")`  <FONT COLOR="#333333">**Bonne pratique**
 
-Bien que numériques, les **identifiants** tels que numéros de SIREN, numéros de marchés, etc. doivent être considérés comme une **chaîne de caractères** et non une valeur numérique.
+Bien que numériques, les **identifiants** tels que numéros de SIREN, numéros de marchés, etc. doivent être considérés comme une **chaîne de caractères** et non une valeur numérique, pour éviter de perdre le premier chiffre si c'est un 0 par exemple.
 
 </div>
 
@@ -616,7 +628,7 @@ div.yellow { background-color:#FFFFe5; border-radius: 5px; padding: 20px;}
 
  `r icon_style(fontawesome("lightbulb", style = "solid"), fill = "#666666")`  <FONT COLOR="#333333">**Astuce**
 
-Pour accéder à une variable dans une base de données, il et possible d'utiliser le "*\$*". Il fonctionne de la manière suivante ; *base_de_donnees\$variable*.
+Pour accéder à une variable dans une base de données, il est possible d'utiliser le "*\$*" qui correspond à du code en *R-base*. Il fonctionne de la manière suivante ; *base_de_donnees\$variable*.
 
 La fonction *lapply()* permet d'appliquer une fonction à plusieurs variables simultanément et permet ainsi de réduire le nombre de lignes de code dans le script. 
 
@@ -628,7 +640,7 @@ La fonction *lapply()* permet d'appliquer une fonction à plusieurs variables si
 
 * **Observer les données**
 
-Voilà quelques fonctions pour observer les données lorsqu'elles viennent d'être importées pour les cerner au mieux :
+Voilà quelques fonctions pour observer les données lorsqu'elles viennent d'être importées :
 
 ```{r}
 # 5 premières lignes
@@ -639,22 +651,25 @@ tail(iris, 5)
 
 # Nombre de colonnes
 ncol(iris)
+length(iris)
 
 # Nombre de lignes
 nrow(iris)
-length(iris)
-
-# Nom des colonnes
-names(iris)
 
 # Nombre de lignes ET nombre de colonnes
 dim(iris)
 
-# Résumé des valeurs d'une variable
+# Nom des colonnes
+names(iris)
+
+# Résumé des valeurs d'une variable 
 summary(iris$Petal.Length)
 
-# Occurrences des valeurs d'une variable
+# Occurrences des valeurs d'une variable (approprié aux variables catégorielles)
 table(iris$Species)
+
+# Nombre de valeurs uniques d'une variable (approprié aux variables catégorielles)
+dplyr::n_distinct(iris$Species)
 
 # Nom, structure et premières valeurs des colonnes
 dplyr::glimpse(iris)
@@ -684,7 +699,11 @@ On parle de "*tidy data*" à partir du moment où les données sont propres, c'e
 knitr::include_graphics(here::here("images/tidy_data.png"))
 ```
 
-Chaque ligne est une observation et chaque colonne est une variable correspondant à l'observation en question. Selon le format des données les observations peuvent correspondre à des individus/pays/villes etc. (on parle de **données en coupe**, c'est-à-dire une "photo" d'une situation à un moment précis), à des périodes de temps (on parle de **données temporelles**) ou aux 2 simultanément c'est-à-dire par individu **et** dans le temps (on parle alors de **données de panel**).
+Chaque ligne est une observation et chaque colonne est une variable correspondant à l'observation en question. Selon le format des données, les observations peuvent correspondre à :
+
+- des individus/pays/villes etc. : on parle de **données en coupe**, c'est-à-dire une "photo" d'une situation à un moment précis ;
+- des périodes de temps : on parle de **données temporelles** ;
+- aux 2 simultanément c'est-à-dire par individu **et** dans le temps (on parle alors de **données de panel**).
 
 
 <br>
@@ -702,13 +721,83 @@ Chaque ligne est une observation et chaque colonne est une variable correspondan
 
 Dans un premier temps nous allons voir les différentes fonctions qui composent le dplyr et permettent de transformer les données, il s'agit des fonctions suivantes :
 
-- `filter()` : pour sélectionner certaines lignes à partir d'une condition
-- `arrange()` : pour réordonner les lignes
 - `rename()` : pour changer le nom des colonnes (renommer)
-- `select()` : pour sélectionner certaines colonnes
+- `select()` : pour sélectionner certaines colonnes et/ou changer leur ordre
+- `filter()` : pour sélectionner certaines lignes à partir d'une condition
 - `mutate()` : pour créer de nouvelles variables
+- `arrange()` : pour réordonner les lignes
 - `summarise()` : pour résumer plusieurs valeurs en 1 valeur (moyenne, médiane, mode...)
 - `group_by()` : pour grouper les observations avant d'appliquer une fonction
+
+<br>
+
+|        <font size="5">&rarr; `rename()`</font>
+
+Cette fonction permet de renommer une ou plusieurs colonnes d'un dataframe, elle fonctionne de la manière suivante : `data <- data %>% rename(nouveau_nom = ancien_nom)`. Ci-dessous un exemple :
+
+```{r}
+# On appelle la librairie tidyverse qui contient toutes ces fonctions et le pipe
+library(tidyverse)
+
+# On renomme 2 colonnnes
+iris <- iris %>% rename(espece = Species,
+                        longueur_petale = Petal.Length)
+
+# Noms de colonnes en majuscules
+names(iris) <- names(iris) %>% toupper
+
+# Noms de colonnes en minuscules
+names(iris) <- names(iris) %>% tolower
+```
+
+
+<br>
+
+
+|        <font size="5">&rarr; `select()`</font>
+
+Cette fonction permet de sélectionner certaines colonnes, cela est possible en les identifiant par leur nom ou leur place dans le dataframe (numéro de colonne). Quelques exemples :
+
+```{r}
+# Sous df (dataframe) avec 2 colonnes
+df1 <- iris %>% select(espece, sepal.width)
+  # ou
+df1_bis <- iris %>% select(5, 2)
+
+# Sous df sans 1 colonne
+df2 <- iris %>% select(-longueur_petale)
+  # ou
+df2_bis <- iris %>% select(-3)
+
+# Sous df sans 2 colonnes
+df3 <- iris %>% select(-c(longueur_petale, petal.width)) # c() permet de mettre dans 1 objet plusieurs arguments séparés par des virgules
+  # ou
+df3_bis <- iris %>% select(-c(3,4))
+
+# On change l'ordre des colonnes
+iris <- iris %>% select(5,2:4,1)
+```
+
+
+<br>
+
+
+
+<style>
+div.yellow { background-color:#FFFFe5; border-radius: 5px; padding: 20px;}
+</style>
+<div class = "yellow">
+
+ `r icon_style(fontawesome("lightbulb", style = "solid"), fill = "#666666")`  <FONT COLOR="#333333">**Astuce**
+
+Lorsqu'un nom de colonne contient un espace (par exemple : taille individu) il faut l'entourer de backticks (**\`**) pour qu'il soit reconnu comme le nom d'une seule colonne par R. Sans cette astuce, la commande ne pourra pas s'exécuter, d'où l'importance de nommer les bases de données et leurs variables par des noms séparés par le caractère `_`. 
+
+*Exemple de **mauvaise commande** :* data\$premier nom <- as.numeric(data\$premier nom)
+
+*Exemple de **bonne commande** :* data\$\`premier nom\` <- as.numeric(data\$\`premier nom\`)</FONT>
+
+
+</div>
 
 <br>
 
@@ -717,24 +806,21 @@ Dans un premier temps nous allons voir les différentes fonctions qui composent 
 Cette fonction sert à sélectionner des lignes dans une base de données (dataframe ; df). Les lignes qui répondent à un certain critère ou condition logique sont sélectionnées. Les filtres peuvent être appliqués tant aux variables quantitatives que qualitatives. Par exemple : 
 
 ```{r}
-# On appelle la librairie tidyverse qui contient toutes ces fonctions et le pipe
-library(tidyverse)
-
 # Fleurs de l'espèce "versicolor"
-df1 <- iris %>% filter(Species == "versicolor")
-dim(df1)
+df4 <- iris %>% filter(espece == "versicolor")
+dim(df4)
 
 # Fleurs dont les pétales sont supérieurs ou égaux à 5 cm
-df2 <- iris %>% filter(Petal.Length >= 5)
-dim(df2)
+df5 <- iris %>% filter(longueur_petale >= 5)
+dim(df5)
 
 # Fleurs de l'espèce versicolor ET dont les pétales sont supérieurs ou égaux à 5 cm
-df3 <- iris %>% filter(Species == "versicolor" & Petal.Length >= 5)
-dim(df3)
+df6 <- iris %>% filter(espece == "versicolor" & longueur_petale >= 5)
+dim(df6)
 
 # Fleurs dont les pétales sont exactement larges de 2 OU de 2.5 cm
-df4 <- iris %>% filter(Petal.Width == 2 | Petal.Width == 2.5)
-dim(df4)
+df7 <- iris %>% filter(petal.width == 2 | petal.width == 2.5)
+dim(df7)
 ```
 
 Avec le pipe (![](images/pipe2.png){width=3%}) on part de la base de données entière puis on applique nos filtres. On obtient ici quatre sous-dataframes, et grâce à la fonction `dim()` on voit que l'on a :
@@ -809,102 +895,6 @@ Le tableau ci-dessous résume les filtres que l'on peut appliquer sur une ou plu
 
 <br>
 
-|        <font size="5">&rarr; `arrange()`</font>
-
-Cette fonction sert à réordonner les observations selon un ordre alphabétique ou numérique croissant ou décroissant. Quelques exemples ci-dessous : 
-
-```{r}
-# On trie par longueur de sépale ascendante
-iris <- iris %>% arrange(Sepal.Length)
-
-# On trie par longueur de pétale descendante
-iris <- iris %>% arrange(desc(Petal.Length))
-
-# On trie par espèce puis par largeur de pétale ascendante
-iris <- iris %>% arrange(Species, Petal.Width)
-```
-
-<br> 
-
-<style>
-div.blue { background-color:#efefef; border-radius: 5px; padding: 20px;}
-</style>
-<div class = "blue">
-
- `r icon_style(fontawesome("thumbs-up", style = "solid"), fill = "#666666")`  <FONT COLOR="#333333">**Bonne pratique**
-
-Ici nous avons attribué les changements sur la même base de données "iris", ce qui a **"écrasé"** l'ancienne par la nouvelle dans laquelle les observations sont triées d'une certaine manière. Lorsque vous êtes sûrs de vos modifications, vous pouvez attribuer les modifications au même nom d'objet ce qui écrasera l'ancien, mais dès lors que vous voulez garder une trace de la base initiale il convient de **créer un nouvel objet**, c'est-à-dire avec un nouveau *nom* qui apparaîtra dans votre environnement de travail (partie supérieure droite de la fenêtre RStudio). 
-
-</div>
-
-<br>
-
-|        <font size="5">&rarr; `rename()`</font>
-
-Cette fonction permet de renommer une ou plusieurs colonnes d'un dataframe, elle fonctionne de la manière suivante : `data <- data %>% rename(nouveau_nom = ancien_nom)`. Ci-dessous un exemple :
-
-```{r}
-# On renomme 2 colonnnes
-iris <- iris %>% rename(espece = Species,
-                        longueur_petale = Petal.Length)
-
-# Noms de colonnes en majuscules
-names(iris) <- names(iris) %>% toupper
-
-# Noms de colonnes en minuscules
-names(iris) <- names(iris) %>% tolower
-```
-
-
-<br>
-
-|        <font size="5">&rarr; `select()`</font>
-
-Cette fonction permet de sélectionner certaines colonnes, cela est possible en les identifiant par leur nom ou leur place dans le dataframe (numéro de colonne). Quelques exemples :
-
-```{r}
-# Sous df (dataframe) avec 2 colonnes
-df5 <- iris %>% select(espece, sepal.width)
-  # ou
-df5_bis <- iris %>% select(5, 2)
-
-# Sous df sans 1 colonne
-df6 <- iris %>% select(-longueur_petale)
-  # ou
-df6_bis <- iris %>% select(-3)
-
-# Sous df sans 2 colonnes
-df6 <- iris %>% select(-c(longueur_petale,petal.width)) # c() permet de mettre dans 1 objet plusieurs arguments séparés par des virgules
-  # ou
-df6_bis <- iris %>% select(-c(3,4))
-
-# On change l'ordre des colonnes
-iris <- iris %>% select(5,2:4,1)
-```
-
-
-<br>
-
-
-
-<style>
-div.yellow { background-color:#FFFFe5; border-radius: 5px; padding: 20px;}
-</style>
-<div class = "yellow">
-
- `r icon_style(fontawesome("lightbulb", style = "solid"), fill = "#666666")`  <FONT COLOR="#333333">**Astuce**
-
-Lorsqu'un nom de colonne contient un espace (par exemple : taille individu) il faut l'entourer de backticks (**\`**) pour qu'il soit reconnu comme le nom d'une seule colonne par R. Sans cette astuce, la commande ne pourra pas s'exécuter, d'où l'importance de nommer les bases de données et leurs variables par des noms séparés par le caractère `_`. 
-
-*Exemple de **mauvaise commande** :* data\$premier nom <- as.numeric(data\$premier nom)
-
-*Exemple de **bonne commande** :* data\$\`premier nom\` <- as.numeric(data\$\`premier nom\`)</FONT>
-
-
-</div>
-
-<br>
-
 
 
 |         <font size="5">&rarr; `mutate()`</font>
@@ -932,6 +922,37 @@ En deuxième argument de la fonction `mutate()` on modifie la variable *espece* 
 
 <br>
 
+
+|        <font size="5">&rarr; `arrange()`</font>
+
+Cette fonction sert à réordonner les observations selon un ordre alphabétique ou numérique croissant ou décroissant. Quelques exemples ci-dessous : 
+
+```{r}
+# On trie par longueur de sépale ascendante
+iris <- iris %>% arrange(sepal.length)
+
+# On trie par longueur de pétale descendante
+iris <- iris %>% arrange(desc(longueur_petale))
+
+# On trie par espèce puis par largeur de pétale ascendante
+iris <- iris %>% arrange(espece, petal.width)
+```
+
+<br> 
+
+<style>
+div.blue { background-color:#efefef; border-radius: 5px; padding: 20px;}
+</style>
+<div class = "blue">
+
+ `r icon_style(fontawesome("thumbs-up", style = "solid"), fill = "#666666")`  <FONT COLOR="#333333">**Bonne pratique**
+
+Ici nous avons attribué les changements sur la même base de données "iris", ce qui a **"écrasé"** l'ancienne par la nouvelle dans laquelle les observations sont triées d'une certaine manière. Lorsque vous êtes sûrs de vos modifications, vous pouvez attribuer les modifications au même nom d'objet ce qui écrasera l'ancien, mais dès lors que vous voulez garder une trace de la base initiale il convient de **créer un nouvel objet**, c'est-à-dire avec un nouveau *nom* qui apparaîtra dans votre environnement de travail (partie supérieure droite de la fenêtre RStudio). 
+
+</div>
+
+<br>
+
 |        <font size="5">&rarr; `summarise()`</font>
 
 Cette fonction permet de **résumer** plusieurs valeurs en une seule, ce qui est très utile pour avoir quelques statistiques sur les bases de données. 
@@ -954,8 +975,8 @@ iris %>% summarise(min(petal.width),
 On peut aussi calculer des statistiques sur **toutes les variables** à la fois avec la fonction `summarise_all()` :
 
 ```{r}
-# Calcul des médianes de toutes les variables
-iris %>% summarise_all(median)
+# Calcul des médianes de toutes les variables quantitatives
+iris %>% select(-espece) %>% summarise_all(median)
 
 # Calcul des écart-types et de la variance 
 iris %>% select(-espece) %>% summarise_all(list(sd, var))  #list() quand plusieurs mesures à la fois
