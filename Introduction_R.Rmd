@@ -5,6 +5,8 @@ output:
     highlight: textmate
     toc: yes
     toc_float: yes
+    includes:
+        after_body: footer.html
 ---
 
 <style>
@@ -29,8 +31,8 @@ Cette formation a pour but de rendre **accessible à tous** la programmation en 
 
 ```{r icon-style, include=FALSE}
 #remotes::install_github("mitchelloharawild/icons", force = TRUE)
-#download_fontawesome()
 library(icons)
+#download_fontawesome()
 library(extrafont)
 ```
 
@@ -159,7 +161,7 @@ La partie inférieure droite est décomposée en 5 onglets :
 
 Un avantage incontournable de R est la **communauté** qui existe autour pour trouver des ressources, de l'aide, de l'inspiration etc. On trouve notamment [R-bloggers](https://www.r-bloggers.com/) avec des nouveautés et des tutoriels écrits par des utilisateurs du langage, [RStudio Community](https://community.rstudio.com/) pour trouver/donner de l'aide (comme un *#TeamOpenData* de RStudio), [Stack Overflow](https://stackoverflow.com/) où l'on trouve la majorité des réponses aux questions de programmation - la plateforme n'est cependant pas propre à R. 
 
-Il est aussi possible de relier RStudio à **Git**, ce qui permet de déposer du code, des bases de données et des objets créés (graphiques, cartes, documents html..) sur [github](https://github.com/). Les fichiers sont ainsi centralisés et sauvegardés sur un *repository* qui permet de collaborer facilement sur un projet. 
+Il est aussi possible de relier RStudio à **Git**, ce qui permet de déposer du code, des bases de données et des objets créés (graphiques, cartes, documents html..) sur [github](https://github.com/). Les fichiers sont ainsi centralisés et sauvegardés sur un *repository* qui permet de collaborer facilement sur un projet. Vous trouverez un tutoriel de configuration [à cette adresse](https://happygitwithr.com/rstudio-git-github.html).
 
 <br>
 
@@ -170,7 +172,7 @@ Il est aussi possible de relier RStudio à **Git**, ce qui permet de déposer du
 
 <FONT COLOR="#CC0000">ligne de commande</FONT> = ligne de code
 
-<FONT COLOR="#CC0000">runer</FONT> = exécuter une commande (bouton '*Run*')
+<FONT COLOR="#CC0000">run</FONT> = exécuter une commande (bouton '*Run*')
 
 <FONT COLOR="#CC0000">package</FONT> = ensemble de fonctions
 
@@ -234,7 +236,7 @@ Le point "**.**" correspond au répertoire de travail c'est-à-dire à l'emplace
 
 Pour créer un nouveau projet il faut aller dans le menu : *File > New Project > New Directory > New Project > entrer un nom de projet, éventuellement changer l'espace de travail > Create Project*, ou à partir du  `r icon_style(fontawesome("plus-circle", style = NULL), fill = "#009900")`  juste en dessous du '*Edit*' dans la barre de menu.
 
-L'intérêt de l'utilisation des projets R réside aussi dans le fait de les déposer sur la plateforme de dépôt **[github](https://github.com/)**. Cela est possible en reliant RStudio à github, vous trouverez un tutoriel de configuration [à cette adresse](https://happygitwithr.com/rstudio-git-github.html).
+Comme dit précédemment, il est possible de déposer des fichiers (scripts, données, images, pages HTML) sur la plateforme github et ainsi profiter de ses fonctionnalités (historique des dépôts, taguer une version, éditer en local ou en ligne, reporter un problème etc.). Cela est rendu possible par l'utilisation de projets R.
 
 <br>
 
@@ -319,7 +321,7 @@ x <- 13+4
 y <- 5*2
 
 # Calcul du résultat
-resultat = x-y
+resultat <- x-y
 resultat
 ```
 
@@ -353,7 +355,7 @@ Comme dit précédemment, un *package* contient un certain nombre de **fonctions
 Pour utiliser un package, après l'avoir installé, il faut l'appeler via la fonction `library(nom_package)`. Le code ci-dessous permet d'installer les packages fondamentaux, il faut le copier, le coller dans un script R basique (*File > New File > R Script*) puis l'exécuter. 
 
 ```{r  eval=F, echo=T}
-packages <- c("tidyverse", "remotes", "devtools", "rmarkdown", "rio")
+packages <- c("tidyverse", "readxl", "remotes", "devtools", "rmarkdown", "rio")
 install.packages(packages)
 ```
 
@@ -756,7 +758,7 @@ names(iris) <- names(iris) %>% tolower
 
 |        <font size="5">&rarr; `select()`</font>
 
-Cette fonction permet de sélectionner certaines colonnes, cela est possible en les identifiant par leur nom ou leur place dans le dataframe (numéro de colonne). Quelques exemples :
+Cette fonction permet de sélectionner certaines colonnes, cela est possible en les identifiant par leur nom ou leur position dans le dataframe (numéro de colonne). Quelques exemples :
 
 ```{r}
 # Sous df (dataframe) avec 2 colonnes
@@ -1327,7 +1329,7 @@ Les fonctions **`bind_rows()`** (*ou `rbind`*) et **`bind_cols()`** (*ou `cbind`
 
 <br>
 
-La partie de **visualisation** qui vient après l'import, le nettoyage et le traitement est très importante dans la science et l'analyse de données. Le mot-clé, un plutôt le *package* clé pour faire des graphiques sous R est **`ggplot`**. Initialement développé par Hadley Wickham, ce *package* permet de créer facilement des graphiques de qualité avec une immense variété de paramètres modifiables selon les besoins, ce qui permet de créer des graphiques adaptés à tous types de problèmes.
+La partie de **visualisation** qui vient après l'import, le nettoyage et le traitement est très importante dans la science et l'analyse de données. Le mot-clé, ou plutôt le *package* clé pour faire des graphiques sous R est **`ggplot`**. Initialement développé par Hadley Wickham, ce *package* permet de créer facilement des graphiques de qualité avec une immense variété de paramètres modifiables selon les besoins, ce qui permet de créer des graphiques adaptés à tous types de problèmes.
 
 Quelque soit le graphique voulu, il y a toujours 3 éléments qui composent la fonction `ggplot()` :
 
@@ -1336,7 +1338,7 @@ Quelque soit le graphique voulu, il y a toujours 3 éléments qui composent la f
 - la **géométrie** qui sera représentée, celle-ci définit le type de graphique (histogramme, boxplot, lignes, densité, nuages de points...) : `geom_**()`
 
 <br>
-Le tableau ci-dessous reprend tous les types de géométrie faisables à partir de la fonction `ggplot` :
+Le tableau ci-dessous reprend les principaux types de géométrie faisables à partir de la fonction `ggplot` :
 
 <style type="text/css">
 .tg  {border-collapse:collapse;border-color:#ccc;border-spacing:0;margin:0px auto;}
@@ -1504,7 +1506,7 @@ Les formes des points peuvent aussi être spécifiées de deux manières : soit 
     <td class="tg-xwyw">![](./images/shape.png){width=70%}</td>
   </tr>
   <tr>
-    <td class="tg-lhti">[pour plus d'informations](http://www.stat.columbia.edu/~tzheng/files/Rcolors.pdf)</td>
+    <td class="tg-lhti">[pour plus d'informations](http://www.sthda.com/english/wiki/colors-in-r)</td>
     <td class="tg-lhti">[pour plus d'informations](https://www.datanovia.com/en/fr/blog/ggplot-forme-des-points-meilleures-reference/)</td>
   </tr>
   </tr>
@@ -1846,27 +1848,83 @@ grid.arrange(g1, g2, ncol=2)
 
 <br>
 
-Les **graphiques en barres** permettent de représenter un montant, une répartition par variable catégorielle (groupes). Ici on regarde le nombre d'observations (fleurs) de la base dans chaque espèce. Sachant qu'il y en a 50 par espèce, la représentation n'est pas très pertinente. On voit cependant en deuxième graphique la même visualisation avec les barres horizontales, ce qui est possible grâce à la fonction `coord_flip()` que l'on ajoute à la suite du code existant. 
+Les **graphiques en barres** permettent de représenter un montant, une répartition par variable catégorielle (groupes). Ces derniers peuvent être faits via la fonction `geom_bar()` ou la fonction `geom_col()`, entre lesquelles il existe une différence. Effectivement, `geom_col()` est un cas spécifique de `geom_bar()` où la statistique spécifiée est '*identity*', tel que `geom_bar(stat = "identity")`. Par défaut, on ne spécifie qu'une variable catégorielle (X) dans les paramètres esthétiques de `geom_bar()` puis celui-ci visualise le **nombre d'occurrences** de chaque valeur de X. En ajoutant `stat = "identity"`, `geom_bar()` attend une variable numérique (Y) comme argument, de laquelle il *plotera* les **valeurs**. Le même résultat peut être obtenu en spécifiant *X* et *Y* avec la fonction `geom_col()`. Cette distinction est visible ci-dessous, avec un jeu de données créé pour l'illustrer :
+
+```{r eval=F, echo=T}
+diff_geom_bar_col <- data.frame(x = c("A", "B", "C", "C"),
+                                y = c(2, 3, 1, 5))
+
+# Bar plot
+ggplot(data = diff_geom_bar_col) + 
+  aes(x = x) +
+  geom_bar() +
+  labs(x = "geom_bar() avec X spécifié : nombre d'occurrences visualisé")
+
+# Bar plot 
+ggplot(data = diff_geom_bar_col) + 
+  aes(x = x, y = y) +
+  geom_bar(stat = "identity") +
+  labs(x = 'geom_bar(stat = "identity") avec X et Y spécifiés : valeurs de Y visualisées')
+
+# Bar plot 
+ggplot(data = diff_geom_bar_col) + 
+  aes(x = x, y = y) +
+  geom_col() +
+  labs(x = 'geom_col() avec X et Y spécifiés : valeurs de Y visualisées')
+```
+
+```{r eval=T, echo=F, fig.width = 12}
+# data
+diff_geom_bar_col <- data.frame(x = c("A", "B", "C", "C"),
+                                y = c(2, 3, 1, 5))
+diff_geom_bar_col
+
+# Bar plot
+g1 <- ggplot(data = diff_geom_bar_col) + 
+  aes(x = x) +
+  geom_bar() +
+  labs(x = "geom_bar() avec X spécifié : \nnombre d'occurrences visualisé")
+
+# Bar plot 
+g2 <- ggplot(data = diff_geom_bar_col) + 
+  aes(x = x, y = y) +
+  geom_bar(stat = "identity") +
+  labs(x = 'geom_bar(stat = "identity") avec X et Y spécifiés : \nvaleurs de Y visualisées')
+
+# Bar plot 
+g3 <- ggplot(data = diff_geom_bar_col) + 
+  aes(x = x, y = y) +
+  geom_col() +
+  labs(x = 'geom_col() avec X et Y spécifiés : \nvaleurs de Y visualisées')
+
+grid.arrange(g1, g2, g3, ncol = 3)
+```
+
+Pour revenir aux données *iris*, nous visualisons ici la longueur des pétales selon l'espèce. S'agissant des valeurs de Y et non du nombre d'observations par espèce (50 pour chacune d'elle), nous utilisons l'option `stat = "identity"` dans la fonction `geom_bar()` (nous aurions également pu utiliser `geom_col()`). Le deuxième graphique visualise les mêmes informations mais avec les barres à l'horizontal, ce qui est possible grâce à la fonction `coord_flip()` que l'on ajoute à la suite du code existant. 
 
 ```{r eval=F, echo=T}
 # Bar plot
 ggplot(data = iris) + 
-  geom_bar(mapping = aes(x = Species))  
+  geom_bar(aes(x = Species, y = Sepal.Length), 
+           stat = "identity")  
 
 # Bar plot horizontal
 ggplot(data = iris) + 
-  geom_bar(mapping = aes(x = Species)) +
+  geom_bar(aes(x = Species, y = Sepal.Length),
+           stat = "identity")  
   coord_flip()
 ```
 
 ```{r eval=T, echo=F, fig.width = 12}
 # Bar plot
 g1 <- ggplot(data = iris) + 
-  geom_bar(mapping = aes(x = Species))  
+  geom_bar(aes(x = Species, y = Sepal.Length), 
+           stat = "identity")  
 
 # Bar plot horizontale
 g2 <- ggplot(data = iris) + 
-  geom_bar(mapping = aes(x = Species)) +
+  geom_bar(aes(x = Species, y = Sepal.Length),
+           stat = "identity") +
   coord_flip()
 
 grid.arrange(g1, g2, ncol = 2)
@@ -1938,7 +1996,8 @@ g1 <- ggplot(data = iris) +
 
 # Graphique dynamique
 library(plotly)
-ggplotly(g1)
+#ggplotly(g1)
+g1
 ```
 
 Il est maintenant possible de zoomer sur le graphique, de capturer une image, de passer le curseur sur les différentes valeurs etc. On peut voir que lorsque l'on passe le curseur sur les points, les valeurs des variables entrées dans la fonction apparaissent ; on a ici '*Sepal.Length*', '*Species*' et '*Petal.Length*'. Mais il est possible de ***customiser*** ce texte pour le rendre plus lisible, ce qui se fait directement dans le graphique `ggplot` puis est appelé dans la fonction `ggplotly()`.
@@ -2421,3 +2480,5 @@ knitr::include_graphics(here::here("images/meme_R.jpg"))
 
 - [R (langage) - Wikipédia](https://fr.wikipedia.org/wiki/R_(langage))
 
+::: {.tocify-extend-page data-unique="tocify-extend-page" style="height: 0;"}
+:::
